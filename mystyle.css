@@ -19,6 +19,7 @@ header {
 
 /* Content Styles */
 .content {
+    background-image: url("https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/concretebg02.jpg");
     background-color: #1E1E1E; /* Dark background for content */
     border-radius: 8px;
     padding: 20px;
