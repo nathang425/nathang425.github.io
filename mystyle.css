@@ -19,8 +19,7 @@ header {
 
 /* Content Styles */
 .content {
-    background-image: url("https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/concretebg02.jpg");
-    background-color: #cccccc; /* Dark background for content */
+    background-color: #1E1E1E; /* Dark background for content */
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Enhanced shadow effect */
