@@ -48,31 +48,69 @@
             justify-content: center;
             color: white; /* Placeholder text color */
         }
+        .img-container {
+  			float: left;
+  			width: 50%;
+  			padding: 5px;
+            box-sizing: border-box;
+		}
+		.clearfix::after {
+  			content: "";
+  			clear: both;
+  			display: table;
+            box-sizing: border-box;
+        }
+        a:link {
+  			color: green;
+            background-color: transparent;
+  			text-decoration: underline;
+		}
+        a:visited {
+  			color: grey;
+  			background-color: transparent;
+  			text-decoration: underline;
+		}
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Welcome to My Modern Home Page</h1>
+    <h1>Welcome to My First Webpage!</h1>
 </header>
 
 <div class="content">
     <h2>Hello World!</h2>
-    <p>This my a  homepage created with HTML and hosted on Github. Replace this filler text later.</p>
+    <p>This my test homepage, created with HTML and hosted on Github.</p>
     
     <p>Nathan Godfrey<br>Winter 2025<br>CE 514</p>
+    <hr>
+    <p><br>Here's a picture of me:</p>
     
     <img src="https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/39%20enGodfreyS24%20165124.01.jpg" alt="Wedding" width="455" height="303" />
     
-    <p>I got married last year!</p>
+    <h2><br><br><br>Here are some useful links.</h2>
     
-    <img src="https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/elephants01.jpg" alt="Elephants" width="455" height="303" />
+    <p>I used this site to make this page: <a href="https://www.w3schools.com/">W3Schools.com</a></p>
+    <p>I use this page a lot: <a href="https://thetruesize.com/">TheTrueSize.com</a></p>
+    <p>Here is my LinkedIn: <a href="https://www.linkedin.com/in/nathan-godfrey/">LinkedIn</a></p>
     
-    <p>Elephants are my favorite animal.</p>
+    <br><br><br>
+    
+    <h2>Interests</h2>
+    <p>I like to travel, and elephants are pretty cool.</p>
+   
+  <div class="clearfix">
+  <div class="img-container">
+  <img src="https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/elephants01.jpg" alt="Italy" style="width:100%">
+  </div>
+  <div class="img-container">
+  <img src="https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/elephants01.jpg" alt="Forest" style="width:100%">
+  </div>
+  
 </div>
 
 <footer>
-    <p>&copy; Created by Nate </p>
+    <p>Created by Nate</p>
 </footer>
 
 </body>
