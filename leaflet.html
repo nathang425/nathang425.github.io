@@ -24,27 +24,28 @@
     <h2>Here is a Leaflet map</h2>
 </div>
 
-<div id="map" style="height: 50%; margin: 0 auto;"></div>
+<div id="map" style="height: 600px; width: 1200px; margin: 0 auto;"></div>
   <script>
-    var map = L.map('map').setView([40.2520, -111.6500], 13); 
+    var map = L.map('map').setView([42.59528, -114.40083], 16); 
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
     }).addTo(map); 
-        // Add a marker for BYU
-        var marker = L.marker([40.2518, -111.6493]).addTo(map);
-    marker.bindPopup("BYU").openPopup(); 
-  </script> 
+        // Add a marker for Shoshone Falls
+        var marker = L.marker([42.59528, -114.40083]).addTo(map);
+    marker.bindPopup("Shoshone Falls").openPopup(); 
   </script>
     
 <div class="content">
-    <h2>Page links:</h2>
+    <h2><br><br><br>Page links:</h2>
     
     <p>My CE514 Page: <a href="https://nathang425.github.io/ce514">CE 514</a></p>
     <p>Home: <a href="https://nathang425.github.io/">Main Page</a></p>  
 </div>
 
 <footer>
-    <p>Created by Nate</p>
+    <p>Created by Nate
+    <br>
+    Petra image credit: Sam McNeil</p>
 </footer>
 
 </body>
