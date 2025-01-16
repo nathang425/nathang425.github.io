@@ -19,25 +19,6 @@ header {
     box-sizing: border-box; /* Ensures no overflow */
 }
 
-/* Button Styles */
-a.button, button.button {
-    display: inline-block;
-    background-color: #2E5B29 !important; /* Ensure it applies */
-    color: white;
-    padding: 10px 20px;
-    font-size: 1rem;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Smooth hover effect */
-}
-
-a.button:hover, button.button:hover {
-    background-color: #3a6b33 !important; /* Slightly lighter green on hover */
-}
-
 /* Content Styles */
 .content {
     background-color: #1E1E1E; /* Dark background for content */
@@ -106,4 +87,23 @@ a:visited {
     color: grey;
     background-color: transparent;
     text-decoration: underline;
+}
+
+/* Button Styles */
+a.button, button.button {
+    display: inline-block;
+    background-color: #2E5B29 !important; /* Ensure it applies */
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+a.button:hover, button.button:hover {
+    background-color: #3a6b33 !important; /* Slightly lighter green on hover */
 }
