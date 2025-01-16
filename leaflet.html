@@ -3,46 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nate's Home Page</title>
+    <title>Leaflet Map Page</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     <link rel="stylesheet" href="mystyle.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+         crossorigin=""></script>
 </head>
 <body>
 
 <header>
-    <h1>Welcome to My First Webpage!</h1>
+    <h1>Leaflet Map</h1>
 </header>
 
 <div class="content">
-    <h2>Hello World!</h2>
-    <p>This my test homepage, created with HTML and hosted on Github.</p>
+    <h2>Here is a Leaflet map</h2>
+</div>
+
+<div id="map" style="height: 600px; width: 1200px; margin: 0 auto;"></div>
+  <script>
+    var map = L.map('map').setView([42.59528, -114.40083], 16); 
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+    }).addTo(map); 
+        // Add a marker for Shoshone Falls
+        var marker = L.marker([42.59528, -114.40083]).addTo(map);
+    marker.bindPopup("Shoshone Falls").openPopup(); 
+  </script>
     
-    <p>Nathan Godfrey<br>Winter 2025<br>CE 514</p>
-    <hr>
-    <p><br>Here's a picture of me:</p>
-    
-    <img src="https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/39%20enGodfreyS24%20165124.01.jpg" alt="Wedding" width="910" height="606" />
-    
-    <h2><br><br><br>Here are some useful links.</h2>
+<div class="content">
+    <h2><br><br><br>Page links:</h2>
     
     <p>My CE514 Page: <a href="https://nathang425.github.io/ce514">CE 514</a></p>
-    <p>I used this site to make this page: <a href="https://www.w3schools.com/">W3Schools.com</a></p>
-    <p>I use this page a lot: <a href="https://thetruesize.com/">TheTrueSize.com</a></p>
-    <p>Here is my LinkedIn: <a href="https://www.linkedin.com/in/nathan-godfrey/">LinkedIn</a></p>
-    
-    <br><br><br>
-    
-    <h2>Interests</h2>
-    <p>I like to travel, and elephants are pretty cool.</p>
-   
-  <div class="clearfix">
-  <div class="img-container">
-  <img src="https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/jordanpetra.jpg" alt="Petra" style="width:100%">
-  </div>
-  <div class="img-container">
-  <img src="https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/elephants01.jpg" alt="Elephants" style="width:100%">
-  </div>
-  
+    <p>Home: <a href="https://nathang425.github.io/">Main Page</a></p>  
 </div>
 
 <footer>
