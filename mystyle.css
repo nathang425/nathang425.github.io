@@ -15,6 +15,27 @@ header {
     padding: 15px 0;
     margin-bottom: 20px;
     border-radius: 8px;
+    width: 100%; /* Ensures it spans the full width of the container */
+    box-sizing: border-box; /* Ensures no overflow */
+}
+
+/* Button Styles */
+.button {
+    display: inline-block;
+    background-color: #2E5B29; /* Same green as header */
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+
+.button:hover {
+    background-color: #3a6b33; /* Slightly lighter green on hover */
 }
 
 /* Content Styles */
