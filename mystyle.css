@@ -30,6 +30,8 @@ footer {
     margin-top: 20px;
     font-size: 0.8em;
     color: #bbb; /* Lighter text for footer */
+    position: fixed;
+    bottom: 0;
 }
 
 /* Image Styles */
