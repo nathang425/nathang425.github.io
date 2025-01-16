@@ -30,7 +30,6 @@ footer {
     margin-top: 20px;
     font-size: 0.8em;
     color: #bbb; /* Lighter text for footer */
-    position: fixed;
     bottom: 0;
 }
 
@@ -39,6 +38,11 @@ img {
     max-width: 100%;
     height: auto;
     border-radius: 5px;
+}
+img2 {
+    max-width: 100%;
+    height: auto;
+    border-radius: 50%;
 }
 
 /* Image Placeholder Styles */
