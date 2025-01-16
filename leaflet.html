@@ -27,13 +27,14 @@
     
 <div id="map" style="height: 600px; width: 1200px; margin: 0 auto;"></div>
   <script>
-    var map = L.map('map').setView([42.59528, -114.40083], 16); 
+    var map = L.map('map').setView([40.265, -111.65], 13); 
     L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
     }).addTo(map); 
-        // Add a marker for Shoshone Falls
-        var marker = L.marker([42.59528, -114.40083]).addTo(map);
-    marker.bindPopup("Shoshone Falls").openPopup(); 
+        var marker = L.marker([40.2518, -111.6493]).addTo(map);
+    marker.bindPopup("BYU").openPopup();
+    	var marker1 = L.marker([40.2788, -111.7154]).addTo(map);
+    marker1.bindPopup("UVU").openPopup();
   </script>
     
 <br>
