@@ -20,9 +20,9 @@ header {
 }
 
 /* Button Styles */
-.button {
+a.button, button.button {
     display: inline-block;
-    background-color: #2E5B29; /* Same green as header */
+    background-color: #2E5B29 !important; /* Ensure it applies */
     color: white;
     padding: 10px 20px;
     font-size: 1rem;
@@ -34,8 +34,8 @@ header {
     transition: background-color 0.3s ease; /* Smooth hover effect */
 }
 
-.button:hover {
-    background-color: #3a6b33; /* Slightly lighter green on hover */
+a.button:hover, button.button:hover {
+    background-color: #3a6b33 !important; /* Slightly lighter green on hover */
 }
 
 /* Content Styles */
