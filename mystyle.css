@@ -1,109 +1,142 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #121212; /* Dark background for the entire page */
-    color: white; /* Default text color */
-    margin: 0;
-    padding: 20px;
-    text-align: center;
+  font-family: Arial, sans-serif;
+  background-color: #121212; /* Dark background for the entire page */
+  color: white; /* Default text color */
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  overflow: hidden;
+  height: 100vh;
 }
+.left-section {
+  width: 30%;
+  background: url("https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/avery-cocozziello-6EzEQUMF2h4-unsplash.jpg")
+    no-repeat center center/cover;
+  /*background-color: #1E1E1E;  Default to black if no image */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+.right-section {
+  width: 70%;
+  overflow-y: auto;
+  background: #1e1e1e;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.right-section h1 {
+        margin-top: 0;
+      }
 
 /* Header Styles */
 header {
-    background-color: #2E5B29; /* Forest green */
-    color: white;
-    padding: 15px 0;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    width: 100%; /* Ensures it spans the full width of the container */
-    box-sizing: border-box; /* Ensures no overflow */
+  background-color: #2e5b29; /* Forest green */
+  color: white;
+  padding: 0 0;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  width: 100%; /* Ensures it spans the full width of the container */
+  box-sizing: border-box; /* Ensures no overflow */
 }
 
 /* Content Styles */
 .content {
-    background-color: #1E1E1E; /* Dark background for content */
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Enhanced shadow effect */
+  background-color: #1e1e1e; /* Dark background for content */
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Enhanced shadow effect */
 }
 
 /* Footer Styles */
 footer {
-    margin-top: 20px;
-    font-size: 0.8em;
-    color: #bbb; /* Lighter text for footer */
-    bottom: 0;
+  margin-top: 20px;
+  font-size: 0.8em;
+  color: #bbb; /* Lighter text for footer */
+  position: fixed;
+  bottom: 0;
 }
 
 /* Image Styles */
 img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
 }
 img2 {
-    max-width: 100%;
-    height: auto;
-    border-radius: 50%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+.special-image {
+  border-radius: 50%;
 }
 
 /* Image Placeholder Styles */
 .image-placeholder {
-    width: 100%;
-    height: 200px;
-    background-color: #444; /* Dark gray for image placeholder */
-    border-radius: 5px;
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white; /* Placeholder text color */
+  width: 100%;
+  height: 200px;
+  background-color: #444; /* Dark gray for image placeholder */
+  border-radius: 5px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white; /* Placeholder text color */
 }
 
 /* Image Container Styles */
 .img-container {
-    float: left;
-    width: 50%;
-    padding: 5px;
-    box-sizing: border-box;
+  float: left;
+  width: 50%;
+  padding: 5px;
+  box-sizing: border-box;
 }
 
 /* Clearfix for image containers */
 .clearfix::after {
-    content: "";
-    clear: both;
-    display: table;
-    box-sizing: border-box;
+  content: "";
+  clear: both;
+  display: table;
+  box-sizing: border-box;
 }
 
 /* Link Styles */
 a:link {
-    color: green;
-    background-color: transparent;
-    text-decoration: underline;
+  color: green;
+  background-color: transparent;
+  text-decoration: underline;
 }
 
 a:visited {
-    color: grey;
-    background-color: transparent;
-    text-decoration: underline;
+  color: grey;
+  background-color: transparent;
+  text-decoration: underline;
 }
 
 /* Button Styles */
-a.button, button.button {
-    display: inline-block;
-    background-color: #2E5B29 !important; /* Ensure it applies */
-    color: white;
-    padding: 10px 20px;
-    font-size: 1rem;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Smooth hover effect */
+a.button,
+button.button {
+  display: inline-block;
+  background-color: #6b8b8c !important; /* Ensure it applies */
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  border: none;
+  margin: 0 0 5px 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth hover effect */
 }
 
-a.button:hover, button.button:hover {
-    background-color: #3a6b33 !important; /* Slightly lighter green on hover */
+a.button:hover,
+button.button:hover {
+  background-color: #3a6b33 !important; /* Slightly lighter green on hover */
 }
