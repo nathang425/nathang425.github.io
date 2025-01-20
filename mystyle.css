@@ -140,3 +140,24 @@ a.button:hover,
 button.button:hover {
   background-color: #3a6b33 !important; /* Slightly lighter green on hover */
 }
+
+/* from ChatGPT */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+    height: auto;
+  }
+  .left-section, .right-section {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .button {
+    font-size: 0.8rem;
+    padding: 8px 15px;
+  }
+  img {
+    max-width: 80%;
+  }
+}
