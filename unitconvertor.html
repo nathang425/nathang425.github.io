@@ -3,10 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CE 514 Page</title>
+    <title>Length Convertor</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
     <link rel="stylesheet" href="mystyle.css" />
-    
+    <style>
+      #conversion-tool{ font-family: Arial, sans-serif; background-color: #6b8b8c; border-radius: 8px; padding: 20px; max-width: 50%; margin: 10px auto; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)
+                      }
+      form{ display: flex-direction: column; font-family: Arial, sans-serif; }
+      button {
+        display: inline-block;
+        background-color: #2e5b29  !important; /* Ensure it applies */
+        color: white;
+        padding: 10px 20px;
+        font-size: 1rem;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 8px;
+        border: none;
+        margin: 0 0 5px 0;
+        cursor: pointer;
+        transition: background-color 0.3s ease; /* Smooth hover effect */
+            }
+
+    a.button:hover,
+    button:hover {
+      background-color: #3a6b33 !important; /* Slightly lighter green on hover */
+                }
+    </style>
   </head>
   <body>
     <div class="left-section">
@@ -41,8 +64,146 @@
       </footer>
     </div>
     <div class="right-section">
-      <h1>Welcome!</h1>
-      <p>This page will contain my work from CE 514.</p>
+      <h1>Length Convertor</h1>
+      <p>Use the following calculator to convert units of length:</p>
+
+      
+      <div id="conversion-tool">
+        <form>
+          <label for="input-value">Value to Convert:</label>
+          <input type="number" id="input-value" min="0">
+          <br><br>
+          <label for="from-unit">Convert From:</label>
+          <select id="from-unit">
+            <option value="inches">Inches, in</option>
+            <option value="feet">Feet, ft</option>
+            <option value="yards">Yards, yd</option>
+            <option value="miles">Miles, mi</option>
+            <option value="meters">Meters, m</option>
+            <option value="kilometers">Kilometers, km</option>
+            <option value="earth-radius">Earth-Radius</option>
+          </select>
+          <br>
+          <label for="to-unit">Convert To:</label>
+          <select id="to-unit">
+            <option value="inches">Inches, in</option>
+            <option value="feet">Feet, ft</option>
+            <option value="yards">Yards, yd</option>
+            <option value="miles">Miles, mi</option>
+            <option value="meters">Meters, m</option>
+            <option value="kilometers">Kilometers, km</option>
+            <option value="earth-radius">Earth-Radius</option>
+          </select>
+          <br><br>
+          <button type="button" id="convert-btn">Convert</button>
+          <p>Converted Value: <span id="output-value"></span></p>
+        </form>
+      </div>
+
+
+      <script>
+        function convert()
+          {
+            const inputValue = document.getElementById("input-value").value;
+            const fromUnit = document.getElementById("from-unit").value;
+            const toUnit = document.getElementById("to-unit").value;
+
+            let outputValue = inputValue;
+
+            if (fromUnit === "inches" && toUnit === "feet") {
+  outputValue = inputValue / 12;
+} else if (fromUnit === "feet" && toUnit === "inches") {
+  outputValue = inputValue * 12;
+} else if (fromUnit === "inches" && toUnit === "yards") {
+  outputValue = inputValue / 36;
+} else if (fromUnit === "yards" && toUnit === "inches") {
+  outputValue = inputValue * 36;
+} else if (fromUnit === "inches" && toUnit === "miles") {
+  outputValue = inputValue / 63360;
+} else if (fromUnit === "miles" && toUnit === "inches") {
+  outputValue = inputValue * 63360;
+} else if (fromUnit === "inches" && toUnit === "meters") {
+  outputValue = inputValue * 0.0254;
+} else if (fromUnit === "meters" && toUnit === "inches") {
+  outputValue = inputValue / 0.0254;
+} else if (fromUnit === "inches" && toUnit === "kilometers") {
+  outputValue = inputValue * 0.0000254;
+} else if (fromUnit === "kilometers" && toUnit === "inches") {
+  outputValue = inputValue / 0.0000254;
+} else if (fromUnit === "inches" && toUnit === "earth-radius") {
+  outputValue = inputValue / (6371 * 1000 * 39.3701);
+} else if (fromUnit === "earth-radius" && toUnit === "inches") {
+  outputValue = inputValue * (6371 * 1000 * 39.3701);
+} else if (fromUnit === "feet" && toUnit === "yards") {
+  outputValue = inputValue / 3;
+} else if (fromUnit === "yards" && toUnit === "feet") {
+  outputValue = inputValue * 3;
+} else if (fromUnit === "feet" && toUnit === "miles") {
+  outputValue = inputValue / 5280;
+} else if (fromUnit === "miles" && toUnit === "feet") {
+  outputValue = inputValue * 5280;
+} else if (fromUnit === "feet" && toUnit === "meters") {
+  outputValue = inputValue * 0.3048;
+} else if (fromUnit === "meters" && toUnit === "feet") {
+  outputValue = inputValue / 0.3048;
+} else if (fromUnit === "feet" && toUnit === "kilometers") {
+  outputValue = inputValue * 0.0003048;
+} else if (fromUnit === "kilometers" && toUnit === "feet") {
+  outputValue = inputValue / 0.0003048;
+} else if (fromUnit === "feet" && toUnit === "earth-radius") {
+  outputValue = inputValue / (6371 * 1000 * 3.28084);
+} else if (fromUnit === "earth-radius" && toUnit === "feet") {
+  outputValue = inputValue * (6371 * 1000 * 3.28084);
+} else if (fromUnit === "yards" && toUnit === "miles") {
+  outputValue = inputValue / 1760;
+} else if (fromUnit === "miles" && toUnit === "yards") {
+  outputValue = inputValue * 1760;
+} else if (fromUnit === "yards" && toUnit === "meters") {
+  outputValue = inputValue * 0.9144;
+} else if (fromUnit === "meters" && toUnit === "yards") {
+  outputValue = inputValue / 0.9144;
+} else if (fromUnit === "yards" && toUnit === "kilometers") {
+  outputValue = inputValue * 0.0009144;
+} else if (fromUnit === "kilometers" && toUnit === "yards") {
+  outputValue = inputValue / 0.0009144;
+} else if (fromUnit === "yards" && toUnit === "earth-radius") {
+  outputValue = inputValue / (6371 * 1000 * 1.09361);
+} else if (fromUnit === "earth-radius" && toUnit === "yards") {
+  outputValue = inputValue * (6371 * 1000 * 1.09361);
+} else if (fromUnit === "miles" && toUnit === "meters") {
+  outputValue = inputValue * 1609.34;
+} else if (fromUnit === "meters" && toUnit === "miles") {
+  outputValue = inputValue / 1609.34;
+} else if (fromUnit === "miles" && toUnit === "kilometers") {
+  outputValue = inputValue * 1.60934;
+} else if (fromUnit === "kilometers" && toUnit === "miles") {
+  outputValue = inputValue / 1.60934;
+} else if (fromUnit === "miles" && toUnit === "earth-radius") {
+  outputValue = inputValue / 3959;
+} else if (fromUnit === "earth-radius" && toUnit === "miles") {
+  outputValue = inputValue * 3959;
+} else if (fromUnit === "meters" && toUnit === "kilometers") {
+  outputValue = inputValue / 1000;
+} else if (fromUnit === "kilometers" && toUnit === "meters") {
+  outputValue = inputValue * 1000;
+} else if (fromUnit === "kilometers" && toUnit === "earth-radius") {
+  outputValue = inputValue / 6371;
+} else if (fromUnit === "earth-radius" && toUnit === "kilometers") {
+  outputValue = inputValue * 6371;
+} else {
+  outputValue = "Conversion not supported.";
+}
+            document.getElementById("output-value").innerHTML = outputValue;
+          }
+        document.getElementById("convert-btn").addEventListener("click", convert);
+
+      </script>
+
+
+
+
+
+      
     </div>
   </body>
 </html>
