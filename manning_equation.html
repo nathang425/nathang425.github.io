@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Length Convertor</title>
+    <title>Manning's Equation Calculator</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
     <link rel="stylesheet" href="mystyle.css" />
     <style>
@@ -66,36 +66,26 @@
       </footer>
     </div>
     <div class="right-section">
-      <h1>Length Convertor</h1>
+      <h1>Manning's Equation Calculator (for Open Channel Flow)</h1>
 
-      <div id="conversion-tool">
+      <div id="manning">
         <form>
-          <p>Use the following calculator to convert units of length:</p>
-          <label for="input-value">Value to Convert:</label>
-          <input type="number" id="input-value" min="0" />
-          <br /><br />
-          <label for="from-unit">Convert From:</label>
-          <select id="from-unit">
-            <option value="inches">Inches, in</option>
-            <option value="feet">Feet, ft</option>
-            <option value="yards">Yards, yd</option>
-            <option value="miles">Miles, mi</option>
-            <option value="meters">Meters, m</option>
-            <option value="kilometers">Kilometers, km</option>
-            <option value="earth-radius">Earth-Radius</option>
-          </select>
+          <p>Please fill in all of the required inputs:</p>
+          <label for="input-width">Channel Width:</label>
+          <input type="number" id="width" min="0" />
           <br />
-          <label for="to-unit">Convert To:</label>
-          <select id="to-unit">
-            <option value="inches">Inches, in</option>
-            <option value="feet">Feet, ft</option>
-            <option value="yards">Yards, yd</option>
-            <option value="miles">Miles, mi</option>
-            <option value="meters">Meters, m</option>
-            <option value="kilometers">Kilometers, km</option>
-            <option value="earth-radius">Earth-Radius</option>
-          </select>
-          <br /><br />
+          <label for="input-depth">Channel Depth:</label>
+          <input type="number" id="depth" min="0" />
+          <br />
+          <label for="input-slope">Channel Slope:</label>
+          <input type="number" id="slope" min="0" />
+          <br />
+          <label for="input-n">Channel Width:</label>
+          <input type="number" id="width" min="0" />
+          <br />
+
+          /* Continue here, I just created the basic inputs */
+          
           <button type="button" id="convert-btn">Convert</button>
           <p>Converted Value: <span id="output-value"></span></p>
         </form>
