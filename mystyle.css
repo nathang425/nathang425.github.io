@@ -152,9 +152,13 @@ button.button:hover {
     display: block; /* Switch to block layout for stacking */
     height: auto; /* Allow height to adjust */
     overflow: visible; /* Enable scrolling if needed */
+    margin: 0;
+    padding: 0;
   }
   .left-section, .right-section {
     width: 100%;
+    box-sizing: border-box;
+    margin: 0;
     padding: 10px;
   }
   .button {
