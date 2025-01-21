@@ -39,7 +39,7 @@ body {
 header {
   background-color: #2e5b29; /* Forest green */
   color: white;
-  padding: 0 0;
+  padding: 0 20px;
   margin-bottom: 20px;
   border-radius: 8px;
   width: auto; /* Doesn't span the full width of the container */
