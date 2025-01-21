@@ -80,6 +80,7 @@ img2 {
   height: 50%;
   max-width: 150px;
   max-height: 150px;
+  border: 3px solid #3a6b33;
 }
 
 /* Image Placeholder Styles */
@@ -144,6 +145,7 @@ button.button {
 a.button:hover,
 button.button:hover {
   background-color: #3a6b33 !important; /* Slightly lighter green on hover */
+  transform: translateY(-3px);
 }
 
 /* from ChatGPT */
