@@ -63,6 +63,12 @@
       select {
         width: fit-content;
       }
+
+      /* Ensure the map container has height */
+      #map {
+        height: 500px;
+        width: 100%;
+      }
     </style>
   </head>
 
@@ -140,74 +146,36 @@
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         }).addTo(map)
 
-        // Make an array for markers
-        let points = [
-          [40.29790461179228, -111.66991412953054, "Home"],
-          [40.29221988083374, -111.6844571700643, "School"],
-          [40.30116378963555, -111.67006357849814, "Church"],
-          [40.29962761789154, -111.69656368971268, "Work"],
+        // Existing coordinates for markers and polygon
+        const cityCoords = [
+          [41.902783, 12.496366], // rome
+          [64.12738671814198, -21.895751953125], // reykjavik
+          [48.38544219115486, -4.482421875000001], // brest
         ]
 
-        // Loop that adds all the markers from the "points" list to the map
-        for (let i = 0; i < points.length; i++) {
-          const lat = points[i][0]
-          const lng = points[i][1]
-          const popupText = points[i][2]
-
-          // Enable dragging markers
-          const marker = new L.marker([lat, lng], {
-            draggable: true,
-            autoPan: true,
-          })
-            .bindPopup(popupText)
-            .addTo(map)
-
-          // Dragging the marker
-          marker.on("dragend", function (e) {
-            const markerPlace = document.querySelector(".marker-position")
-            markerPlace.textContent = `${marker.getLatLng().lat}, ${
-              marker.getLatLng().lng
-            }`
-          })
-        }
-
-        // Extract "Home" marker coordinates
-        let homeLat, homeLng
-        for (let i = 0; i < points.length; i++) {
-          if (points[i][2] === "Home") {
-            homeLat = points[i][0]
-            homeLng = points[i][1]
-            break
-          }
-        }
-
-        // Add a circle around the "Home" marker, with an "if" to check if the coords are there
-        if (homeLat && homeLng) {
-          const circle = L.circle([homeLat, homeLng], {
-            color: "blue",
-            weight: 2,
-            fillOpacity: 0, // No fill
-            radius: 0.5 * 1609.34, // Convert 0.5 miles to meters
-          })
-            .bindPopup("10 minute walk-from-home radius")
-            .addTo(map)
-        }
-
-        // Add a static polygon
-        const polygonCoords = [
-          [40.29789385719221, -111.6696645724177],
-          [40.2981309841818, -111.66991699311768],
-          [40.29788290080953, -111.6701622311148],
-          [40.2976989898352, -111.66981540917745],
-        ]
-
-        const polygon = L.polygon(polygonCoords, {
-          color: "blue",
-          weight: 2,
-          fillOpacity: 0.5,
+        // Add existing markers and polygon to map
+        const icon = L.icon({
+          iconUrl: "http://grzegorztomicki.pl/serwisy/pin.png",
+          iconSize: [50, 58], // size of the icon
+          iconAnchor: [20, 58], // changed marker icon position
+          popupAnchor: [0, -60], // changed popup position
         })
-          .bindPopup("Home Property Line")
-          .addTo(map)
+
+        cityCoords.forEach((city) => {
+          const marker = L.marker(city).bindPopup(city.toString()).addTo(map)
+        })
+
+        const polyline = L.polyline(cityCoords, { color: 'blue' }).addTo(map)
+        polyline.bindPopup("A polyline drawn between cities")
+
+        // Circle for starting position
+        const circle = L.circle([lat, lng], {
+          color: 'green',
+          fillColor: '#7CFC00',
+          fillOpacity: 0.5,
+          radius: 500
+        }).addTo(map)
+        circle.bindPopup("A circle at the center")
 
         // Function to add markers and the great circle
         function plotPointsAndCircle(lat1, lng1, lat2, lng2) {
