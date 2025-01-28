@@ -16,6 +16,7 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="https://unpkg.com/leaflet-great-circle@0.1.0/leaflet.greatcircle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6.5.0/turf.min.js"></script>
 </head>
   </head>
   <body>
@@ -98,14 +99,25 @@
             });
         };
 
-        // Function to draw the Great Circle line
         function drawGreatCircle(coord1, coord2) {
-            var circle = L.greatCircle(coord1, coord2, {
-                color: 'blue',
-                weight: 3
-            }).addTo(map);
-            map.fitBounds(circle.getBounds());
+    // Use Turf.js to generate intermediate points for a great circle
+    var line = turf.greatCircle(
+        [coord1.lng, coord1.lat],
+        [coord2.lng, coord2.lat]
+    );
+
+    // Convert Turf.js line to Leaflet polyline
+    var polyline = L.geoJSON(line, {
+        style: {
+            color: 'blue',
+            weight: 3
         }
+    }).addTo(map);
+
+    // Adjust map to fit the bounds of the line
+    map.fitBounds(polyline.getBounds());
+}
+
     </script>
 </body>
 </html>
