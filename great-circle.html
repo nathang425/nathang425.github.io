@@ -12,8 +12,13 @@
       integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
       crossorigin=""
     />
+    <style>
+    #map {
+        height: 600px;
+        width: 100%;
+    }
+    </style>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="https://unpkg.com/leaflet-great-circle@0.1.0/leaflet.greatcircle.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6.5.0/turf.min.js"></script>
@@ -72,12 +77,14 @@
 
         // Function to search locations
         function searchLocation(locationInput, callback) {
-            geocoder.geocode(locationInput, function(results) {
-                if (results.length > 0) {
-                    callback(results[0].center);
-                }
-            });
+    geocoder.geocode(locationInput, function (results) {
+        if (results.length > 0) {
+            callback(results[0].center);
+        } else {
+            alert("Location not found: " + locationInput);
         }
+    });
+}
 
         // Click event for drawing the Great Circle
         document.getElementById('drawLine').onclick = function () {
@@ -100,10 +107,11 @@
         };
 
         function drawGreatCircle(coord1, coord2) {
-    // Use Turf.js to generate intermediate points for a great circle
-    var line = turf.greatCircle(
-        [coord1.lng, coord1.lat],
-        [coord2.lng, coord2.lat]
+    // Create a great circle line using Turf.js
+    var line = turf.lineArc(
+        { type: 'Point', coordinates: [coord1.lng, coord1.lat] },
+        { type: 'Point', coordinates: [coord2.lng, coord2.lat] },
+        500  // Number of steps for smoother curve
     );
 
     // Convert Turf.js line to Leaflet polyline
@@ -117,6 +125,7 @@
     // Adjust map to fit the bounds of the line
     map.fitBounds(polyline.getBounds());
 }
+
 
     </script>
 </body>
