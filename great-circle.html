@@ -4,8 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Maps</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
+    <link rel="stylesheet" href="mystyle.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6.5.0/turf.min.js"></script>
     <style>
         #map {
@@ -15,18 +23,49 @@
     </style>
 </head>
 <body>
-    <div>
+    <div class="left-section">
+        <img
+          class="special-image"
+          src="https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/20230912_080630.jpg"
+          alt="Me"
+          width="50%"
+          height="50%"
+        />
+        <br />
+        <header>
+            <h1>Nate Godfrey</h1>
+        </header>
+        <a class="button" href="https://nathang425.github.io/">Home</a>
+        <a class="button" href="https://nathang425.github.io/ce514">514 Page</a>
+        <p>
+            Welcome to my personal website. I'm an engineering student at BYU,
+            graduating in April 2025.
+        </p>
+        <footer>
+            Photo by
+            <a
+              href="https://unsplash.com/@averycocozziello?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+              >Avery Cocozziello</a
+            >
+            on
+            <a
+              href="https://unsplash.com/photos/ocean-waves-crashing-on-shore-during-daytime-6EzEQUMF2h4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+              >Unsplash</a
+            >
+        </footer>
+    </div>
+    <div class="right-section">
         <h1>Great Circle Distance Calculator</h1>
         <div>
             <label>Location 1:</label><br>
-            <input id="lat1" type="number" placeholder="Latitude 1" min="-90" max="90" step="0.00001" />
-            <input id="lng1" type="number" placeholder="Longitude 1" min="-180" max="180" step="0.00001" />
+            <input id="lat1" type="number" placeholder="Latitude 1" min="-90" max="90" step="0.0001" />
+            <input id="lng1" type="number" placeholder="Longitude 1" min="-180" max="180" step="0.0001" />
         </div>
         <br>
         <div>
             <label>Location 2:</label><br>
-            <input id="lat2" type="number" placeholder="Latitude 2" min="-90" max="90" step="0.00001" />
-            <input id="lng2" type="number" placeholder="Longitude 2" min="-180" max="180" step="0.00001" />
+            <input id="lat2" type="number" placeholder="Latitude 2" min="-90" max="90" step="0.0001" />
+            <input id="lng2" type="number" placeholder="Longitude 2" min="-180" max="180" step="0.0001" />
         </div>
         <br>
         <button id="drawLine">Draw</button>
@@ -65,9 +104,14 @@
             var lat2 = parseFloat(document.getElementById('lat2').value);
             var lng2 = parseFloat(document.getElementById('lng2').value);
 
-            // Validate inputs
-            if (isNaN(lat1) || isNaN(lng1) || isNaN(lat2) || isNaN(lng2)) {
-                alert("Please enter valid numbers for all latitude and longitude values.");
+            // Validate inputs: check if they are numbers and within valid ranges
+            if (
+                isNaN(lat1) || lat1 < -90 || lat1 > 90 ||
+                isNaN(lng1) || lng1 < -180 || lng1 > 180 ||
+                isNaN(lat2) || lat2 < -90 || lat2 > 90 ||
+                isNaN(lng2) || lng2 < -180 || lng2 > 180
+            ) {
+                alert("Please enter valid latitude (-90 to 90) and longitude (-180 to 180) values.");
                 return;
             }
 
