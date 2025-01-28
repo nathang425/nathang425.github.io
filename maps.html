@@ -18,7 +18,54 @@
       crossorigin=""
     ></script>
     <script src="https://unpkg.com/@turf/turf"></script>
+
+    <style>
+      #conversion-tool {
+        font-family: Arial, sans-serif;
+        background-color: #6b8b8c;
+        border-radius: 8px;
+        padding: 10px 20px;
+        max-width: 50%;
+        margin: 10px auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        font-family: Arial, sans-serif;
+      }
+
+      button {
+        display: inline-block;
+        background-color: #2e5b29 !important;
+        color: white;
+        padding: 10px 20px;
+        font-size: 1rem;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 8px;
+        border: none;
+        margin: 0 0 5px 0;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #3a6b33 !important;
+      }
+
+      input {
+        width: 100%;
+        max-width: 100px;
+      }
+
+      select {
+        width: fit-content;
+      }
+    </style>
   </head>
+
   <body>
     <div class="left-section">
       <img
@@ -54,22 +101,24 @@
 
     <div class="right-section">
       <h1>Great Circle Distance Calculator</h1>
-      
+
       <!-- Form to input lat/lng -->
-      <form id="coordsForm">
-        <label for="lat1">Point 1 Latitude:</label>
-        <input type="number" id="lat1" step="any" required /><br />
-        <label for="lng1">Point 1 Longitude:</label>
-        <input type="number" id="lng1" step="any" required /><br />
-        <label for="lat2">Point 2 Latitude:</label>
-        <input type="number" id="lat2" step="any" required /><br />
-        <label for="lng2">Point 2 Longitude:</label>
-        <input type="number" id="lng2" step="any" required /><br />
-        <button type="submit">Plot Points</button>
-      </form>
-      
+      <div id="conversion-tool">
+        <form id="coordsForm">
+          <label for="lat1">Point 1 Latitude:</label>
+          <input type="number" id="lat1" step="any" required /><br />
+          <label for="lng1">Point 1 Longitude:</label>
+          <input type="number" id="lng1" step="any" required /><br />
+          <label for="lat2">Point 2 Latitude:</label>
+          <input type="number" id="lat2" step="any" required /><br />
+          <label for="lng2">Point 2 Longitude:</label>
+          <input type="number" id="lng2" step="any" required /><br />
+          <button type="submit">Plot Points</button>
+        </form>
+      </div>
+
       <!-- Map display -->
-      <div id="map" style="height: 600px; width: auto; margin: 0 auto"></div>
+      <div id="map"></div>
 
       <script>
         let config = {
