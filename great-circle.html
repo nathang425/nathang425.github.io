@@ -81,10 +81,9 @@
         }).addTo(map);
 
         function drawGreatCircle(coord1, coord2) {
-            var line = turf.lineArc(
-                { type: 'Point', coordinates: [coord1.lng, coord1.lat] },
-                { type: 'Point', coordinates: [coord2.lng, coord2.lat] },
-                500
+            var line = turf.greatCircle(
+               [coord1.lng, coord1.lat],
+                [coord2.lng, coord2.lat]
             );
 
             var polyline = L.geoJSON(line, {
