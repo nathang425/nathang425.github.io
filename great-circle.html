@@ -79,22 +79,21 @@
         }
 
         // Click event for drawing the Great Circle
-        document.getElementById('drawLine').onclick = function() {
-            var location1 = document.getElementById('location1').value;
-            var location2 = document.getElementById('location2').value;
+        document.getElementById('drawLine').onclick = function () {
+          var location1 = document.getElementById('location1').value;
+          var location2 = document.getElementById('location2').value;
 
-            // Search for both locations
-            searchLocation(location1, function(coord1) {
-                latlng1 = coord1;
-                if (latlng1 && latlng2) {
-                    drawGreatCircle(latlng1, latlng2);
-                }
-            });
+          // Search for the first location
+          searchLocation(location1, function (coord1) {
+              latlng1 = coord1;
 
-            searchLocation(location2, function(coord2) {
-                latlng2 = coord2;
-                if (latlng1 && latlng2) {
-                    drawGreatCircle(latlng1, latlng2);
+              // Search for the second location within the first callback
+          searchLocation(location2, function (coord2) {
+              latlng2 = coord2;
+
+            // Once both coordinates are retrieved, draw the Great Circle
+            if (latlng1 && latlng2) {
+                drawGreatCircle(latlng1, latlng2);
                 }
             });
         };
