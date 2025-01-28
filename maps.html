@@ -119,7 +119,18 @@
         })
           .bindPopup("Home Property Line")
           .addTo(map)
-        
+
+
+        // Extract "Home" marker coordinates
+        let homeLat, homeLng
+          for (let i = 0; i < points.length; i++) {
+            if (points[i][2] === "Home") {
+              homeLat = points[i][0]
+              homeLng = points[i][1]
+              break
+            }
+          }
+              
         // Add a circle around the "Home" marker, with an "if" to check if the coords are there
         if (homeLat && homeLng) {
           const circle = L.circle([homeLat, homeLng], {
