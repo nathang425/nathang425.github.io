@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Leaflet Map</title>
+    <title>Maps</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
     <link rel="stylesheet" href="mystyle.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -48,17 +48,60 @@
       </footer>
     </div>
     <div class="right-section">
-      <h1>Leaflet Map</h1>
+      <h1>Great Circle Distance Calculator</h1>
       <div id="map" style="height: 600px; width: auto; margin: 0 auto;"></div>
   <script>
-    var map = L.map('map').setView([40.265, -111.65], 13); 
-    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-    }).addTo(map); 
-        var marker = L.marker([40.2518, -111.6493]).addTo(map);
-    marker.bindPopup("BYU").openPopup();
-    	var marker1 = L.marker([40.2788, -111.7154]).addTo(map);
-    marker1.bindPopup("UVU").openPopup();
+    let config = {
+  minZoom: 7,
+  maxZoom: 18,
+};
+// magnification with which the map will start
+const zoom = 18;
+// co-ordinates
+const lat = 52.22977;
+const lng = 21.01178;
+
+// coordinate array with popup text
+let points = [
+  [52.230020586193795, 21.01083755493164, "point 1"],
+  [52.22924516170657, 21.011320352554325, "point 2"],
+  [52.229511304688444, 21.01270973682404, "point 3"],
+  [52.23040500771883, 21.012146472930908, "point 4"],
+];
+
+// calling map
+const map = L.map("map", config).setView([lat, lng], zoom);
+
+// Used to load and display tile layers on the map
+// Most tile servers require attribution, which you can set under `Layer`
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+}).addTo(map);
+
+// loop that adds many markers to the map
+for (let i = 0; i < points.length; i++) {
+  const lat = points[i][0];
+  const lng = points[i][1];
+  const popupText = points[i][2];
+
+  // adding a marker to the map
+  // enabling the possibility of dragging markers
+  const marker = new L.marker([lat, lng], {
+    draggable: true,
+    autoPan: true,
+  })
+    .bindPopup(popupText)
+    .addTo(map);
+
+  // dragging the marker
+  marker.on("dragend", function (e) {
+    const markerPlace = document.querySelector(".marker-position");
+    markerPlace.textContent = `${marker.getLatLng().lat}, ${
+      marker.getLatLng().lng
+    }`;
+  });
+}
   </script>
     </div>
   </body>
