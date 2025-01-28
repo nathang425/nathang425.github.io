@@ -104,23 +104,6 @@
           })
         }
 
-        // Add a static polygon
-        const polygonCoords = [
-          [40.29789385719221, -111.6696645724177],
-          [40.2981309841818, -111.66991699311768],
-          [40.29788290080953, -111.6701622311148],
-          [40.2976989898352, -111.66981540917745],
-        ]
-
-        const polygon = L.polygon(polygonCoords, {
-          color: "blue",
-          weight: 2,
-          fillOpacity: 0.5,
-        })
-          .bindPopup("Home Property Line")
-          .addTo(map)
-
-
         // Extract "Home" marker coordinates
         let homeLat, homeLng
           for (let i = 0; i < points.length; i++) {
@@ -142,6 +125,23 @@
             .bindPopup("10 minute walk-from-home radius")
             .addTo(map)
         }
+
+              
+        // Add a static polygon
+        const polygonCoords = [
+          [40.29789385719221, -111.6696645724177],
+          [40.2981309841818, -111.66991699311768],
+          [40.29788290080953, -111.6701622311148],
+          [40.2976989898352, -111.66981540917745],
+        ]
+
+        const polygon = L.polygon(polygonCoords, {
+          color: "blue",
+          weight: 2,
+          fillOpacity: 0.5,
+        })
+          .bindPopup("Home Property Line")
+          .addTo(map)
       </script>
 
     </div>
