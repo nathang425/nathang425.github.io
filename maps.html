@@ -17,6 +17,7 @@
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
       crossorigin=""
     ></script>
+    <script src="https://unpkg.com/@turf/turf"></script>
   </head>
   <body>
     <div class="left-section">
@@ -50,12 +51,29 @@
         >
       </footer>
     </div>
+
     <div class="right-section">
       <h1>Great Circle Distance Calculator</h1>
+      
+      <!-- Form to input lat/lng -->
+      <form id="coordsForm">
+        <label for="lat1">Point 1 Latitude:</label>
+        <input type="number" id="lat1" step="any" required /><br />
+        <label for="lng1">Point 1 Longitude:</label>
+        <input type="number" id="lng1" step="any" required /><br />
+        <label for="lat2">Point 2 Latitude:</label>
+        <input type="number" id="lat2" step="any" required /><br />
+        <label for="lng2">Point 2 Longitude:</label>
+        <input type="number" id="lng2" step="any" required /><br />
+        <button type="submit">Plot Points</button>
+      </form>
+      
+      <!-- Map display -->
       <div id="map" style="height: 600px; width: auto; margin: 0 auto"></div>
+
       <script>
         let config = {
-          minZoom: 1,
+          minZoom: 2,
           maxZoom: 18,
         }
 
@@ -64,7 +82,16 @@
         const lat = 40.29804
         const lng = -111.6831
 
-        // make an array for markers
+        // calling map
+        const map = L.map("map", config).setView([lat, lng], zoom)
+
+        // Load tile layers from the link
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        }).addTo(map)
+
+        // Make an array for markers
         let points = [
           [40.29790461179228, -111.66991412953054, "Home"],
           [40.29221988083374, -111.6844571700643, "School"],
@@ -72,22 +99,13 @@
           [40.29962761789154, -111.69656368971268, "Work"],
         ]
 
-        // call the map
-        const map = L.map("map", config).setView([lat, lng], zoom)
-
-        // Load tile layers from the link, include attribution
-        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        }).addTo(map)
-
-        // loop that adds all the markers from the "points" list to the map
+        // Loop that adds all the markers from the "points" list to the map
         for (let i = 0; i < points.length; i++) {
           const lat = points[i][0]
           const lng = points[i][1]
           const popupText = points[i][2]
 
-          // enable dragging markers
+          // Enable dragging markers
           const marker = new L.marker([lat, lng], {
             draggable: true,
             autoPan: true,
@@ -95,7 +113,7 @@
             .bindPopup(popupText)
             .addTo(map)
 
-          // dragging the marker
+          // Dragging the marker
           marker.on("dragend", function (e) {
             const markerPlace = document.querySelector(".marker-position")
             markerPlace.textContent = `${marker.getLatLng().lat}, ${
@@ -141,6 +159,43 @@
         })
           .bindPopup("Home Property Line")
           .addTo(map)
+
+        // Function to add markers and the great circle
+        function plotPointsAndCircle(lat1, lng1, lat2, lng2) {
+          // Clear existing markers and circle
+          map.eachLayer(function (layer) {
+            if (layer instanceof L.Marker || layer instanceof L.Circle) {
+              map.removeLayer(layer);
+            }
+          });
+
+          // Create red markers
+          const marker1 = L.marker([lat1, lng1], { color: "red" }).addTo(map);
+          const marker2 = L.marker([lat2, lng2], { color: "red" }).addTo(map);
+
+          // Draw a great circle using Turf.js
+          const start = turf.point([lng1, lat1]);
+          const end = turf.point([lng2, lat2]);
+          const greatCircle = turf.greatCircle(start, end);
+
+          // Add great circle as GeoJSON
+          L.geoJSON(greatCircle).addTo(map);
+        }
+
+        // Handle form submission
+        const form = document.getElementById("coordsForm");
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Get coordinates from form
+          const lat1 = parseFloat(document.getElementById("lat1").value);
+          const lng1 = parseFloat(document.getElementById("lng1").value);
+          const lat2 = parseFloat(document.getElementById("lat2").value);
+          const lng2 = parseFloat(document.getElementById("lng2").value);
+
+          // Plot points and circle
+          plotPointsAndCircle(lat1, lng1, lat2, lng2);
+        });
       </script>
     </div>
   </body>
