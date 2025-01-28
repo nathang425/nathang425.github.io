@@ -116,7 +116,21 @@
           color: "blue",
           weight: 2,
           fillOpacity: 0.5,
-        }).addTo(map)
+        })
+          .bindPopup("Home Property Line")
+          .addTo(map)
+        
+        // Add a circle around the "Home" marker, with an "if" to check if the coords are there
+        if (homeLat && homeLng) {
+          const circle = L.circle([homeLat, homeLng], {
+            color: "blue",
+            weight: 2,
+            fillOpacity: 0, // No fill
+            radius: 0.5 * 1609.34, // Convert 0.5 miles to meters
+          })
+            .bindPopup("10 minute walk-from-home radius")
+            .addTo(map)
+        }
       </script>
 
     </div>
