@@ -17,54 +17,6 @@
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
       crossorigin=""
     ></script>
-    <style>
-      .carousel {
-        display: flex;
-        overflow: hidden;
-        width: 100%;
-        flex-direction: row; /* Ensure cards are horizontally aligned */
-      }
-
-      .carousel-track {
-        display: flex;
-        transition: transform 0.3s ease-in-out;
-        flex-direction: row; /* Ensure cards are horizontally aligned */
-      }
-
-      .card {
-        min-width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-right: 10px; /* Add space between cards */
-        box-sizing: border-box; /* Ensure margin doesn't affect card width */
-      }
-
-      .carousel-controls {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-        margin-top: 10px;
-      }
-
-      .carousel-controls button {
-        padding: 10px 20px;
-        background-color: #3498db;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-
-      .carousel-controls button:hover {
-        background-color: #2980b9;
-      }
-
-      #map1, #map2 {
-        width: 100%;
-        height: 75%; /* Adjust height for the map */
-      }
-    </style>
   </head>
   <body>
     <div class="left-section">
@@ -99,28 +51,8 @@
       </footer>
     </div>
     <div class="right-section">
-      <!-- Card Container for swapping -->
-      <div class="carousel">
-        <div class="carousel-track">
-          <!-- First card with map -->
-          <div class="card">
-            <h1>Great Circle Distance Calculator</h1>
-            <div id="map1" style="height: 75%; width: 100%; margin: 0 auto"></div>
-          </div>
-          <!-- Second card with blank map -->
-          <div class="card">
-            <h1>Blank Map</h1>
-            <div id="map2" style="height: 75%; width: 100%; margin: 0 auto"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Carousel Controls for swapping -->
-      <div class="carousel-controls">
-        <button class="button" id="prevBtn">Prev</button>
-        <button class="button" id="nextBtn">Next</button>
-      </div>
-
+      <h1>Great Circle Distance Calculator</h1>
+      <div id="map" style="height: 600px; width: auto; margin: 0 auto"></div>
       <script>
         let config = {
           minZoom: 1,
@@ -140,14 +72,14 @@
           [40.29962761789154, -111.69656368971268, "Work"],
         ]
 
-        // call the map for map1
-        const map1 = L.map("map1", config).setView([lat, lng], zoom)
+        // call the map
+        const map = L.map("map", config).setView([lat, lng], zoom)
 
         // Load tile layers from the link, include attribution
         L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
           attribution:
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        }).addTo(map1)
+        }).addTo(map)
 
         // loop that adds all the markers from the "points" list to the map
         for (let i = 0; i < points.length; i++) {
@@ -161,7 +93,7 @@
             autoPan: true,
           })
             .bindPopup(popupText)
-            .addTo(map1)
+            .addTo(map)
 
           // dragging the marker
           marker.on("dragend", function (e) {
@@ -172,7 +104,29 @@
           })
         }
 
-        // Add a static polygon for map1
+        // Extract "Home" marker coordinates
+        let homeLat, homeLng
+        for (let i = 0; i < points.length; i++) {
+          if (points[i][2] === "Home") {
+            homeLat = points[i][0]
+            homeLng = points[i][1]
+            break
+          }
+        }
+
+        // Add a circle around the "Home" marker, with an "if" to check if the coords are there
+        if (homeLat && homeLng) {
+          const circle = L.circle([homeLat, homeLng], {
+            color: "blue",
+            weight: 2,
+            fillOpacity: 0, // No fill
+            radius: 0.5 * 1609.34, // Convert 0.5 miles to meters
+          })
+            .bindPopup("10 minute walk-from-home radius")
+            .addTo(map)
+        }
+
+        // Add a static polygon
         const polygonCoords = [
           [40.29789385719221, -111.6696645724177],
           [40.2981309841818, -111.66991699311768],
@@ -186,48 +140,7 @@
           fillOpacity: 0.5,
         })
           .bindPopup("Home Property Line")
-          .addTo(map1)
-        
-        // Add a circle around the "Home" marker, with an "if" to check if the coords are there
-        const homeLat = 40.29790461179228;
-        const homeLng = -111.66991412953054;
-        
-        const circle = L.circle([homeLat, homeLng], {
-          color: "blue",
-          weight: 2,
-          fillOpacity: 0, // No fill
-          radius: 0.5 * 1609.34, // Convert 0.5 miles to meters
-        })
-          .bindPopup("10-minute walk-from-home radius")
-          .addTo(map1)
-
-        // Empty map2 for demonstration
-        const map2 = L.map("map2", config).setView([lat, lng], zoom)
-
-        // Load tile layers for map2
-        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        }).addTo(map2)
-
-        // Carousel functionality
-        let currentCard = 0;
-        const totalCards = document.querySelectorAll('.card').length;
-
-        function showCard(index) {
-          const track = document.querySelector('.carousel-track');
-          track.style.transform = `translateX(-${index * 100}%)`;
-        }
-
-        document.getElementById("nextBtn").addEventListener("click", () => {
-          currentCard = (currentCard + 1) % totalCards;
-          showCard(currentCard);
-        });
-
-        document.getElementById("prevBtn").addEventListener("click", () => {
-          currentCard = (currentCard - 1 + totalCards) % totalCards;
-          showCard(currentCard);
-        });
+          .addTo(map)
       </script>
     </div>
   </body>
