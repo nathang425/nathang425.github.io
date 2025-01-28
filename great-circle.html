@@ -118,6 +118,11 @@
             var coord1 = { lat: lat1, lng: lng1 };
             var coord2 = { lat: lat2, lng: lng2 };
             drawGreatCircle(coord1, coord2);
+
+            // Calculate and display the distance
+            var distance = haversineDistance(coord1, coord2);
+            alert("Distance: " + distance.toFixed(2) + " kilometers");
+
         };
     </script>
 </body>
