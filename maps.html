@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Maps Page</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
+    <link rel="stylesheet" href="mystyle.css" />
+    <style>
+        #conversion-tool{ font-family: Arial, sans-serif; background-color: #6b8b8c; border-radius: 8px; padding: 10px 20px; max-width: 50%; margin: 10px auto; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)
+                        }
+        form{ display: flex-direction: column; font-family: Arial, sans-serif; }
+        button {
+          display: inline-block;
+          background-color: #2e5b29  !important; /* Ensure it applies */
+          color: white;
+          padding: 10px 20px;
+          font-size: 1rem;
+          text-align: center;
+          text-decoration: none;
+          border-radius: 8px;
+          border: none;
+          margin: 0 0 5px 0;
+          cursor: pointer;
+          transition: background-color 0.3s ease; /* Smooth hover effect */
+              }
+
+      a.button:hover,
+      button:hover {
+        background-color: #3a6b33 !important; /* Slightly lighter green on hover */
+                  }
+      input{width:100%; max-width:100px }
+      select{width:fit-content; }
+    </style>
+  </head>
+  <body>
+    <div class="left-section">
+      <img
+        class="special-image"
+        src="https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/20230912_080630.jpg"
+        alt="Me"
+        width="50%"
+        height="50%"
+      />
+      <br />
+      <header>
+        <h1>Nate Godfrey</h1>
+      </header>
+      <a class="button" href="https://nathang425.github.io/">Home</a>
+      <a class="button" href="https://nathang425.github.io/ce514">514 Page</a>
+      <p>
+        Welcome to my personal website. I'm an engineering student at BYU,
+        graduating in April 2025.
+      </p>
+      <footer>
+        Photo by
+        <a
+          href="https://unsplash.com/@averycocozziello?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          >Avery Cocozziello</a
+        >
+        on
+        <a
+          href="https://unsplash.com/photos/ocean-waves-crashing-on-shore-during-daytime-6EzEQUMF2h4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          >Unsplash</a
+        >
+      </footer>
+    </div>
+    <div class="right-section">
+      <h1>Home Map and Distance Calculator</h1>
+
+      
+    <div id="map" style="height: 600px; width: auto; margin: 0 auto;"></div>
+      <script>
+        var map = L.map('map').setView([40.265, -111.65], 13); 
+        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'}).addTo(map); 
+        var marker = L.marker([40.2518, -111.6493]).addTo(map);
+        marker.bindPopup("BYU").openPopup();
+    	    var marker1 = L.marker([40.2788, -111.7154]).addTo(map);
+        marker1.bindPopup("UVU").openPopup();
+      </script>
+    </div>
+      
+      <div id="inputs">
+        <form>
+          <p>Please fill in all of the required inputs:</p>
+          <label for="input-lat">Latitude:</label>
+          <input type="number" id="lat" />
+          <br />
+          <label for="input-long">Longitude:</label>
+          <input type="number" id="long" />
+          <br />          
+          <button type="button" id="input-coords">Insert Lat/Long</button>
+          <p>Distance = <span id="output-value"></span></p>
+        </form>
+      </div>
+
+      <script>
+        function distance() {
+          const inputLat1 = document.getElementById("input-lat1").value
+          const inputLong1 = document.getElementById("input-long1").value
+          const inputLat2 = document.getElementById("input-lat2").value
+          const inputLong2 = document.getElementById("input-long2").value
+          
+          let outputValue = 0
+
+          document.getElementById("output-value").innerHTML = outputValue
+        }
+        document
+          .getElementById("input-coords")
+          .addEventListener("click", distance)
+      </script>
+    </div>
+  </body>
+</html>
