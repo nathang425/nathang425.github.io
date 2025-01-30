@@ -95,14 +95,17 @@
 
             kmlFileUrls.forEach(kmlFileUrl => {
                 fetch(kmlFileUrl)
-                    .then(res => res.text())
-                    .then(kmlData => {
-                        const parser = new DOMParser();
-                        const kml = parser.parseFromString(kmlData, 'text/xml');
-                        const kmlLayer = new L.KML(kml);
-                        map.addLayer(kmlLayer);
-                    });
+                  .then(res => res.text())
+                  .then(kmlData => {
+                      const parser = new DOMParser();
+                      const kml = parser.parseFromString(kmlData, 'text/xml');
+                      const kmlLayer = new L.KML(kml);
+                      map.addLayer(kmlLayer);
+                      kmlLayer.on('loaded', function() { // Wait for the KML to load
+                          map.fitBounds(kmlLayer.getBounds());
             });
+        });
+});
               
       </script>
 
