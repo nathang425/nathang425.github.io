@@ -79,7 +79,60 @@
     </div>
 
     <script>
-        // ... (JavaScript code from previous corrected response goes here) ...
+        var map = L.map('map').setView([51.505, -0.09], 2);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        let drawnLine; // Store the drawn line so we can remove it.
+
+        function drawGreatCircle(coord1, coord2) {
+            if (drawnLine) {
+                map.removeLayer(drawnLine); // Remove the old line
+            }
+
+            var line = turf.greatCircle(
+                [coord1.lng, coord1.lat],
+                [coord2.lng, coord2.lat]
+            );
+
+            drawnLine = L.geoJSON(line, { // Store the line in the variable
+                style: {
+                    color: 'blue',
+                    weight: 3
+                }
+            }).addTo(map);
+
+            map.fitBounds(drawnLine.getBounds());
+        }
+
+
+
+        document.getElementById('drawLine').onclick = function () {
+            var lat1 = parseFloat(document.getElementById('lat1').value);
+            var lng1 = parseFloat(document.getElementById('lng1').value);
+            var lat2 = parseFloat(document.getElementById('lat2').value);
+            var lng2 = parseFloat(document.getElementById('lng2').value);
+
+            if (
+                isNaN(lat1) || lat1 < -90 || lat1 > 90 ||
+                isNaN(lng1) || lng1 < -180 || lng1 > 180 ||
+                isNaN(lat2) || lat2 < -90 || lat2 > 90 ||
+                isNaN(lng2) || lng2 < -180 || lng2 > 180
+            ) {
+                alert("Please enter valid latitude (-90 to 90) and longitude (-180 to 180) values.");
+                return;
+            }
+
+            var coord1 = { lat: lat1, lng: lng1 };
+            var coord2 = { lat: lat2, lng: lng2 };
+            drawGreatCircle(coord1, coord2);
+
+            var distance = turf.distance([coord1.lng, coord1.lat], [coord2.lng, coord2.lat], {units: 'kilometers'});
+            document.getElementById('distance').textContent = "Distance: " + distance.toFixed(2) + " kilometers";
+
+        };
     </script>
 </body>
 </html>
