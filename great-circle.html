@@ -94,32 +94,41 @@
     </div>
 
     <script>
+        //Add map
         var map = L.map('map').setView([51.505, -0.09], 2);
 
+        //Map tiles setup
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
         let drawnLine;
 
+        //Draws the Great Circle line
         function drawGreatCircle(coord1, coord2) {
             if (drawnLine) {
-                map.removeLayer(drawnLine);
+                map.removeLayer(drawnLine); //remove previous line
             }
 
             var line = turf.greatCircle(
                 [coord1.lng, coord1.lat],
                 [coord2.lng, coord2.lat]
-            );
+            ); //draw new line using turf.greatCircle
 
             drawnLine = L.geoJSON(line, {
                 style: {
                     color: 'blue',
                     weight: 3
                 }
-            }).addTo(map);
+            }).addTo(map); //Add line to map
 
-            map.fitBounds(drawnLine.getBounds());
+            map.fitBounds(drawnLine.getBounds()); //Zoom map to fit the line
+        }
+
+        //Add markers function
+        function addMarkerWithPopup(coord, locationName) {
+            L.marker(coord).addTo(map)
+                .bindPopup(locationName);
         }
 
         document.getElementById('drawLine').onclick = function () {
@@ -136,12 +145,16 @@
             ) {
                 alert("Please enter valid latitude (-90 to 90) and longitude (-180 to 180) values.");
                 return;
-            }
+            } //Limit inputs to real lat/long coordinates
 
             var coord1 = { lat: lat1, lng: lng1 };
             var coord2 = { lat: lat2, lng: lng2 };
-            drawGreatCircle(coord1, coord2);
+            drawGreatCircle(coord1, coord2); //Call drawing function, using the inputs
+            addMarkerWithPopup(coord1, "Location 1");
+            addMarkerWithPopup(coord2, "Location 2"); //Call marker adding functions
 
+
+            //Calculate and display distance using turf.distance, which uses the Haversine formula
             var distance = turf.distance([coord1.lng, coord1.lat], [coord2.lng, coord2.lat], {units: 'kilometers'});
             document.getElementById('distance').textContent = "Distance: " + distance.toFixed(2) + " kilometers";
 
