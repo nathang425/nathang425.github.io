@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="favorites" id="favorites">
+	<SimpleField name="id" type="float"></SimpleField>
+</Schema>
+<Folder><name>favorites</name>
+  <Placemark>
+	<name>Crystal Cove, CA</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">1</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-117.840921714609,33.5742467287304</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Dry Canyon, UT</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">2</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-111.672062697336,40.345717670244</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Aialik Glacier, AK</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">3</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-149.741477958263,59.9387888007738</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Sintra, Portugal</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">4</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-9.3904660522893,38.787530845074</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Edinburgh, Scotland</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">5</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-3.20041892495175,55.9486565802323</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Delphi, Greece</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">5</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>22.5011896640283,38.4823463805637</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Istanbul, Türkiye</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">6</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>28.9799985999028,41.0085135939425</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Petra, Jordan</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">7</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>35.4420214980189,30.3278516531921</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Jerusalem</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">8</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>35.2353097311083,31.7780526950445</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Göreme, Türkiye</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">8</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>34.8297977774517,38.6428042984291</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Sea of Galilee, Israel</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">9</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>35.5890703870398,32.8023836170125</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Gibraltar</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">10</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-5.34585835171367,36.1340315107891</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Delft, Netherlands</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">11</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>4.35589070601376,52.0126287078449</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Quelimane, Mozambique</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">12</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>36.8817864513151,-17.8695531319593</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Maputo Special Reserve, Mozambique</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">13</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>32.86914411258,-26.3961861230496</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>London, UK</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">14</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-0.133447431193414,51.5029664633615</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Stonehenge, UK</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">15</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-1.82619412598579,51.1788130144137</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Valencia, Spain</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">16</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-0.375103821756885,39.4755545185495</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Washington D.C., USA</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">17</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-77.0352618337589,38.8894627890763</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Nassau, Bahamas</name>
+	<ExtendedData><SchemaData schemaUrl="#favorites">
+		<SimpleData name="id">18</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-77.3393142923376,25.0807458576375</coordinates></Point>
+  </Placemark>
+</Folder>
+</Document></kml>
