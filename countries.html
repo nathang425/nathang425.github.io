@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -13,7 +13,44 @@
         crossorigin=""
     />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet.omnivore@0.4.3/dist/leaflet.omnivore.min.js"></script>  </head>
+    <script src="https://unpkg.com/leaflet.omnivore@0.4.3/dist/leaflet.omnivore.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let config = {
+                minZoom: 1,
+                maxZoom: 18,
+            };
+
+            const zoom = 3;
+            const lat = 0;
+            const lng = 0;
+
+            const map = L.map("map", config).setView([lat, lng], zoom);
+
+            L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                attribution:
+                    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            }).addTo(map);
+
+            const kmlFileUrls = [
+                'kml/Belgium.kml', 'kml/Canada.kml', 'kml/France.kml',
+                'kml/Germany.kml', 'kml/Greece.kml', 'kml/Israel.kml',
+                'kml/Jordan.kml', 'kml/Mozambique.kml', 'kml/Netherlands.kml',
+                'kml/Palestine.kml', 'kml/Portugal.kml', 'kml/Spain.kml',
+                'kml/Turkey.kml', 'kml/UK.kml', 'kml/USA.kml'
+            ];
+
+            kmlFileUrls.forEach(kmlFileUrl => {
+                L.omnivore.kml(kmlFileUrl).on('ready', function() {
+                    this.addTo(map);
+                    map.fitBounds(this.getBounds());
+                }).on('error', function(err) {  // Add an error handler
+                    console.error("Error loading KML:", kmlFileUrl, err);
+                });
+            });
+        });
+    </script>
+    <link rel="stylesheet" href="mystyle.css" /> </head>
 <body>
     <div class="left-section">
         <img
@@ -49,40 +86,6 @@
     <div class="right-section">
         <h1>Countries That I've Visited</h1>
         <div id="map" style="height: 600px; width: auto; margin: 0 auto"></div>
-        <script>
-    let config = {
-        minZoom: 1,
-        maxZoom: 18,
-    }
-
-    const zoom = 3
-    const lat = 0
-    const lng = 0
-
-    const map = L.map("map", config).setView([lat, lng], zoom)
-
-    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(map)
-
-    const kmlFileUrls = [
-        'kml/Belgium.kml', 'kml/Canada.kml', 'kml/France.kml',
-        'kml/Germany.kml', 'kml/Greece.kml', 'kml/Israel.kml',
-        'kml/Jordan.kml', 'kml/Mozambique.kml', 'kml/Netherlands.kml',
-        'kml/Palestine.kml', 'kml/Portugal.kml', 'kml/Spain.kml',
-        'kml/Turkey.kml', 'kml/UK.kml', 'kml/USA.kml'
-    ];
-
-    kmlFileUrls.forEach(kmlFileUrl => {
-        L.omnivore.kml(kmlFileUrl).on('ready', function() { // Use L.omnivore here!
-            this.addTo(map);
-            map.fitBounds(this.getBounds());
-        });
-    });
-
-</script>
-
     </div>
 </body>
 </html>
