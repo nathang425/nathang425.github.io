@@ -1,52 +1,73 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Countries</title>
-    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-    <link rel="stylesheet" href="mystyle.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
+    <link rel="stylesheet" href="mystyle.css" />
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+        crossorigin=""
+    />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet.omnivore@0.4.3/dist/leaflet.omnivore.min.js" onload="initMap();"></script>
-</head>
+    <script src="https://unpkg.com/leaflet.omnivore@0.4.3/dist/leaflet.omnivore.min.js"></script>  </head>
 <body>
     <div class="left-section">
-        <img class="special-image" src="https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/20230912_080630.jpg" alt="Me" width="50%" height="50%">
-        <br>
+        <img
+            class="special-image"
+            src="https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/20230912_080630.jpg"
+            alt="Me"
+            width="50%"
+            height="50%"
+        />
+        <br />
         <header>
             <h1>Nate Godfrey</h1>
         </header>
         <a class="button" href="https://nathang425.github.io/">Home</a>
         <a class="button" href="https://nathang425.github.io/ce514">514 Page</a>
         <p>
-            Welcome to my personal website. I'm an engineering student at BYU, graduating in April 2025.
+            Welcome to my personal website. I'm an engineering student at BYU,
+            graduating in April 2025.
         </p>
         <footer>
-            Photo by <a href="https://unsplash.com/@averycocozziello?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Avery Cocozziello</a> on <a href="https://unsplash.com/photos/ocean-waves-crashing-on-shore-during-daytime-6EzEQUMF2h4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+            Photo by
+            <a
+                href="https://unsplash.com/@averycocozziello?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+                >Avery Cocozziello</a
+            >
+            on
+            <a
+                href="https://unsplash.com/photos/ocean-waves-crashing-on-shore-during-daytime-6EzEQUMF2h4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+                >Unsplash</a
+            >
         </footer>
     </div>
     <div class="right-section">
         <h1>Countries That I've Visited</h1>
         <div id="map" style="height: 600px; width: auto; margin: 0 auto"></div>
-    </div>
-
-    <script>
-        function initMap() {
+        <script>
             let config = {
                 minZoom: 1,
                 maxZoom: 18,
-            };
+            }
 
-            const zoom = 3;
-            const lat = 0;
-            const lng = 0;
+            // map starting properties
+            const zoom = 3
+            const lat = 0
+            const lng = 0
 
-            const map = L.map("map", config).setView([lat, lng], zoom);
+            // call the map
+            const map = L.map("map", config).setView([lat, lng], zoom)
 
+            // Load tile layers from the link, include attribution
             L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(map);
+                attribution:
+                    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            }).addTo(map)
 
             const kmlFileUrls = [
                 'kml/Belgium.kml', 'kml/Canada.kml', 'kml/France.kml',
@@ -57,14 +78,14 @@
             ];
 
             kmlFileUrls.forEach(kmlFileUrl => {
-                L.omnivore.kml(kmlFileUrl).on('ready', function() {
+                omnivore.kml(kmlFileUrl).on('ready', function() {
                     this.addTo(map);
-                    map.fitBounds(this.getBounds());
-                }).on('error', function(err) {
-                    console.error("Error loading KML:", kmlFileUrl, err);
+                    map.fitBounds(this.getBounds()); // Fit bounds after layer is added
                 });
             });
-        }
-    </script>
+
+        </script>
+
+    </div>
 </body>
 </html>
