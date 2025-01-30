@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hometown Map</title>
+    <title>Countries</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
     <link rel="stylesheet" href="mystyle.css" />
     <link
@@ -51,7 +51,7 @@
       </footer>
     </div>
     <div class="right-section">
-      <h1>Hometown Map</h1>
+      <h1>Countries That I've Visited</h1>
       <div id="map" style="height: 600px; width: auto; margin: 0 auto"></div>
             <script>
         let config = {
@@ -60,17 +60,9 @@
         }
 
         // map starting properties
-        const zoom = 15
-        const lat = 40.29804
-        const lng = -111.6831
-
-        // make an array for markers
-        let points = [
-          [40.29790461179228, -111.66991412953054, "Home"],
-          [40.29221988083374, -111.6844571700643, "School"],
-          [40.30116378963555, -111.67006357849814, "Church"],
-          [40.29962761789154, -111.69656368971268, "Work"],
-        ]
+        const zoom = 3
+        const lat = 0
+        const lng = 0
 
         // call the map
         const map = L.map("map", config).setView([lat, lng], zoom)
@@ -81,67 +73,6 @@
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         }).addTo(map)
 
-        // loop that adds all the markers from the "points" list to the map
-        for (let i = 0; i < points.length; i++) {
-          const lat = points[i][0]
-          const lng = points[i][1]
-          const popupText = points[i][2]
-
-          // enable dragging markers
-          const marker = new L.marker([lat, lng], {
-            draggable: true,
-            autoPan: true,
-          })
-            .bindPopup(popupText)
-            .addTo(map)
-
-          // dragging the marker
-          marker.on("dragend", function (e) {
-            const markerPlace = document.querySelector(".marker-position")
-            markerPlace.textContent = `${marker.getLatLng().lat}, ${
-              marker.getLatLng().lng
-            }`
-          })
-        }
-
-        // Extract "Home" marker coordinates
-        let homeLat, homeLng
-          for (let i = 0; i < points.length; i++) {
-            if (points[i][2] === "Home") {
-              homeLat = points[i][0]
-              homeLng = points[i][1]
-              break
-            }
-          }
-              
-        // Add a circle around the "Home" marker, with an "if" to check if the coords are there
-        if (homeLat && homeLng) {
-          const circle = L.circle([homeLat, homeLng], {
-            color: "blue",
-            weight: 2,
-            fillOpacity: 0, // No fill
-            radius: 0.5 * 1609.34, // Convert 0.5 miles to meters
-          })
-            .bindPopup("10 minute walk-from-home radius")
-            .addTo(map)
-        }
-
-              
-        // Add a static polygon
-        const polygonCoords = [
-          [40.29789385719221, -111.6696645724177],
-          [40.2981309841818, -111.66991699311768],
-          [40.29788290080953, -111.6701622311148],
-          [40.2976989898352, -111.66981540917745],
-        ]
-
-        const polygon = L.polygon(polygonCoords, {
-          color: "blue",
-          weight: 2,
-          fillOpacity: 0.5,
-        })
-          .bindPopup("Home Property Line")
-          .addTo(map)
       </script>
 
     </div>
