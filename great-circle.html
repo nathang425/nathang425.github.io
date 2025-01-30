@@ -24,6 +24,11 @@
             margin-top: 10px;
             font-weight: bold;
         }
+        .right-section > div {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
         .input-pair {
             display: flex;
             align-items: center;
@@ -33,7 +38,10 @@
             margin-right: 5px;
         }
         .input-pair input {
-            width: auto; /* Or a specific width if you prefer */
+            width: auto;
+        }
+        .right-section > div > button {
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -82,10 +90,8 @@
                 <input id="lat2" type="number" placeholder="Latitude 2" min="-90" max="90" step="0.0001" required />
                 <input id="lng2" type="number" placeholder="Longitude 2" min="-180" max="180" step="0.0001" required />
             </div>
+            <button id="drawLine">Draw</button>
         </div>
-        <br>
-        <button id="drawLine">Draw</button>
-        <br/><br/>
         <div id="map"></div>
         <div id="distance"></div>
     </div>
