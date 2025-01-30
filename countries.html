@@ -90,6 +90,12 @@
                                 iconSize: [10, 10], // Adjust size
                                 iconAnchor: [0, 0] // Adjust anchor
                             }));
+                            
+                            // Get the name from the KML properties, including N/A message
+                            const name = layer.feature.properties.name || "Unknown Name";
+
+                            // Bind a popup to the marker using the name.
+                            layer.bindPopup(name);
                         }
                     });
                 });
