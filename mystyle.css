@@ -12,7 +12,7 @@ body {
   height: 100vh;
 }
 .left-section {
-  width: 30%;
+  width: 20%;
   background: url("https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/avery-cocozziello-6EzEQUMF2h4-unsplash.jpg")
     no-repeat center center/cover;
   /*background-color: #1E1E1E;  Default to black if no image */
@@ -25,7 +25,7 @@ body {
   padding: 0;
 }
 .right-section {
-  width: 70%;
+  width: 80%;
   overflow-y: auto;
   background: #1e1e1e;
   padding: 20px;
