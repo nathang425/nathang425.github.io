@@ -46,6 +46,11 @@ header {
   box-sizing: border-box; /* Ensures no overflow */
 }
 
+/* Code Styles */
+code {
+  color: #a95537;
+}
+
 /* Content Styles */
 .content {
   background-color: #1e1e1e; /* Dark background for content */
