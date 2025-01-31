@@ -119,8 +119,9 @@
         })
 
         // Tooltip Script
-        var tooltip = L.tooltip(latlng, {content: 'Hello world!<br />Countries that I have visited are highlighted.<br />Some favorite places are in green.'})
-            .addTo(map);
+        var tooltip = L.tooltip({content: 'Hello world!<br />Countries that I have visited are highlighted.<br />Some favorite places are in green.'})
+          .setLatLng([0, 0])  // Set initial position
+          .addTo(map);
       </script>
 
       <!-- Here is the explanation section -->
