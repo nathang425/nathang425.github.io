@@ -105,7 +105,7 @@
         kmlFileUrls.forEach((kmlFileUrl) => {
           omnivore.kml(kmlFileUrl).on("ready", function () {
             this.addTo(map)
-            map.fitBounds(this.getBounds()) // Fit bounds after layer is added
+            //map.fitBounds(this.getBounds()) // Fit bounds after layer is added (don't do it)
 
             // Now style the points with my image
             this.eachLayer(function (layer) {
