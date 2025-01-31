@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countries</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
+    <link rel="stylesheet" href="mystyle.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <style>
+      .leaflet-popup-content-wrapper,
+      .leaflet-popup-tip {
+        background-color: #1e1e1e;
+        color: white;
+      }
+      .leaflet-tooltip {
+        background-color: #1e1e1e;
+        color: white;
+      }
+    </style>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js"></script>
+  </head>
+  <body>
+    <div class="left-section">
+      <img
+        class="special-image"
+        src="https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/20230912_080630.jpg"
+        alt="Me"
+        width="50%"
+        height="50%"
+      />
+      <br />
+      <header>
+        <h1>Nate Godfrey</h1>
+      </header>
+      <a class="button" href="https://nathang425.github.io/">Home</a>
+      <a class="button" href="https://nathang425.github.io/ce514">514 Page</a>
+      <p>
+        Welcome to my personal website. I'm an engineering student at BYU,
+        graduating in April 2025.
+      </p>
+      <footer>
+        Photo by
+        <a
+          href="https://unsplash.com/@averycocozziello?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          >Avery Cocozziello</a
+        >
+        on
+        <a
+          href="https://unsplash.com/photos/ocean-waves-crashing-on-shore-during-daytime-6EzEQUMF2h4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          >Unsplash</a
+        >
+      </footer>
+    </div>
+    <div class="right-section">
+      <h1>Countries That I've Visited</h1>
+      <div id="map" style="height: 600px; width: auto; margin: 0 auto"></div>
+      <script>
+        let config = {
+          minZoom: 1,
+          maxZoom: 18,
+        }
+
+        // map starting properties
+        const zoom = 3
+        const lat = 0
+        const lng = 0
+
+        // call the map
+        const map = L.map("map", config).setView([lat, lng], zoom)
+
+        // Load tile layers from the link, include attribution
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        }).addTo(map)
+
+        const kmlFileUrls = [
+          "kml/Bahamas.kml",
+          "kml/Belgium.kml",
+          "kml/Canada.kml",
+          "kml/France.kml",
+          "kml/Germany.kml",
+          "kml/Greece.kml",
+          "kml/Israel.kml",
+          "kml/Jordan.kml",
+          "kml/Mexico.kml",
+          "kml/Mozambique.kml",
+          "kml/Netherlands.kml",
+          "kml/Palestine.kml",
+          "kml/Portugal.kml",
+          "kml/Spain.kml",
+          "kml/Turkey.kml",
+          "kml/UK.kml",
+          "kml/USA.kml",
+          "kml/favorite_locations.kml",
+        ]
+
+        kmlFileUrls.forEach((kmlFileUrl) => {
+          omnivore.kml(kmlFileUrl).on("ready", function () {
+            this.addTo(map)
+            //map.fitBounds(this.getBounds()) // Fit bounds after layer is added (don't do it)
+
+            // Now style the points with my image
+            this.eachLayer(function (layer) {
+              if (layer instanceof L.Marker) {
+                layer.setIcon(
+                  L.icon({
+                    iconUrl:
+                      "https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/favorites_circle04.png", // Blue circle marker
+                    iconSize: [10, 10], // Adjust size
+                    iconAnchor: [0, 0], // Adjust anchor
+                  }),
+                )
+
+                // Get the name from the KML properties, including N/A message
+                const name = layer.feature.properties.name || "Unknown Name"
+
+                // Bind a popup to the marker using the name.
+                layer.bindPopup(name)
+              }
+            })
+          })
+        })
+
+        // Tooltip Script
+        var tooltip = L.tooltip({
+          content:
+            "Hello world!<br />Countries that I have visited are highlighted.<br />Some favorite places are marked as points.",
+        })
+          .setLatLng([0, 0]) // Set initial position
+          .addTo(map)
+      </script>
+
+      <!-- Here is the explanation section -->
+      <h2>Explanation</h2>
+      <p>
+        To display these KML files on the map, I used a Leaflet plugin called
+        Omnivore.
+      </p>
+      <p>First, I created an array of all the references to the KML files:</p>
+      <code>
+        const kmlFileUrls = ['filename01.kml','filename02.kml' //etc...]
+      </code>
+      <p>Then, I used a loop to add each to the map once they've loaded in:</p>
+      <code>
+        kmlFileUrls.forEach(kmlFileUrl => { omnivore.kml(kmlFileUrl).on('ready',
+        function() { this.addTo(map);map.fitBounds(this.getBounds());
+      </code>
+      <p>
+        Next, I created a loop to run through each layer and - if the layer -
+        change the symbology to my custom marker.
+      </p>
+      <code
+        >this.eachLayer(function (layer) { if (layer instanceof L.Marker) {
+        layer.setIcon(L.icon({ iconUrl:'icon.url', iconSize: [10, 10],
+        iconAnchor: [0, 0]}));</code
+      >
+      <p>
+        Next, within that same loop, I extracted from the point file's "name"
+        field, to bind a popup to each point using its name.
+      </p>
+      <code
+        >...const name = layer.feature.properties.name || "Unknown Name";
+        layer.bindPopup(name);}</code
+      >
+      <br />
+      <br />
+      <br />
+    </div>
+  </body>
+</html>
