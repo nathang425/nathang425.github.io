@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Utah Roads Near Faults</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
+    <link rel="stylesheet" href="mystyle.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js"></script>
+  </head>
+  <body>
+    <div class="left-section">
+      <img
+        class="special-image"
+        src="https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/20230912_080630.jpg"
+        alt="Me"
+        width="50%"
+      />
+      <br />
+      <header>
+        <h1>Nate Godfrey</h1>
+      </header>
+      <a class="button" href="https://nathang425.github.io/">Home</a>
+      <a class="button" href="https://nathang425.github.io/ce514">514 Page</a>
+      <p>
+        Welcome to my personal website. I'm an engineering student at BYU,
+        graduating in April 2025.
+      </p>
+      <footer>
+        Photo by
+        <a
+          href="https://unsplash.com/@averycocozziello?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          >Avery Cocozziello</a
+        >
+        on
+        <a
+          href="https://unsplash.com/photos/ocean-waves-crashing-on-shore-during-daytime-6EzEQUMF2h4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          >Unsplash</a
+        >
+      </footer>
+    </div>
+    <div class="right-section">
+      <h1>Utah Roads Near (Known) Fault Lines</h1>
+      <div id="map" style="height: 600px; width: auto; margin: 0 auto"></div>
+      <script>
+        let config = {
+          minZoom: 6,
+          maxZoom: 18,
+        }
+
+        // map starting properties
+        const zoom = 10
+        const lat = 40.210038
+        const lng = -111.736817
+
+        // call the map
+        const map = L.map("map", config).setView([lat, lng], zoom)
+
+        // Load tile layers from the link, include attribution
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        }).addTo(map)
+
+        const kmlFileUrls = [
+          "kml/100ft_faults.kml",
+        ]
+
+        kmlFileUrls.forEach((kmlFileUrl) => {
+          omnivore.kml(kmlFileUrl).on("ready", function () {
+            this.addTo(map)
+          })
+        })
+
+        // Tooltip Script
+        var tooltip = L.tooltip({
+          content:
+            "Hello world!<br />This map displays centerlines for all of Utah's roads within 100ft of known fault lines. <br /> It may be updated with more comprehensive data in the future.",
+        })
+          .setLatLng([40.210038, -111.736817]) // Set initial position
+          .addTo(map)
+      </script>
+
+      <!-- Here is the explanation section -->
+      <h2>Explanation</h2>
+      <p>
+        I created the data for this map in January 2025, using road geometry from <a href="https://gis.utah.gov/products/sgid/transportation/road-centerlines/">The Utah Department of Transportation (UDOT)</a>, and a 2020 faultline shapefile from <a href="https://gis.utah.gov/products/sgid/geoscience/quaternary-faults/">The Utah Geological Survey (UGS)</a> In the future I want to include multiple data layers, addresses available on click, and other useful elements.
+      </p>
+      <br />
+      <br />
+      <br />
+    </div>
+  </body>
+</html>
