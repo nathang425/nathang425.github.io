@@ -14,19 +14,6 @@
     />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js"></script>
-
-    <style>
-      .leaflet-popup-content-wrapper {
-        background-color: #f0f0f0; /* Example: Light gray background */
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 5px;
-      }
-
-      .leaflet-popup-tip {
-        background-color: #f0f0f0; /* Match popup background */
-      }
-    </style>
   </head>
   <body>
     <div class="left-section">
@@ -130,6 +117,10 @@
             })
           })
         })
+
+        // Tooltip Script
+        var tooltip = L.tooltip(latlng, {content: 'Hello world!<br />Countries that I have visited are highlighted.<br />Some favorite places are in green.'})
+            .addTo(map);
       </script>
 
       <!-- Here is the explanation section -->
