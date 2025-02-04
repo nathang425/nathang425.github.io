@@ -76,7 +76,16 @@
         ]
 
         kmlFileUrls.forEach((kmlFileUrl) => {
-          omnivore.kml(kmlFileUrl).on("ready", function () {
+          omnivore.kml(kmlFileUrl, null, {
+            style: function (feature) {
+            return {
+                color: 'black', // Outline color
+                weight: 2,        // Outline thickness
+                fill: false      // No fill
+            };
+        }
+                      
+                      ).on("ready", function () {
             this.addTo(map)
           })
         })
