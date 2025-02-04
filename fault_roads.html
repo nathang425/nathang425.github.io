@@ -64,33 +64,41 @@
         const map = L.map("map", config).setView([lat, lng], zoom)
 
         // Load tile layers from the link, include attribution
-        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        }).addTo(map)
+        const baselayer = L.tileLayer(
+          "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+          {
+            attribution:
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          },
+        ).addTo(map)
 
         //Add the kml layers to variables and to map
         var utah = omnivore.kml("kml/Utah.kml").addTo(map)
         var routes = omnivore.kml("kml/UDOT_Routes_(ALRS).kml").addTo(map)
         var warn = omnivore.kml("kml/100ft_faults.kml").addTo(map)
 
-        // Fetch and add the GeoJSON layer to map
+        // Fetch and add the GeoJSON layer
+        var faults = L.layerGroup() // Placeholder group
         fetch(
           "https://raw.githubusercontent.com/nathang425/nathang425.github.io/main/geojson/Utah_Quaternary_Faults.geojson",
         )
           .then((response) => response.json())
           .then((data) => {
-            L.geoJSON(data).addTo(map)
+            var faultLayer = L.geoJSON(data)
+            faults.addLayer(faultLayer)
           })
           .catch((error) => console.error("Error loading GeoJSON:", error))
 
-        // Tooltip Script
-        var tooltip = L.tooltip({
-          content:
-            "Hello world!<br />This map displays centerlines for all of Utah's roads within 100ft of known fault lines. <br /> It may be updated with more comprehensive data in the future.",
-        })
-          .setLatLng([40.210038, -111.736817]) // Set initial position
-          .addTo(map)
+        // Organize layers into a control object
+        var overlays = {
+          "Utah Boundaries": utah,
+          "UDOT Routes": routes,
+          "100ft Fault Buffer": warn,
+          "Fault Lines": faults,
+        }
+
+        // Add the layer control to the map
+        L.control.layers(null, overlays, { collapsed: false }).addTo(map)
       </script>
 
       <!-- Here is the explanation section -->
