@@ -67,19 +67,19 @@
         L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
           attribution:
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        }).addTo(map)
+        }).addTo(map);
 
-        const kmlFileUrls = [
-          "kml/Utah.kml",
-          "kml/UDOT_Routes_(ALRS).kml",
-          "kml/100ft_faults.kml",
-        ]
+        //Add the kml layers to variables
+        var utah = omnivore.kml('kml/Utah.kml')
+        var routes = omnivore.kml('kml/UDOT_Routes_(ALRS).kml')
+        var warn = omnivore.kml('kml/100ft_faults.kml')
+        var faults = L.geoJSON('geojson/Utah_Quaternary_Faults.geojson')
 
-        kmlFileUrls.forEach((kmlFileUrl) => {
-          omnivore.kml(kmlFileUrl).on("ready", function () {
-            this.addTo(map)
-          })
-        })
+        //Add layers to the map       
+        utah.addTo(map);
+        faults.addTo(map);
+        warn.addTo(map);
+        
 
         // Tooltip Script
         var tooltip = L.tooltip({
