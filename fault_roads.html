@@ -76,19 +76,18 @@
         ]
 
         kmlFileUrls.forEach((kmlFileUrl) => {
-          omnivore.kml(kmlFileUrl, null, {
-            style: function (feature) {
-            return {
-                color: 'black', // Outline color
-                weight: 2,        // Outline thickness
-                fill: false      // No fill
-            };
-        }
-                      
-                      ).on("ready", function () {
-            this.addTo(map)
-          })
-        })
+    omnivore.kml(kmlFileUrl, null, {  // Start of options object
+        style: function (feature) {   // Start of style function
+            return {               // Start of style object
+                color: 'black',
+                weight: 2,
+                fill: false
+            };                   // End of style object
+        }                       // End of style function
+    }).on("ready", function () {   // Start of .on("ready")
+        this.addTo(map);
+    });                           // End of .on("ready")
+});
 
         // Tooltip Script
         var tooltip = L.tooltip({
