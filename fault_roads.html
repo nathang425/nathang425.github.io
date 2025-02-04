@@ -67,19 +67,22 @@
         L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
           attribution:
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        }).addTo(map);
+        }).addTo(map)
 
-        //Add the kml layers to variables
-        var utah = omnivore.kml('kml/Utah.kml')
-        var routes = omnivore.kml('kml/UDOT_Routes_(ALRS).kml')
-        var warn = omnivore.kml('kml/100ft_faults.kml')
-        var faults = L.geoJSON('https://github.com/nathang425/nathang425.github.io/blob/main/geojson/Utah_Quaternary_Faults.geojson')
+        //Add the kml layers to variables and to map
+        var utah = omnivore.kml("kml/Utah.kml").addTo(map)
+        var routes = omnivore.kml("kml/UDOT_Routes_(ALRS).kml").addTo(map)
+        var warn = omnivore.kml("kml/100ft_faults.kml").addTo(map)
 
-        //Add layers to the map       
-        utah.addTo(map);
-        faults.addTo(map);
-        warn.addTo(map);
-        
+        // Fetch and add the GeoJSON layer to map
+        fetch(
+          "https://raw.githubusercontent.com/nathang425/nathang425.github.io/main/geojson/Utah_Quaternary_Faults.geojson",
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            L.geoJSON(data).addTo(map)
+          })
+          .catch((error) => console.error("Error loading GeoJSON:", error))
 
         // Tooltip Script
         var tooltip = L.tooltip({
@@ -93,7 +96,18 @@
       <!-- Here is the explanation section -->
       <h2>Explanation</h2>
       <p>
-        I created the data for this map in January 2025, using road geometry from <a href="https://gis.utah.gov/products/sgid/transportation/road-centerlines/">The Utah Department of Transportation (UDOT)</a>, and a 2020 faultline shapefile from <a href="https://gis.utah.gov/products/sgid/geoscience/quaternary-faults/">The Utah Geological Survey (UGS)</a> In the future I want to include multiple data layers, addresses available on click, and other useful elements.
+        I created the data for this map in January 2025, using road geometry
+        from
+        <a
+          href="https://gis.utah.gov/products/sgid/transportation/road-centerlines/"
+          >The Utah Department of Transportation (UDOT)</a
+        >, and a 2020 faultline shapefile from
+        <a
+          href="https://gis.utah.gov/products/sgid/geoscience/quaternary-faults/"
+          >The Utah Geological Survey (UGS)</a
+        >
+        In the future I want to include multiple data layers, addresses
+        available on click, and other useful elements.
       </p>
       <br />
       <br />
