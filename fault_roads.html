@@ -73,7 +73,16 @@
         ).addTo(map)
 
         //Add the kml layers to variables and to map
-        var utah = omnivore.kml("kml/Utah.kml").addTo(map)
+          var utah = omnivore.kml('kml/Utah.kml', null, L.geoJson(null, {
+            style: function () {
+              return {
+                color: "black", // Outline color
+                weight: 2, // Line thickness
+                fillOpacity: 0, // No fill
+              };
+            },
+            interactive: false, // Make it non-interactable
+          })).addTo(map);
         var routes = omnivore.kml("kml/UDOT_Routes_(ALRS).kml").addTo(map)
         var warn = omnivore.kml("kml/100ft_faults.kml").addTo(map)
 
