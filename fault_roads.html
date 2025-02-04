@@ -115,8 +115,9 @@
                 weight: 1,
                 opacity: 1,
                 dashArray: "10, 5"
-              )
-            faults.addLayer(faultLayer)
+              }
+            })
+          faults.addLayer(faultLayer)
           })
           .catch((error) => console.error("Error loading GeoJSON:", error))
 
