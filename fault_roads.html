@@ -83,7 +83,15 @@
             },
             interactive: false, // Make it non-interactable
           })).addTo(map);
-        var routes = omnivore.kml("kml/UDOT_Routes_(ALRS).kml").addTo(map)
+        var routes = omnivore.kml("kml/UDOT_Routes_(ALRS).kml", null, L.geoJson(null, {
+          style: function () {
+            return {
+              color: "gray",
+              weight: 2
+            };
+          },
+          interactive: false,
+        }));
         var warn = omnivore.kml("kml/100ft_faults.kml").addTo(map)
 
         // Fetch and add the GeoJSON layer
