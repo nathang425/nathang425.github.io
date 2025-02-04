@@ -176,3 +176,15 @@ button.button:hover {
     max-width: 80%;
   }
 }
+
+/* Leaflet controls CSS */
+.leaflet-control-layers-list label {
+  display: flex;
+  align-items: flex-start; /*Left align everything*/
+  gap: 5px; /* Adjust spacing if needed */
+  text-align: left;
+}
+
+.leaflet-control-layers-list input {
+  margin: 0; /* Ensures checkbox is aligned properly */
+}
