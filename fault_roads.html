@@ -36,12 +36,12 @@
       <footer>
         Photo by
         <a
-          href="https://unsplash.com/@averycocozziello?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          href="https://unsplash.com/@averycocozziello?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" target="_blank"
           >Avery Cocozziello</a
         >
         on
         <a
-          href="https://unsplash.com/photos/ocean-waves-crashing-on-shore-during-daytime-6EzEQUMF2h4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          href="https://unsplash.com/photos/ocean-waves-crashing-on-shore-during-daytime-6EzEQUMF2h4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" target="_blank"
           >Unsplash</a
         >
       </footer>
@@ -68,7 +68,7 @@
           "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
           {
             attribution:
-              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+              '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors',
           },
         ).addTo(map)
 
@@ -96,7 +96,7 @@
           style: function() {
             return {
               color: "orange",
-              weight: 3,
+              weight: 5,
             };
           },
           interactive: false,
@@ -109,7 +109,13 @@
         )
           .then((response) => response.json())
           .then((data) => {
-            var faultLayer = L.geoJSON(data)
+            var faultLayer = L.geoJSON(data, {
+              style: {
+                color: "red",
+                weight: 1,
+                opacity: 1,
+                dashArray: "10, 5"
+              )
             faults.addLayer(faultLayer)
           })
           .catch((error) => console.error("Error loading GeoJSON:", error))
@@ -118,7 +124,7 @@
         var overlays = {
           "Utah Boundaries": utah,
           "UDOT Significant Routes": routes,
-          "100ft Fault Buffer": warn,
+          "At Risk (fault within 100ft)": warn,
           "Fault Lines": faults,
         }
 
@@ -137,17 +143,17 @@
         I created the data for this map in January 2025, using road geometry
         from
         <a
-          href="https://gis.utah.gov/products/sgid/transportation/road-centerlines/"
+          href="https://gis.utah.gov/products/sgid/transportation/road-centerlines/" target="_blank"
           >The Utah Department of Transportation (UDOT)</a
         >, and a 2020 faultline shapefile from
         <a
-          href="https://gis.utah.gov/products/sgid/geoscience/quaternary-faults/"
+          href="https://gis.utah.gov/products/sgid/geoscience/quaternary-faults/" target="_blank"
           >The Utah Geological Survey (UGS)</a
         >
         In the future I want to include multiple data layers, addresses
         available on click, and other useful elements.
       </p>
-      <p>UPDATE: In February 2025, I added the source Quaternary Faults layer to the display, as well as Utah's state borders. I also added <a href="https://gis.utah.gov/products/sgid/transportation/highway-routes-lrs/">this UDOT Routes ALRS</a> dataset, to show roads with transportation significance.</p>
+      <p>UPDATE: In February 2025, I added the source Quaternary Faults layer to the display, as well as Utah's state borders. I also added <a href="https://gis.utah.gov/products/sgid/transportation/highway-routes-lrs/" target="_blank">this UDOT Routes ALRS</a> dataset, to show roads with transportation significance.</p>
       <br />
       <br />
       <br />
