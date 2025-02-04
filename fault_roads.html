@@ -92,7 +92,15 @@
           },
           interactive: false,
         }));
-        var warn = omnivore.kml("kml/100ft_faults.kml").addTo(map)
+        var warn = omnivore.kml("kml/100ft_faults.kml", null, L.geoJson(null, {
+          style: function() {
+            return {
+              color: "orange",
+              weight: 3,
+            };
+          },
+          interactive: false,
+        })).addTo(map);
 
         // Fetch and add the GeoJSON layer
         var faults = L.layerGroup() // Placeholder group
@@ -109,13 +117,18 @@
         // Organize layers into a control object
         var overlays = {
           "Utah Boundaries": utah,
-          "UDOT Routes": routes,
+          "UDOT Significant Routes": routes,
           "100ft Fault Buffer": warn,
           "Fault Lines": faults,
         }
 
         // Add the layer control to the map
         L.control.layers(null, overlays, { collapsed: false }).addTo(map)
+
+        //Keep the main layer on top
+        map.on('overlayadd', function(event) {
+  warn.bringToFront(); // Always bring "warn" to the front when any layer is added
+});
       </script>
 
       <!-- Here is the explanation section -->
@@ -134,6 +147,7 @@
         In the future I want to include multiple data layers, addresses
         available on click, and other useful elements.
       </p>
+      <p>UPDATE: In February 2025, I added the source Quaternary Faults layer to the display, as well as Utah's state borders. I also added <a href="https://gis.utah.gov/products/sgid/transportation/highway-routes-lrs/">this UDOT Routes ALRS</a> dataset, to show roads with transportation significance.</p>
       <br />
       <br />
       <br />
