@@ -13,7 +13,7 @@
       crossorigin=""
     />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js"></script>
+    <script src="https://unpkg.com/leaflet-omnivore@latest/dist/leaflet-omnivore.min.js"></script>
   </head>
   <body>
     <div class="left-section">
@@ -76,18 +76,10 @@
         ]
 
         kmlFileUrls.forEach((kmlFileUrl) => {
-    omnivore.kml(kmlFileUrl, null, {  // Start of options object
-        style: function (feature) {   // Start of style function
-            return {               // Start of style object
-                color: 'black',
-                weight: 2,
-                //fill: false
-            };                   // End of style object
-        }                       // End of style function
-    }).on("ready", function () {   // Start of .on("ready")
-        this.addTo(map);
-    });                           // End of .on("ready")
-});
+          omnivore.kml(kmlFileUrl).on("ready", function () {
+            this.addTo(map)
+          })
+        })
 
         // Tooltip Script
         var tooltip = L.tooltip({
