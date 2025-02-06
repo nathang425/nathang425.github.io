@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Utah Roads Near Faults</title>
+    <title>Hydroshare WMS Assignment</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
     <link rel="stylesheet" href="mystyle.css" />
     <link
@@ -47,7 +47,7 @@
       </footer>
     </div>
     <div class="right-section">
-      <h1>Utah Roads Near (Known) Fault Lines</h1>
+      <h1>Hydroshare WMS Assignment</h1>
       <div id="map" style="height: 600px; width: auto; margin: 0 auto"></div>
       <script>
         let config = {
@@ -72,89 +72,31 @@
           },
         ).addTo(map)
 
-        //Add the kml layers to variables and to map
-          var utah = omnivore.kml('kml/Utah.kml', null, L.geoJson(null, {
-            style: function () {
-              return {
-                color: "black", // Outline color
-                weight: 2, // Line thickness
-                fillOpacity: 0, // No fill
-              };
-            },
-            interactive: false, // Make it non-interactable
-          })).addTo(map);
-        var routes = omnivore.kml("kml/UDOT_Routes_(ALRS).kml", null, L.geoJson(null, {
-          style: function () {
-            return {
-              color: "gray",
-              weight: 2
-            };
-          },
-          interactive: false,
-        }));
-        var warn = omnivore.kml("kml/100ft_faults.kml", null, L.geoJson(null, {
-          style: function() {
-            return {
-              color: "orange",
-              weight: 5,
-            };
-          },
-          interactive: false,
-        })).addTo(map);
-
-        // Fetch and add the GeoJSON layer
-        var faults = L.layerGroup() // Placeholder group
-        fetch(
-          "https://raw.githubusercontent.com/nathang425/nathang425.github.io/main/geojson/Utah_Quaternary_Faults.geojson",
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            var faultLayer = L.geoJSON(data, {
-              style: {
-                color: "red",
-                weight: 1,
-                opacity: 1,
-                dashArray: "10, 5"
-              }
-            })
-          faults.addLayer(faultLayer)
-          })
-          .catch((error) => console.error("Error loading GeoJSON:", error))
-
-        // Organize layers into a control object
-        var overlays = {
-          "Utah Boundaries": utah,
-          "UDOT Significant Routes": routes,
-          "At Risk (fault within 100ft)": warn,
-          "Fault Lines": faults,
-        }
-
-        // Add the layer control to the map
-        L.control.layers(null, overlays, { collapsed: false }).addTo(map)
-
-        //Keep the main layer on top
-        map.on('overlayadd', function(event) {
-  warn.bringToFront(); // Always bring "warn" to the front when any layer is added
-});
+        //Add Hydroshare layers
+        L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms', {
+            layers: 'HS-c647cbb66048497dbca360cfc7ac4863:100ft_faults',
+            format: 'image/png',
+            transparent: true,
+            attribution: 'Hydroshare GeoServer'
+        }).addTo(map);
+        
+        L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms', {
+            layers: 'HS-c647cbb66048497dbca360cfc7ac4863:Utah Counties',
+            format: 'image/png',
+            transparent: true,
+            attribution: 'Hydroshare GeoServer'
+        }).addTo(map);
+        
       </script>
 
       <!-- Here is the explanation section -->
       <h2>Explanation</h2>
       <p>
-        I created the data for this map in January 2025, using road geometry
-        from
+        This page is an example of importing data from Hydroshare via WMS. 
         <a
-          href="https://gis.utah.gov/products/sgid/transportation/road-centerlines/" target="_blank"
-          >The Utah Department of Transportation (UDOT)</a
-        >, and a 2020 faultline shapefile from
-        <a
-          href="https://gis.utah.gov/products/sgid/geoscience/quaternary-faults/" target="_blank"
-          >The Utah Geological Survey (UGS)</a
-        >
-        In the future I want to include multiple data layers, addresses
-        available on click, and other useful elements.
-      </p>
-      <p>UPDATE: In February 2025, I added the source Quaternary Faults layer to the display, as well as Utah's state borders. I also added <a href="https://gis.utah.gov/products/sgid/transportation/highway-routes-lrs/" target="_blank">this UDOT Routes ALRS</a> dataset, to show roads with transportation significance.</p>
+          href="https://www.hydroshare.org/resource/c647cbb66048497dbca360cfc7ac4863/" target="_blank"
+          >Here</a
+        > is the resource used.
       <br />
       <br />
       <br />
