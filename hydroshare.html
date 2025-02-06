@@ -51,7 +51,7 @@
       <div id="map" style="height: 600px; width: auto; margin: 0 auto"></div>
       <script>
         let config = {
-          minZoom: 6,
+          minZoom: 3,
           maxZoom: 18,
         }
 
@@ -82,6 +82,13 @@
         
         L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms', {
             layers: 'HS-c647cbb66048497dbca360cfc7ac4863:Utah_Counties',
+            format: 'image/png',
+            transparent: true,
+            attribution: 'Hydroshare GeoServer'
+        }).addTo(map);
+
+        L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms', {
+            layers: 'HS-c647cbb66048497dbca360cfc7ac4863:PowerPlants_CO2',
             format: 'image/png',
             transparent: true,
             attribution: 'Hydroshare GeoServer'
