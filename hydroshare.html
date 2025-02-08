@@ -73,31 +73,42 @@
         ).addTo(map)
 
         //Add Hydroshare layers
-        L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms', {
+        const ft_faults = L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms', {
             layers: 'HS-c647cbb66048497dbca360cfc7ac4863:100ft_faults',
             format: 'image/png',
             transparent: true,
             attribution: 'Hydroshare GeoServer'
         }).addTo(map);
-        
-        L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms', {
-            layers: 'HS-c647cbb66048497dbca360cfc7ac4863:Utah_Counties',
-            format: 'image/png',
-            transparent: true,
-            attribution: 'Hydroshare GeoServer'
-        }).addTo(map);
 
-        L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms', {
+        const power = L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms', {
             layers: 'HS-c647cbb66048497dbca360cfc7ac4863:PowerPlants_CO2',
             format: 'image/png',
             transparent: true,
             attribution: 'Hydroshare GeoServer'
         }).addTo(map);
+       
+        const goat = L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms', {
+            layers: 'HS-c647cbb66048497dbca360cfc7ac4863:Utah_Mountain_Goat_Habitat',
+            format: 'image/png',
+            transparent: true,
+            attribution: 'Hydroshare GeoServer'
+        }).addTo(map);
+
+
+        // Organize layers into a control object
+        var overlays = {
+          "Roads Near Faults": ft_faults,
+          "Power Stations": power,
+          "Goat Habitats": goats,
+        }
+
+        // Add the layer control to the map
+        L.control.layers(null, overlays, { collapsed: false }).addTo(map)
         
       </script>
 
       <!-- Here is the explanation section -->
-      <h2>Explanation</h2>
+      <h2>Details</h2>
       <p>
         This page is an example of importing data from Hydroshare via WMS. 
         <a
@@ -106,6 +117,21 @@
         > is the resource used.</p>
       <p>
         There <i>should</i> be 3 layers: 1 point layer, 1 polyline layer, and 1 polygon layer. However, Hydroshare is currently going through major updates (Feb 2025) and may not display all of the data yet.
+      </p>
+      <h2>Code Explanation</h2>
+      <p>
+        To display a layer via web map service (WMS), the following code can be added to your javascript:
+      </p>
+      <code>
+        L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms', {
+            layers: 'HS-c647cbb66048497dbca360cfc7ac4863:100ft_faults',
+            format: 'image/png',
+            transparent: false,
+            attribution: 'Hydroshare GeoServer'
+        }).addTo(map);
+      </code>
+      <p>
+        The link and "layers" addresses must be changed of course, but that's the basic format. Unfortunately, the symbology can't be changed when using data imported by this method.
       </p>
       <br />
       <br />
