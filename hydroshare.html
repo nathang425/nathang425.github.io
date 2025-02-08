@@ -36,12 +36,14 @@
       <footer>
         Photo by
         <a
-          href="https://unsplash.com/@averycocozziello?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" target="_blank"
+          href="https://unsplash.com/@averycocozziello?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          target="_blank"
           >Avery Cocozziello</a
         >
         on
         <a
-          href="https://unsplash.com/photos/ocean-waves-crashing-on-shore-during-daytime-6EzEQUMF2h4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" target="_blank"
+          href="https://unsplash.com/photos/ocean-waves-crashing-on-shore-during-daytime-6EzEQUMF2h4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          target="_blank"
           >Unsplash</a
         >
       </footer>
@@ -73,27 +75,42 @@
         ).addTo(map)
 
         //Add Hydroshare layers
-        const ft_faults = L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms', {
-            layers: 'HS-c647cbb66048497dbca360cfc7ac4863:100ft_faults',
-            format: 'image/png',
-            transparent: true,
-            attribution: 'Hydroshare GeoServer'
-        }).addTo(map);
+        const ft_faults = L.tileLayer
+          .wms(
+            "https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms",
+            {
+              layers: "HS-c647cbb66048497dbca360cfc7ac4863:100ft_faults",
+              format: "image/png",
+              transparent: true,
+              attribution: "Hydroshare GeoServer",
+            },
+          )
+          .addTo(map)
 
-        const power = L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms', {
-            layers: 'HS-c647cbb66048497dbca360cfc7ac4863:PowerPlants_CO2',
-            format: 'image/png',
-            transparent: true,
-            attribution: 'Hydroshare GeoServer'
-        }).addTo(map);
-       
-        const goats = L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms', {
-            layers: 'HS-c647cbb66048497dbca360cfc7ac4863:Utah_Mountain_Goat_Habitat',
-            format: 'image/png',
-            transparent: true,
-            attribution: 'Hydroshare GeoServer'
-        }).addTo(map);
+        const power = L.tileLayer
+          .wms(
+            "https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms",
+            {
+              layers: "HS-c647cbb66048497dbca360cfc7ac4863:PowerPlants_CO2",
+              format: "image/png",
+              transparent: true,
+              attribution: "Hydroshare GeoServer",
+            },
+          )
+          .addTo(map)
 
+        const goats = L.tileLayer
+          .wms(
+            "https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms",
+            {
+              layers:
+                "HS-c647cbb66048497dbca360cfc7ac4863:Utah_Mountain_Goat_Habitat",
+              format: "image/png",
+              transparent: true,
+              attribution: "Hydroshare GeoServer",
+            },
+          )
+          .addTo(map)
 
         // Organize layers into a control object
         var overlays = {
@@ -103,66 +120,70 @@
         }
 
         L.Control.LayerButtons = L.Control.extend({
-  onAdd: function (map) {
-    let div = L.DomUtil.create("div", "leaflet-bar leaflet-control");
+          onAdd: function (map) {
+            let div = L.DomUtil.create("div", "leaflet-bar leaflet-control")
 
-    function createButton(name, layer) {
-      let button = L.DomUtil.create("button", "", div);
-      button.innerHTML = name;
-      button.style.display = "block";
-      button.style.margin = "5px";
-      button.onclick = function () {
-        if (map.hasLayer(layer)) {
-          map.removeLayer(layer);
-          button.style.background = "lightgray";
-        } else {
-          map.addLayer(layer);
-          button.style.background = "white";
-        }
-      };
-      return button;
-    }
+            function createButton(name, layer) {
+              let button = L.DomUtil.create("button", "button", div)
+              button.innerHTML = name
+              button.style.display = "block"
+              button.style.margin = "5px"
+              button.onclick = function () {
+                if (map.hasLayer(layer)) {
+                  map.removeLayer(layer)
+                  button.style.background = "lightgray"
+                } else {
+                  map.addLayer(layer)
+                  button.style.background = "white"
+                }
+              }
+              return button
+            }
 
-    createButton("Roads Near Faults", ft_faults);
-    createButton("Power Stations", power);
-    createButton("Goat Habitats", goats);
+            createButton("Roads Near Faults", ft_faults)
+            createButton("Power Stations", power)
+            createButton("Goat Habitats", goats)
 
-    return div;
-  },
-  onRemove: function () {},
-});
+            return div
+          },
+          onRemove: function () {},
+        })
 
-// Add the custom control to the map
-map.addControl(new L.Control.LayerButtons({ position: "topright" }));
-
-        
+        // Add the custom control to the map
+        map.addControl(new L.Control.LayerButtons({ position: "topright" }))
       </script>
 
       <!-- Here is the explanation section -->
       <h2>Details</h2>
       <p>
-        This page is an example of importing data from Hydroshare via WMS. 
+        This page is an example of importing data from Hydroshare via WMS.
         <a
-          href="https://www.hydroshare.org/resource/c647cbb66048497dbca360cfc7ac4863/" target="_blank"
+          href="https://www.hydroshare.org/resource/c647cbb66048497dbca360cfc7ac4863/"
+          target="_blank"
           >Here</a
-        > is the resource used.</p>
+        >
+        is the resource used.
+      </p>
       <p>
-        There <i>should</i> be 3 layers: 1 point layer, 1 polyline layer, and 1 polygon layer. However, Hydroshare is currently going through major updates (Feb 2025) and may not display all of the data yet.
+        There <i>should</i> be 3 layers: 1 point layer, 1 polyline layer, and 1
+        polygon layer. However, Hydroshare is currently going through major
+        updates (Feb 2025) and may not display all of the data yet.
       </p>
       <h2>Code Explanation</h2>
       <p>
-        To display a layer via web map service (WMS), the following code can be added to your javascript:
+        To display a layer via web map service (WMS), the following code can be
+        added to your javascript:
       </p>
       <code>
-        L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms', {
-            layers: 'HS-c647cbb66048497dbca360cfc7ac4863:100ft_faults',
-            format: 'image/png',
-            transparent: false,
-            attribution: 'Hydroshare GeoServer'
+        L.tileLayer.wms('https://geoserver.hydroshare.org/geoserver/HS-c647cbb66048497dbca360cfc7ac4863/wms',
+        { layers: 'HS-c647cbb66048497dbca360cfc7ac4863:100ft_faults', format:
+        'image/png', transparent: false, attribution: 'Hydroshare GeoServer'
         }).addTo(map);
       </code>
       <p>
-        The link and "layers" addresses must be changed of course, but that's the basic format. Unfortunately, the symbology can't be changed when using data imported by this method.
+        The link and "layers" addresses must be changed of course, but that's
+        the basic format. Unfortunately, the symbology can't be changed when
+        using data imported by this method.
       </p>
       <br />
       <br />
