@@ -102,8 +102,39 @@
           "Goat Habitats": goats,
         }
 
-        // Add the layer control to the map
-        L.control.layers(null, overlays, { collapsed: false }).addTo(map)
+        L.Control.LayerButtons = L.Control.extend({
+  onAdd: function (map) {
+    let div = L.DomUtil.create("div", "leaflet-bar leaflet-control");
+
+    function createButton(name, layer) {
+      let button = L.DomUtil.create("button", "", div);
+      button.innerHTML = name;
+      button.style.display = "block";
+      button.style.margin = "5px";
+      button.onclick = function () {
+        if (map.hasLayer(layer)) {
+          map.removeLayer(layer);
+          button.style.background = "lightgray";
+        } else {
+          map.addLayer(layer);
+          button.style.background = "white";
+        }
+      };
+      return button;
+    }
+
+    createButton("Roads Near Faults", ft_faults);
+    createButton("Power Stations", power);
+    createButton("Goat Habitats", goat);
+
+    return div;
+  },
+  onRemove: function () {},
+});
+
+// Add the custom control to the map
+map.addControl(new L.Control.LayerButtons({ position: "topright" }));
+
         
       </script>
 
