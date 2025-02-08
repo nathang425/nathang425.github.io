@@ -134,7 +134,7 @@ a:visited {
 a.button,
 button.button {
   display: inline-block;
-  background-color: #6b8b8c !important; /* Ensure it applies */
+  background-color: #6b8b8c; /* Ensure it applies */
   color: white;
   padding: 10px 20px;
   font-size: 1rem;
@@ -149,7 +149,7 @@ button.button {
 
 a.button:hover,
 button.button:hover {
-  background-color: #3a6b33 !important; /* Slightly lighter green on hover */
+  background-color: #3a6b33; /* Slightly lighter green on hover */
   transform: translateY(-3px);
 }
 
