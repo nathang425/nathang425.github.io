@@ -128,13 +128,17 @@
               button.innerHTML = name
               button.style.display = "block"
               button.style.margin = "5px"
+              button.style.width = "100%"
+              button.style.background = "#2e5b29"
+
+              //On click, change button color
               button.onclick = function () {
                 if (map.hasLayer(layer)) {
                   map.removeLayer(layer)
-                  button.style.background = "lightgray"
+                  button.style.background = "#1e1e1e" //black when off
                 } else {
                   map.addLayer(layer)
-                  button.style.background = "white"
+                  button.style.background = "#2e5b29" //green when on
                 }
               }
               return button
