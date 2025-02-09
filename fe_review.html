@@ -6,6 +6,23 @@
     <title>FE Review</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
     <link rel="stylesheet" href="mystyle.css" />
+    <style>
+      body {
+        text-align: left;
+      }
+      .content {
+        display: none;
+        padding-left: 20px;
+      }
+      .header {
+        cursor: pointer;
+        background-color: #2e5b29;
+        padding: 10px;
+        margin: 5px;
+        border: 1px solid #121212;
+        border-radius: 8px;
+      }
+    </style>
   </head>
 
   <body>
@@ -41,8 +58,33 @@
       </footer>
     </div>
     <div class="right-section">
-      <h1>FE Review</h1>
+      <div class="header" onclick="toggleVisibility('section1')">
+        Haversine Formula
+      </div>
+      <div id="section1" class="content">
+        <p>Content for the study schedule will go here.</p>
+      </div>
 
+      <div class="header" onclick="toggleVisibility('section2')">
+        Future Topics
+      </div>
+      <div id="section2" class="content">
+        <p>Content for topics will go here.</p>
+        <code>answer</code>
+      </div>
+
+      <script>
+        function toggleVisibility(sectionId) {
+          var content = document.getElementById(sectionId)
+          content.style.display =
+            content.style.display === "none" || content.style.display === ""
+              ? "block"
+              : "none"
+        }
+      </script>
+
+      <br />
+      <br />
     </div>
   </body>
 </html>
