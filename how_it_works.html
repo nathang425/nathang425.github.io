@@ -47,7 +47,40 @@
       </footer>
     </div>
     <div class="right-section">
-      <h1>Header</h1>
-      
+      <h1>How I used the NWM API</h1>
+      <p>On this site, I have written simple javascript to use the National Water Model's API. Below is an explanation of how I did it.</p>
+	<h3>In html</h3>
+	    <p>All I needed to do in my html code was provide an input form (the text box and button), and create spaces for the table and graph.</p>
+	    <p>The input form looks like this:</p>
+	    <p><code>
+		<form id="reachid_input">
+        		<label for="reachid">Reach ID:</label><br />
+        		<input type="text" id="reachid" name="reachid" value="999" /><br />
+       			<button type="button" id="submit">Get Forecast</button>
+      			</form>
+	    </code></p>
+	    <p>The graph container looks like this:</p>
+	    <code>
+		    <div id="graph_container">
+        		<h3>Forecast Graph</h3>
+        		<canvas id="forecast_graph"></canvas>
+		    </div>
+	    </code>
+	    <p>And the table setup looks like this:</p>
+	    <p><code>
+		    <div id="table_container">
+        		<h3>Forecast</h3>
+        		<table id="forecast_table">
+          			<thead>
+            				<tr>
+              					<th>Time/Date</th>
+              					<th>Flow (cfs)</th>
+            				</tr>
+          			</thead>
+          			<tbody></tbody>
+        		</table>
+		    </div>
+	    </code></p>
+    </div>
   </body>
 </html>
