@@ -60,8 +60,9 @@ function drawForecastGraph(data) {
             datasets: [{
                 label: 'Flow (cfs)',
                 data: flows,
-                borderColor: '#6b8b8c',
-                fill: false
+                borderColor: '#ffffff',
+                pointBackgroundColor: '#ffffff',
+                
             }]
         },
         options: {            //no idea
@@ -69,19 +70,23 @@ function drawForecastGraph(data) {
             scales: {
                 x: {
                     type: 'time',
-                    time: {
-                        unit: 'hour'
-                    },
+                    time: { unit: 'hour'},
+                    ticks: { color: 'white'},
                     title: {
                         display: true,
-                        text: 'Time'
-                    }
+                        text: 'Date/Time',
+                        color: 'white',
+                    },
+                    grid: { color: '#6b8b8c'}
                 },
                 y: {
                     title: {
                         display: true,
-                        text: 'Streamflow'
+                        text: 'Streamflow (cfs)',
+                        color: 'white',
                     },
+                    ticks: { color: 'white'},
+                    grid: { color: '#6b8b8c'},
                     ticks: {
                         callback: function(value) {
                             return value.toLocaleString(); // Format y-axis labels
