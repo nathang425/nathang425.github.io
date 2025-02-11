@@ -66,11 +66,20 @@
 				<a href="https://onlinelibrary.wiley.com/doi/full/10.1111/1752-1688.13184?fbclid=IwY2xjawIXfc1leHRuA2FlbQIxMQABHZovk3fN8ZDb1v-0QFiY7Q77nVAZOJr2oZU6pkEk8BfSRCdhI2sVN6Ik9g_aem_CBETLtxwtdrbZFLH4-ZJKw" target="_blank">this paper</a>.
 			</p>
 	    <h2>Use the API</h2>
-	    <p>Use this tool to get your API data (requires <a href="#" target="_blank">Reach ID (COMID)</a>:</p>
+		<h3>First, find your location's Reach ID, located here:</h3>
+		<img src="https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/nwm01.PNG" alt="ReachID" style="width:454px;height:122px;">
+	    <p>Below is a frame of the National Water Prediction Service. Use this page's map to select a gauge, and copy the Reach ID found at the top the forecast (see image above)</p>
 	    <!--https://mikejohnson51.github.io/nwmHistoric/articles/02-discovery.html-->
 	    <!--Does this have rivers by COMID? https://catalog.data.gov/dataset/national-hydrography-dataset-nhd-usgs-national-map-downloadable-data-collection-->
 	    <!--Maybe use this? https://apps.nationalmap.gov/services/-->
 	    <!--Somewhere here has rivers by COMID: https://www.usgs.gov/national-hydrography/national-hydrography-dataset?utm_source=chatgpt.com-->
+	    <iframe scr="https://water.noaa.gov/" title="water.NOAA.gov"></iframe>
+		<h3>Second, input the Reach ID here:</h3>
+		<form action="#">
+  			<label for="reachid">Reach ID:</label><br>
+  			<input type="text" id="reachid" name="reachid" value="0000000"><br>
+  			<input type="submit" value="Submit">
+		</form> 
       
   </body>
 </html>
