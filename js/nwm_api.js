@@ -19,7 +19,7 @@ function getForecast(reachid) {
         .then(data => {
             console.log(data); //Log response data on the console
             const forecastData = data.shortRange.series.data;
-            displayForecastTable(forecast_table);
+            displayForecastTable(forecastData);
             drawForecastGraph(forecastData);
         })
         .catch(error => {
