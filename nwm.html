@@ -6,13 +6,11 @@
     <title>National Water Model</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
     <link rel="stylesheet" href="mystyle.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-	integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-	crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-         crossorigin=""></script>
-    
+    <style>
+	    .right-section {
+		    text-align: left;
+	    }
+    </style>
   </head>
   <body>
     <div class="left-section">
@@ -48,14 +46,14 @@
     </div>
     <div class="right-section">
       <h1>National Water Model</h1>
-			<h2>Information</h2>
-			<p>
+		<h2>Information</h2>
+		<p>
 				The National Water Model (NWM) is a hydrologic framework that simulates streamflow across the continental U.S., parts of Alaska, Hawaii, Puerto Rico, 
 				and the U.S. Virgin Islands. 
 				It also provides coastal water level guidance for most of the U.S. Using mathematical models, it represents processes like snowmelt, infiltration, 
 				and soil water movement, accounting for factors such as elevation, soil, and vegetation. A model like this is so complex that a high-powered computer 
 				is needed to run it, so NOAA publishes the output on this website: <a href="https://water.noaa.gov/" target="_blank">https://water.noaa.gov/</a>
-			</p>
+		</p>
 			<p>
 				Researchers have built an API to make it easier to access the NWM data. It runs on the Google Cloud and is able to withdraw data from the NWM model's 
 				storage based on forecast type, date/time, location, etc. in a more efficient manner. In the words of the publishers of the API, <i>"First, we address the major challenge in data 
@@ -67,6 +65,8 @@
 			<p>The NWM is still being actively worked on and improved. For more information on the model and its version history, see 
 				<a href="https://onlinelibrary.wiley.com/doi/full/10.1111/1752-1688.13184?fbclid=IwY2xjawIXfc1leHRuA2FlbQIxMQABHZovk3fN8ZDb1v-0QFiY7Q77nVAZOJr2oZU6pkEk8BfSRCdhI2sVN6Ik9g_aem_CBETLtxwtdrbZFLH4-ZJKw" target="_blank">this paper</a>.
 			</p>
+	    <h2>Use the API</h2>
+	    <p>Use this tool to get your API data (coming soon...)</p>
       
   </body>
 </html>
