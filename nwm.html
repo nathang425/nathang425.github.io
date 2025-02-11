@@ -10,6 +10,12 @@
       .right-section {
         text-align: left;
       }
+      iframe {
+        height: 300px;
+        width: 500px;
+        resize: both;
+        overflow: auto;
+      }
     </style>
   </head>
   <body>
@@ -112,13 +118,13 @@
       <h3>Second, input the Reach ID here:</h3>
       <form>
         <label for="reachid">Reach ID:</label><br />
-        <input type="text" id="reachid" name="reachid" value="0000000" /><br />
+        <input type="text" id="reachid" name="reachid" value="999" /><br />
         <button type="button" id="submit">Submit</button>
       </form>
       <script>
   async function getnwm() {
     const reachid = document.getElementById("reachid").value;
-    const url = `https://api.water.noaa.gov/nwps/v1/reaches/${reachid}/streamflow`;
+    const url = `https://api.water.noaa.gov/nwps/v1/reaches/${reachid}/streamflow?series=short_range`;
 
     try {
       const response = await fetch(url);
