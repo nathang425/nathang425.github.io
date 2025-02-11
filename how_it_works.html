@@ -3,16 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Leaflet Map</title>
+    <title>How it Works</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
     <link rel="stylesheet" href="mystyle.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-	integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-	crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-         crossorigin=""></script>
-    
+    <style>
+      body {
+        text-align: left;
+      }
+    </style>
   </head>
   <body>
     <div class="left-section">
@@ -27,8 +25,8 @@
       <header>
         <h1>Nate Godfrey</h1>
       </header>
-              <a class="button" href="https://nathang425.github.io/">Home</a>
-              <a class="button" href="https://nathang425.github.io/ce514">514 Page</a>
+      <a class="button" href="https://nathang425.github.io/">Home</a>
+      <a class="button" href="https://nathang425.github.io/ce514">514 Page</a>
       <p>
         Welcome to my personal website. I'm an engineering student at BYU,
         graduating in April 2025.
@@ -48,39 +46,72 @@
     </div>
     <div class="right-section">
       <h1>How I used the NWM API</h1>
-      <p>On this site, I have written simple javascript to use the National Water Model's API. Below is an explanation of how I did it.</p>
-	<h3>In html</h3>
-	    <p>All I needed to do in my html code was provide an input form (the text box and button), and create spaces for the table and graph.</p>
-	    <p>The input form looks like this:</p>
-	    <p><code>
-		<form id="reachid_input">
-        		<label for="reachid">Reach ID:</label><br />
-        		<input type="text" id="reachid" name="reachid" value="999" /><br />
-       			<button type="button" id="submit">Get Forecast</button>
-      			</form>
-	    </code></p>
-	    <p>The graph container looks like this:</p>
-	    <code>
-		    <div id="graph_container">
-        		<h3>Forecast Graph</h3>
-        		<canvas id="forecast_graph"></canvas>
-		    </div>
-	    </code>
-	    <p>And the table setup looks like this:</p>
-	    <p><code>
-		    <div id="table_container">
-        		<h3>Forecast</h3>
-        		<table id="forecast_table">
-          			<thead>
-            				<tr>
-              					<th>Time/Date</th>
-              					<th>Flow (cfs)</th>
-            				</tr>
-          			</thead>
-          			<tbody></tbody>
-        		</table>
-		    </div>
-	    </code></p>
+      <p>
+        On this site, I have written simple javascript to use the National Water
+        Model's API. Below is an explanation of how I did it.
+      </p>
+      <h3>HTML</h3>
+      <p>
+        All I needed to do in my html code was provide an input form (the text
+        box and button), and create spaces for the table and graph.
+      </p>
+      <h3>Javascript</h3>
+      <p>Next, I used the following javascript:</p>
+      <p>
+        I created 2 event listeners, one for the button, and another to make
+        pressing "Enter" also run the button's code:
+      </p>
+      <p>
+        <code>
+					// Event listener 1
+          document.getElementById('submit').addEventListener('click', function() { <br>
+					const reachid = document.getElementById('reachid').value; <br>
+					if(reachid) { getForecast(reachid); } <br>
+					else { alert('Please enter a Reach ID.'); } });</code>
+				<br /><br />
+        <code>
+          // Event listener 2
+          document.getElementById('reachid_input').addEventListener('keydown', function(event) { <br>
+					if (event.key === 'Enter') { event.preventDefault(); <br>
+          document.getElementById('submit').click();} });</code>
+      </p>
+      <p>
+        I also created 3 functions. One to retrieve the forecast data via the
+        API, one to fill out the table, and one to draw the graph.
+      </p>
+      <p> Get the data:<br>
+        <code>
+					function getForecast(reachid) { const api_url =
+          `https://api.water.noaa.gov/nwps/v1/reaches/${reachid}/streamflow?series=short_range`;<br>
+          fetch(api_url) .then(response => response.json()) .then(data => {<br>
+          console.log(data);<br>
+          forecastData = data.shortRange.series.data;<br>
+          displayForecastTable(forecastData); drawForecastGraph(forecastData);<br>
+          }) .catch(error => { console.error('Error fetching forecast data:',
+          error); }); }</code>
+				<br /><br />
+
+				Fill out the table:<br>
+				<code>
+					function displayForecastTable(data) { const tableBody =<br>
+          document.getElementById('forecast_table').getElementsByTagName('tbody')[0];<br>
+          tableBody.innerHTML = ''; <br>
+          data.forEach(forecast => { const row = tableBody.insertRow();<br>
+					const timeCell = row.insertCell(0);<br>
+					const flowCell = row.insertCell(1);<br>
+          timeCell.textContent = forecast.validTime; flowCell.textContent =
+          forecast.flow; }); }</code
+        ><br /><br />
+
+				Draw the graph:<br>
+        <code>
+					function drawForecastGraph(data) { const ctx =<br>
+          document.getElementById('forecast_graph').getContext('2d');<br>
+					const labels = data.map(forecast => forecast.validTime);<br>
+					const flows = data.map(forecast => forecast.flow);</code>...<br>
+				<span style="font-size: 11px">(this one gets really long, see html source for full code)</span>
+      </p>
+			<p>And that's it! Aside from the clipped ending of the graph function (mostly formatting), that code runs my NWM API demo.</p>
     </div>
   </body>
 </html>
