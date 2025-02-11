@@ -44,7 +44,7 @@ function displayForecastTable(data) {
 
 //function to draw the graph
 function drawForecastGraph(data) {
-    const ctx = document.getElementById('forecastGraph').getContext('2d');
+    const ctx = document.getElementById('forecast_graph').getContext('2d');
     const labels = data.map(forecast => forecast.validTime);
     const flows = data.map(forecast => forecast.flow);
 
