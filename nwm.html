@@ -18,6 +18,10 @@
         resize: both;
         overflow: auto;
       }
+      table, th, td {
+  border-style: solid;
+  border-collapse: collapse;
+}
     </style>
   </head>
   <body>
@@ -116,7 +120,7 @@
       <!--Does this have rivers by COMID? https://catalog.data.gov/dataset/national-hydrography-dataset-nhd-usgs-national-map-downloadable-data-collection-->
       <!--Maybe use this? https://apps.nationalmap.gov/services/-->
       <!--Somewhere here has rivers by COMID: https://www.usgs.gov/national-hydrography/national-hydrography-dataset?utm_source=chatgpt.com-->
-      <iframe src="https://water.noaa.gov/" title="water.NOAA.gov"></iframe>
+      <iframe src="https://water.noaa.gov/" title="water.NOAA.gov" style="border:5px solid #2e5b29;"></iframe>
       <h3>Second, input the Reach ID here:</h3>
       
       <!--The form-->
@@ -147,7 +151,7 @@
         </table>
       </div>
       </ br>
-      <p>Want to see <a href = "#")how it works?></a></p>
+      <p>Want to see <a href = "#">how it works?></a></p>
 
     </div> <!--End right-section-->
     <script src="js/nwm_api.js"></script>
