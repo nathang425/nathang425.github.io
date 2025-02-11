@@ -10,6 +10,14 @@ document.getElementById('submit').addEventListener('click', function() {
     }
 });
 
+//event listener for pressing enter on reachID input
+document.getElementById('reachid_input').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent the form from submitting
+        document.getElementById('submit').click(); // Trigger the "Get Forecast" button click
+    }
+});
+
 //function that calls data from the API
 function getForecast(reachid) {
     const api_url = `https://api.water.noaa.gov/nwps/v1/reaches/${reachid}/streamflow?series=short_range`;
@@ -85,9 +93,9 @@ function drawForecastGraph(data) {
                         text: 'Streamflow (cfs)',
                         color: 'white',
                     },
-                    ticks: { color: 'white'},
                     grid: { color: '#6b8b8c'},
                     ticks: {
+                        color: 'white',
                         callback: function(value) {
                             return value.toLocaleString(); // Format y-axis labels
                         }
