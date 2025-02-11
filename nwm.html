@@ -11,8 +11,8 @@
         text-align: left;
       }
       iframe {
-        height: 300px;
-        width: 500px;
+        height:400px;
+        width: 100%;
         resize: both;
         overflow: auto;
       }
@@ -123,33 +123,28 @@
       </form>
       <script>
   async function getnwm() {
-    const reachid = document.getElementById("reachid").value;
-    const url = `https://api.water.noaa.gov/nwps/v1/reaches/${reachid}/streamflow?series=short_range`;
+  const reachid = document.getElementById("reachid").value;
+  const url = `https://api.water.noaa.gov/nwps/v1/reaches/${reachid}/streamflow`;
 
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
-      const data = await response.json();
-      console.log(data); // Debugging: Check the response in the console
+    const data = await response.json();
+    console.log("API Response:", data); // Debugging: See full response
 
-      // Extract relevant information (modify based on API response structure)
-      const streamflow = data?.streamflow ?? "No data available";
+    // Extract the first available flow value from shortRange series
+    const flowData = data?.shortRange?.series?.data;
+    const firstFlow = flowData?.length > 0 ? flowData[0].flow : "No data available";
 
-      // Display result
-      document.getElementById("result").innerText = `Streamflow: ${streamflow} cfs`;
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      document.getElementById("result").innerText = "Error fetching streamflow data.";
-    }
+    // Display result
+    document.getElementById("result").innerText = `Streamflow: ${firstFlow} cfs`;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    document.getElementById("result").innerText = "Error fetching streamflow data.";
   }
+}
 
-  // Attach event listener AFTER defining the function
-  document.getElementById("submit").addEventListener("click", () => {
-    getnwm(); // Ensure this calls the function properly
-  });
 </script>
 
 <p id="result"></p>
