@@ -108,7 +108,7 @@
       <!--Does this have rivers by COMID? https://catalog.data.gov/dataset/national-hydrography-dataset-nhd-usgs-national-map-downloadable-data-collection-->
       <!--Maybe use this? https://apps.nationalmap.gov/services/-->
       <!--Somewhere here has rivers by COMID: https://www.usgs.gov/national-hydrography/national-hydrography-dataset?utm_source=chatgpt.com-->
-      <iframe scr="https://water.noaa.gov/" title="water.NOAA.gov"></iframe>
+      <iframe src="https://water.noaa.gov/" title="water.NOAA.gov"></iframe>
       <h3>Second, input the Reach ID here:</h3>
       <form>
         <label for="reachid">Reach ID:</label><br />
@@ -116,34 +116,38 @@
         <button type="button" id="submit">Submit</button>
       </form>
       <script>
-        function getnwm() {
-         const reachid = document.getElementById("reachid").value;
-         const url = `https://api.water.noaa.gov/nwps/v1/reaches/${reachid}/streamflow`;
+  async function getnwm() {
+    const reachid = document.getElementById("reachid").value;
+    const url = `https://api.water.noaa.gov/nwps/v1/reaches/${reachid}/streamflow`;
 
-         try {
-         			const response = await fetch(url);
-        			 if (!response.ok) {
-        			   throw new Error(`HTTP error! Status: ${response.status}`);
-        	   }
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
 
-        	   const data = await response.json();
-         			console.log(data); // Debugging: Check the response in the console
+      const data = await response.json();
+      console.log(data); // Debugging: Check the response in the console
 
-         			// Extract relevant information (modify based on API response structure)
-        			 const streamflow = data?.streamflow || "No data available";
+      // Extract relevant information (modify based on API response structure)
+      const streamflow = data?.streamflow ?? "No data available";
 
-            // Display result
-         			document.getElementById("result").innerText = `Streamflow: ${streamflow} cfs`;
-        		} catch (error) {
-         			console.error("Error fetching data:", error);
-         			document.getElementById("result").innerText = "Error fetching streamflow data.";
-        		}
-        }
+      // Display result
+      document.getElementById("result").innerText = `Streamflow: ${streamflow} cfs`;
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      document.getElementById("result").innerText = "Error fetching streamflow data.";
+    }
+  }
 
-        document.getElementById("submit").addEventListener("click", getnwm);
+  // Attach event listener AFTER defining the function
+  document.getElementById("submit").addEventListener("click", () => {
+    getnwm(); // Ensure this calls the function properly
+  });
+</script>
 
-         //run the API with given reachid
-      </script>
+<p id="result"></p>
+
     </div>
   </body>
 </html>
