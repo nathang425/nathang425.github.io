@@ -6,6 +6,8 @@
     <title>National Water Model</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
     <link rel="stylesheet" href="mystyle.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
     <style>
       .right-section {
         text-align: left;
@@ -116,56 +118,38 @@
       <!--Somewhere here has rivers by COMID: https://www.usgs.gov/national-hydrography/national-hydrography-dataset?utm_source=chatgpt.com-->
       <iframe src="https://water.noaa.gov/" title="water.NOAA.gov"></iframe>
       <h3>Second, input the Reach ID here:</h3>
+      
+      <!--The form-->
       <form id="reachid_input">
         <label for="reachid">Reach ID:</label><br />
         <input type="text" id="reachid" name="reachid" value="999" /><br />
-        <button type="button" id="submit">Submit</button>
+        <button type="button" id="submit">Get Forecast</button>
       </form>
-      <script>
-  async function getnwm() {
-    const reachid = document.getElementById("reachid").value;
-    const url = `https://api.water.noaa.gov/nwps/v1/reaches/${reachid}/streamflow`;
 
-    try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+      <!--Build the graph-->
+      <div id="graph_container">
+        <h3>Forecast Graph</h3>
+        <canvas id="forecast_graph"></canvas>
+      </div>
+      </ br>
+      
+      <!--Build the table-->
+      <div id="table_container">
+        <h3>Forecast</h3>
+        <table id="forecast_table">
+          <thead>
+            <tr>
+              <th>Time/Date</th>
+              <th>Flow (cfs)</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      </ br>
+      <p>Want to see <a href = "#")how it works?></a></p>
 
-      const data = await response.json();
-      console.log("API Response:", data); // Debugging: See full response
-
-      // Extract the flow data from the response
-      const flowData = data?.shortRange?.series?.data;
-      if (!flowData || flowData.length === 0) {
-        document.getElementById("result").innerText = "No flow data available.";
-        return;
-      }
-
-      // Create table headers
-      let table = "<table border='1'><thead><tr><th>Time/Date</th><th>Flow (cfs)</th></tr></thead><tbody>";
-
-      // Loop through the flow data and create table rows
-      flowData.forEach(entry => {
-        const time = entry.time; // Adjust this depending on the API's timestamp format
-        const flow = entry.flow;
-        table += `<tr><td>${time}</td><td>${flow}</td></tr>`;
-      });
-
-      // Close table tags
-      table += "</tbody></table>";
-
-      // Display the table in the result section
-      document.getElementById("result").innerHTML = table;
-
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      document.getElementById("result").innerText = "Error fetching streamflow data.";
-    }
-  }
-</script>
-
-
-<p id="result"></p>
-
-    </div>
+    </div> <!--End right-section-->
+    <script src="js/nwm_api.js"></script>
   </body>
 </html>
