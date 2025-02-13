@@ -27,6 +27,9 @@ body {
   overflow: hidden;
   margin: 0;
 }
+.left-section h1 {
+  margin: 10px;
+}
 
 .right-section {
   width: 80%;
@@ -34,7 +37,7 @@ body {
   background: #1e1e1e;
   padding: 20px;
   box-sizing: border-box;
-  margin:10px;
+  margin: 0;
 }
 .right-section h1 {
         margin-top: 0;
@@ -44,10 +47,10 @@ body {
 header {
   background-color: #2e5b29; /* Forest green */
   color: white;
-  padding: 0 20px;
+  padding: 0 0;
   margin-bottom: 20px;
   border-radius: 8px;
-  width: auto; /* Doesn't span the full width of the container */
+  width: 90%; /* Doesn't span the full width of the container */
   box-sizing: border-box; /* Ensures no overflow */
 }
 
