@@ -4,7 +4,7 @@ body {
   background-color: #121212; /* Dark background for the entire page */
   color: white; /* Default text color */
   margin: 0;
-  padding: 20px;
+  padding: 0;
   text-align: center;
   display: flex;
   flex-direction: row;
