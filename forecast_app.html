@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>National Water Model</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
+    <link rel="stylesheet" href="mystyle.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <style>
+      .right-section {
+        text-align: left;
+      }
+      iframe {
+        height:400px;
+        width: 100%;
+        resize: both;
+        overflow: auto;
+      }
+      table, th, td {
+        border-style: solid;
+        border-collapse: collapse;
+        padding: 10px;
+      }
+      th {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="left-section">
+      <img
+        class="special-image"
+        src="https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/20230912_080630.jpg"
+        alt="Me"
+        width="50%"
+        height="50%"
+      />
+      <br />
+      <header>
+        <h1>Nate Godfrey</h1>
+      </header>
+      <a class="button" href="https://nathang425.github.io/">Home</a>
+      <a class="button" href="https://nathang425.github.io/ce514">514 Page</a>
+      <p>
+        Welcome to my personal website. I'm an engineering student at BYU,
+        graduating in April 2025.
+      </p>
+      <footer>
+        Photo by
+        <a
+          href="https://unsplash.com/@averycocozziello?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          >Avery Cocozziello</a
+        >
+        on
+        <a
+          href="https://unsplash.com/photos/ocean-waves-crashing-on-shore-during-daytime-6EzEQUMF2h4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash"
+          >Unsplash</a
+        >
+      </footer>
+    </div>
+    <div class="right-section">
+      <h1>National Water Model</h1>
+      <h2>Information</h2>
+      <p>
+        The National Water Model (NWM) is a hydrologic framework that simulates
+        streamflow across the continental U.S., parts of Alaska, Hawaii, Puerto
+        Rico, and the U.S. Virgin Islands. It also provides coastal water level
+        guidance for most of the U.S. Using mathematical models, it represents
+        processes like snowmelt, infiltration, and soil water movement,
+        accounting for factors such as elevation, soil, and vegetation. A model
+        like this is so complex that a high-powered computer is needed to run
+        it, so NOAA publishes the output on this website:
+        <a href="https://water.noaa.gov/" target="_blank"
+          >https://water.noaa.gov/</a
+        >
+      </p>
+      <p>
+        Researchers have built an API to make it easier to access the NWM data.
+        It runs on the Google Cloud and is able to withdraw data from the NWM
+        model's storage based on forecast type, date/time, location, etc. in a
+        more efficient manner. In the words of the publishers of the API,
+        <i
+          >"First, we address the major challenge in data usability by
+          transforming the format of the NWM data and storing it in an efficient
+          manner consistent with the needs of the community..."</i
+        >
+        and
+        <i
+          >"Second, we improve access to the data by providing them as public
+          datasets on the cloud with an API for querying to provide quick and
+          easy access for research and operational applications that rely on the
+          NWM data."</i
+        >
+        (<a
+          href="https://www.sciencedirect.com/science/article/pii/S1364815224001841#sec4"
+          target="_blank"
+          >Markert et. al., 2024</a
+        >)
+      </p>
+      <p>
+        The NWM is still being actively worked on and improved. For more
+        information on the model and its version history, see
+        <a
+          href="https://onlinelibrary.wiley.com/doi/full/10.1111/1752-1688.13184?fbclid=IwY2xjawIXfc1leHRuA2FlbQIxMQABHZovk3fN8ZDb1v-0QFiY7Q77nVAZOJr2oZU6pkEk8BfSRCdhI2sVN6Ik9g_aem_CBETLtxwtdrbZFLH4-ZJKw"
+          target="_blank"
+          >this paper</a
+        >.
+      </p>
+      <h2>Use the API</h2>
+      <h3>First, find your location's Reach ID, located here:</h3>
+      <img
+        src="https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/nwm01.PNG"
+        alt="ReachID"
+        style="width: 454px; height: 122px"
+      />
+      <p>
+        Below is a frame of the National Water Prediction Service. Use this
+        page's map to select a gauge, and copy the Reach ID found at the top the
+        forecast (see image above)
+      </p>
+      <!--https://mikejohnson51.github.io/nwmHistoric/articles/02-discovery.html-->
+      <!--Does this have rivers by COMID? https://catalog.data.gov/dataset/national-hydrography-dataset-nhd-usgs-national-map-downloadable-data-collection-->
+      <!--Maybe use this? https://apps.nationalmap.gov/services/-->
+      <!--Somewhere here has rivers by COMID: https://www.usgs.gov/national-hydrography/national-hydrography-dataset?utm_source=chatgpt.com-->
+      <iframe src="https://water.noaa.gov/" title="water.NOAA.gov" style="border:5px solid #2e5b29;"></iframe>
+      <h3>Second, input the Reach ID here:</h3>
+      
+      <!--The form-->
+      <form id="reachid_input">
+        <label for="reachid">Reach ID:</label><br />
+        <input type="text" id="reachid" name="reachid" value="999" /><br />
+        <button type="button" id="submit">Get Forecast</button>
+      </form>
+
+      <!--Build the graph-->
+      <div id="graph_container">
+        <h3>Forecast Graph</h3>
+        <canvas id="forecast_graph"></canvas>
+      </div>
+      </ br>
+      
+      <!--Build the table-->
+      <div id="table_container">
+        <h3>Forecast</h3>
+        <table id="forecast_table">
+          <thead>
+            <tr>
+              <th>Time/Date</th>
+              <th>Flow (cfs)</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      </ br>
+      <p>Want to see <a href = "https://nathang425.github.io/how_it_works">how it works?</a></p>
+
+    </div> <!--End right-section-->
+    <script src="js/nwm_api.js"></script>
+  </body>
+</html>
