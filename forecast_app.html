@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Suothern Oregon Rafting Forecast</title>
+    <title>Southern Oregon Rafting Forecast</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
     <link rel="stylesheet" href="mystyle.css" />
     <link
@@ -20,7 +20,9 @@
       .right-section {
         text-align: left;
       }
-      table, th, td {
+      table,
+      th,
+      td {
         border-style: solid;
         border-collapse: collapse;
         padding: 10px;
@@ -65,52 +67,71 @@
     <div class="right-section">
       <h1>Southern Oregon Rafting Forecast</h1>
       <h2>Header 2.1</h2>
-      <p>
-        The text
-      </p>
+      <p>The text</p>
 
       <!--The map-->
-      <div id="map" style="height: 350px; width: 90%; margin: 0 auto; border: 5px solid #2e5b29"></div><br />
+      <div
+        id="map"
+        style="
+          height: 350px;
+          width: 90%;
+          margin: 0 auto;
+          border: 5px solid #2e5b29;
+        "
+      ></div>
+      <br />
       <script>
         let config = {
           minZoom: 1,
           maxZoom: 18,
         }
 
-        // map starting properties
-        const zoom = 3
-        const lat = 0
-        const lng = 0
+        // Map starting properties
+        const zoom = 8
+        const lat = 42.4
+        const lng = -123.3
 
-        // call the map
+        // Initialize the map
         const map = L.map("map", config).setView([lat, lng], zoom)
 
-        // Load tile layers from the link, include attribution
+        // Load tile layer with attribution
         L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
           attribution:
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         }).addTo(map)
 
-        //Load point layer, style it
-        omnivore.kml("kml/oregon_points.kml").on("ready", function () {
+        // Load and fit KML layer
+        omnivore
+          .kml("kml/oregon_points.kml")
+          .on("ready", function () {
             this.addTo(map)
-            map.fitBounds(this.getBounds()) // Fit bounds after layer is added
-                // Get the name from the KML properties, including N/A message
-                const name = layer.feature.properties.name || "Unknown Name"
-                // Bind a popup to the marker using the name.
-                layer.bindPopup(name)
-              }
+            map.fitBounds(this.getBounds())
+          })
+          .on("layeradd", function (e) {
+            if (e.layer.feature && e.layer.feature.properties) {
+              e.layer.bindPopup(
+                e.layer.feature.properties.name || "Unknown Name",
+              )
+            }
+          })
       </script>
-      
+
       <!--The form-->
-      <form id="reachid_input">
-        <label for="reachid">Forecast Type:</label><br />
-        <select id="forecast_type" name="forecast_type"/>
+      <form id="forecast_input">
+        <label for="forecast_type">Forecast Type:</label><br />
+        <select id="forecast_type" name="forecast_type">
           <option value="short_range">Short Range</option>
           <option value="medium_range">Medium Range</option>
-          <option value="long_range">Long Range</option>
-        </select><br />
-        <button type="button" id="submit">Get Forecast</button>
+          <option value="long_range">Long Range</option></select
+        ><br />
+        <button
+          type="button"
+          id="get_forecast"
+          class="button"
+          style="margin-top: 10px"
+        >
+          Get Forecast
+        </button>
       </form>
 
       <!--Build the graph-->
@@ -118,8 +139,8 @@
         <h3>Forecast Graph</h3>
         <canvas id="forecast_graph"></canvas>
       </div>
-      </ br>
-      
+      <br />
+
       <!--Build the table-->
       <div id="table_container">
         <h3>Forecast</h3>
@@ -133,11 +154,27 @@
           <tbody></tbody>
         </table>
       </div>
-      </ br>
-      <p>Want to see <a href = "https://nathang425.github.io/how_it_works">how it works?</a></p>
+      <br />
+      <p>
+        Want to see
+        <a href="https://nathang425.github.io/how_it_works">how it works?</a>
+      </p>
 
-      <footer>Map icon made by <a href="https://www.flaticon.com/authors/gajah-mada" title="Gajah Mada"> Gajah Mada </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></footer>
-    </div> <!--End right-section-->
+      <footer>
+        Map icon made by
+        <a
+          href="https://www.flaticon.com/authors/gajah-mada"
+          title="Gajah Mada"
+        >
+          Gajah Mada
+        </a>
+        from
+        <a href="https://www.flaticon.com/" title="Flaticon"
+          >www.flaticon.com</a
+        >
+      </footer>
+    </div>
+    <!--End right-section-->
     <script src="js/nwm_api.js"></script>
   </body>
 </html>
