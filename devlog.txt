@@ -1,0 +1,8 @@
+Sat, Feb 15.
+  -Used pieces of past pages to put together leaflet map
+  -Proofreading with ChatGPT
+  -Planning
+  -Created point file for stations
+  -Created input form
+  -Designed (not yet implemented) map icons
+  ~~IDEA: Implement loading screen to block clicking on new point until the previous API/graph has loaded?? **Would help the API not break**
