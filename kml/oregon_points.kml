@@ -1,1 +1,132 @@
-<?xml version="1.0" encoding="UTF-8"?> <kml xmlns="http://www.opengis.net/kml/2.2"      xmlns:gx="http://www.google.com/kml/ext/2.2">      xmlns:kml="http://www.opengis.net/kml/2.2">      xmlns:atom="http://www.w3.org/2005/Atom"> <Document><name><![CDATA[points]]></name><Snippet maxLines='0'></Snippet><open>1</open><Style><IconStyle><Icon></Icon></IconStyle><BalloonStyle><text><![CDATA[$[description]]]></text></BalloonStyle></Style><description><![CDATA[<style type='text/css'>*{font-family:Verdana,Arial,Helvetica,Sans-Serif;}</style><table style="width: 300px;"><tr><td style="vertical-align: top;">Source</td><td style="width: 100%;">points.xlsx</td></tr><tr><td>DateTime</td><td>2025-02-15 19:32:02 UTC <br/></td></tr><tr><td colspan="2" style="vertical-align: top;"><br/>Created with <a target='_blank' href='https://www.earthpoint.us/ExcelToKml.aspx'>Earth Point Excel To KML</a><br/>&copy;2025 Earth Point<br/><br/>For illustration only.&nbsp; User to verify all information. </td></tr></table>]]></description><Folder><name><![CDATA[Sheet1]]></name><visibility>1</visibility><open>0</open><Placemark><name><![CDATA[Rogue River near Agness, OR]]></name><Snippet maxLines='0'></Snippet><styleUrl>#0_0</styleUrl><ExtendedData></ExtendedData><LookAt><longitude>-124.058</longitude><latitude>42.5784</latitude><range>1000</range><altitudeMode>relativeToGround</altitudeMode><tilt>0</tilt><heading>0</heading></LookAt><Point><altitudeMode>clampToGround</altitudeMode><extrude>0</extrude><coordinates>-124.058,42.5784,0</coordinates></Point><description><![CDATA[23940255]]></description></Placemark><Placemark><name><![CDATA[Rogue River near Eagle Point, OR]]></name><Snippet maxLines='0'></Snippet><styleUrl>#0_0</styleUrl><ExtendedData></ExtendedData><LookAt><longitude>-122.843</longitude><latitude>42.5248</latitude><range>1000</range><altitudeMode>relativeToGround</altitudeMode><tilt>0</tilt><heading>0</heading></LookAt><Point><altitudeMode>clampToGround</altitudeMode><extrude>0</extrude><coordinates>-122.843,42.5248,0</coordinates></Point><description><![CDATA[23923226]]></description></Placemark><Placemark><name><![CDATA[Rogue River at Grants Pass, OR]]></name><Snippet maxLines='0'></Snippet><styleUrl>#0_0</styleUrl><ExtendedData></ExtendedData><LookAt><longitude>-123.318</longitude><latitude>42.4304</latitude><range>1000</range><altitudeMode>relativeToGround</altitudeMode><tilt>0</tilt><heading>0</heading></LookAt><Point><altitudeMode>clampToGround</altitudeMode><extrude>0</extrude><coordinates>-123.318,42.4304,0</coordinates></Point><description><![CDATA[23930602]]></description></Placemark><Placemark><name><![CDATA[Rogue River below Gold Ray Dam, OR]]></name><Snippet maxLines='0'></Snippet><styleUrl>#0_0</styleUrl><ExtendedData></ExtendedData><LookAt><longitude>-122.987</longitude><latitude>42.4373</latitude><range>1000</range><altitudeMode>relativeToGround</altitudeMode><tilt>0</tilt><heading>0</heading></LookAt><Point><altitudeMode>clampToGround</altitudeMode><extrude>0</extrude><coordinates>-122.987,42.4373,0</coordinates></Point><description><![CDATA[23930752]]></description></Placemark><Placemark><name><![CDATA[Applegate River near Applegate, OR]]></name><Snippet maxLines='0'></Snippet><styleUrl>#0_0</styleUrl><ExtendedData></ExtendedData><LookAt><longitude>-123.14</longitude><latitude>42.2415</latitude><range>1000</range><altitudeMode>relativeToGround</altitudeMode><tilt>0</tilt><heading>0</heading></LookAt><Point><altitudeMode>clampToGround</altitudeMode><extrude>0</extrude><coordinates>-123.14,42.2415,0</coordinates></Point><description><![CDATA[23935947]]></description></Placemark><Placemark><name><![CDATA[Applegate River near Wilderville, OR]]></name><Snippet maxLines='0'></Snippet><styleUrl>#0_0</styleUrl><ExtendedData></ExtendedData><LookAt><longitude>-123.407</longitude><latitude>42.354</latitude><range>1000</range><altitudeMode>relativeToGround</altitudeMode><tilt>0</tilt><heading>0</heading></LookAt><Point><altitudeMode>clampToGround</altitudeMode><extrude>0</extrude><coordinates>-123.407,42.354,0</coordinates></Point><description><![CDATA[23935811]]></description></Placemark><Placemark><name><![CDATA[Umpqua River at Reedsport, OR]]></name><Snippet maxLines='0'></Snippet><styleUrl>#0_0</styleUrl><ExtendedData></ExtendedData><LookAt><longitude>-124.095</longitude><latitude>43.705</latitude><range>1000</range><altitudeMode>relativeToGround</altitudeMode><tilt>0</tilt><heading>0</heading></LookAt><Point><altitudeMode>clampToGround</altitudeMode><extrude>0</extrude><coordinates>-124.095,43.705,0</coordinates></Point><description><![CDATA[24526610]]></description></Placemark><Placemark><name><![CDATA[Umpqua River near Elkton, OR]]></name><Snippet maxLines='0'></Snippet><styleUrl>#0_0</styleUrl><ExtendedData></ExtendedData><LookAt><longitude>-123.555</longitude><latitude>43.586</latitude><range>1000</range><altitudeMode>relativeToGround</altitudeMode><tilt>0</tilt><heading>0</heading></LookAt><Point><altitudeMode>clampToGround</altitudeMode><extrude>0</extrude><coordinates>-123.555,43.586,0</coordinates></Point><description><![CDATA[24526814]]></description></Placemark><Placemark><name><![CDATA[South Umpqua River at Roseburg, OR]]></name><Snippet maxLines='0'></Snippet><styleUrl>#0_0</styleUrl><ExtendedData></ExtendedData><LookAt><longitude>-123.35</longitude><latitude>43.2111</latitude><range>1000</range><altitudeMode>relativeToGround</altitudeMode><tilt>0</tilt><heading>0</heading></LookAt><Point><altitudeMode>clampToGround</altitudeMode><extrude>0</extrude><coordinates>-123.35,43.2111,0</coordinates></Point><description><![CDATA[23900927]]></description></Placemark><Placemark><name><![CDATA[South Umpqua River near Tiller, OR]]></name><Snippet maxLines='0'></Snippet><styleUrl>#0_0</styleUrl><ExtendedData></ExtendedData><LookAt><longitude>-122.948</longitude><latitude>42.9304</latitude><range>1000</range><altitudeMode>relativeToGround</altitudeMode><tilt>0</tilt><heading>0</heading></LookAt><Point><altitudeMode>clampToGround</altitudeMode><extrude>0</extrude><coordinates>-122.948,42.9304,0</coordinates></Point><description><![CDATA[23901573]]></description></Placemark><Placemark><name><![CDATA[South Umpqua River near Winston, OR]]></name><Snippet maxLines='0'></Snippet><styleUrl>#0_0</styleUrl><ExtendedData></ExtendedData><LookAt><longitude>-123.398</longitude><latitude>43.1332</latitude><range>1000</range><altitudeMode>relativeToGround</altitudeMode><tilt>0</tilt><heading>0</heading></LookAt><Point><altitudeMode>clampToGround</altitudeMode><extrude>0</extrude><coordinates>-123.398,43.1332,0</coordinates></Point><description><![CDATA[23900935]]></description></Placemark><Placemark><name><![CDATA[North Umpqua River near Winchester, OR]]></name><Snippet maxLines='0'></Snippet><styleUrl>#0_0</styleUrl><ExtendedData></ExtendedData><LookAt><longitude>-123.412</longitude><latitude>43.2721</latitude><range>1000</range><altitudeMode>relativeToGround</altitudeMode><tilt>0</tilt><heading>0</heading></LookAt><Point><altitudeMode>clampToGround</altitudeMode><extrude>0</extrude><coordinates>-123.412,43.2721,0</coordinates></Point><description><![CDATA[23893934]]></description></Placemark></Folder><StyleMap id="0_0"><Pair><key>normal</key><styleUrl>#Normal0_0</styleUrl></Pair><Pair><key>highlight</key><styleUrl>#Highlight0_0</styleUrl></Pair></StyleMap><Style id="Normal0_0"><IconStyle><scale>1</scale><Icon><href><![CDATA[http://www.earthpoint.us/Dots/GoogleEarth/paddle/red-diamond.png]]></href></Icon><hotSpot x="32" y="1" xunits="pixels" yunits="pixels" /></IconStyle><LabelStyle></LabelStyle><LineStyle><color>FFFFFFFF</color><width>2</width></LineStyle><BalloonStyle><text><![CDATA[$[description]]]></text></BalloonStyle></Style><Style id="Highlight0_0"><IconStyle><scale>1.1</scale><Icon><href><![CDATA[http://www.earthpoint.us/Dots/GoogleEarth/paddle/red-diamond.png]]></href></Icon><hotSpot x="32" y="1" xunits="pixels" yunits="pixels" /></IconStyle><LabelStyle></LabelStyle><LineStyle><color>FFFFFFFF</color><width>3</width></LineStyle><BalloonStyle><text><![CDATA[$[description]]]></text></BalloonStyle></Style></Document></kml>
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="points" id="points">
+	<SimpleField name="Description" type="string"></SimpleField>
+	<SimpleField name="latitude" type="float"></SimpleField>
+	<SimpleField name="longitude" type="float"></SimpleField>
+	<SimpleField name="icon" type="string"></SimpleField>
+</Schema>
+<Folder><name>points</name>
+  <Placemark>
+	<name>Rogue River near Agness, OR</name>
+	<description>23940255</description>
+	<ExtendedData><SchemaData schemaUrl="#points">
+		<SimpleData name="latitude">42.5784</SimpleData>
+		<SimpleData name="longitude">-124.058</SimpleData>
+		<SimpleData name="icon">186</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-124.058,42.5784</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Rogue River near Eagle Point, OR</name>
+	<description>23923226</description>
+	<ExtendedData><SchemaData schemaUrl="#points">
+		<SimpleData name="latitude">42.5248</SimpleData>
+		<SimpleData name="longitude">-122.843</SimpleData>
+		<SimpleData name="icon">186</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-122.843,42.5248</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Rogue River at Grants Pass, OR</name>
+	<description>23930602</description>
+	<ExtendedData><SchemaData schemaUrl="#points">
+		<SimpleData name="latitude">42.4304</SimpleData>
+		<SimpleData name="longitude">-123.318</SimpleData>
+		<SimpleData name="icon">186</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-123.318,42.4304</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Rogue River below Gold Ray Dam, OR</name>
+	<description>23930752</description>
+	<ExtendedData><SchemaData schemaUrl="#points">
+		<SimpleData name="latitude">42.4373</SimpleData>
+		<SimpleData name="longitude">-122.987</SimpleData>
+		<SimpleData name="icon">186</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-122.987,42.4373</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Applegate River near Applegate, OR</name>
+	<description>23935947</description>
+	<ExtendedData><SchemaData schemaUrl="#points">
+		<SimpleData name="latitude">42.2415</SimpleData>
+		<SimpleData name="longitude">-123.14</SimpleData>
+		<SimpleData name="icon">186</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-123.14,42.2415</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Applegate River near Wilderville, OR</name>
+	<description>23935811</description>
+	<ExtendedData><SchemaData schemaUrl="#points">
+		<SimpleData name="latitude">42.354</SimpleData>
+		<SimpleData name="longitude">-123.407</SimpleData>
+		<SimpleData name="icon">186</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-123.407,42.354</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Umpqua River at Reedsport, OR</name>
+	<description>24526610</description>
+	<ExtendedData><SchemaData schemaUrl="#points">
+		<SimpleData name="latitude">43.705</SimpleData>
+		<SimpleData name="longitude">-124.095</SimpleData>
+		<SimpleData name="icon">186</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-124.095,43.705</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>Umpqua River near Elkton, OR</name>
+	<description>24526814</description>
+	<ExtendedData><SchemaData schemaUrl="#points">
+		<SimpleData name="latitude">43.586</SimpleData>
+		<SimpleData name="longitude">-123.555</SimpleData>
+		<SimpleData name="icon">186</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-123.555,43.586</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>South Umpqua River at Roseburg, OR</name>
+	<description>23900927</description>
+	<ExtendedData><SchemaData schemaUrl="#points">
+		<SimpleData name="latitude">43.2111</SimpleData>
+		<SimpleData name="longitude">-123.35</SimpleData>
+		<SimpleData name="icon">186</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-123.35,43.2111</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>South Umpqua River near Tiller, OR</name>
+	<description>23901573</description>
+	<ExtendedData><SchemaData schemaUrl="#points">
+		<SimpleData name="latitude">42.9304</SimpleData>
+		<SimpleData name="longitude">-122.948</SimpleData>
+		<SimpleData name="icon">186</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-122.948,42.9304</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>South Umpqua River near Winston, OR</name>
+	<description>23900935</description>
+	<ExtendedData><SchemaData schemaUrl="#points">
+		<SimpleData name="latitude">43.1332</SimpleData>
+		<SimpleData name="longitude">-123.398</SimpleData>
+		<SimpleData name="icon">186</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-123.398,43.1332</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>North Umpqua River near Winchester, OR</name>
+	<description>23893934</description>
+	<ExtendedData><SchemaData schemaUrl="#points">
+		<SimpleData name="latitude">43.2721</SimpleData>
+		<SimpleData name="longitude">-123.412</SimpleData>
+		<SimpleData name="icon">186</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>-123.412,43.2721</coordinates></Point>
+  </Placemark>
+</Folder>
+</Document></kml>
