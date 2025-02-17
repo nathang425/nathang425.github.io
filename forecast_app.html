@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Southern Oregon Rafting Forecast</title>
+    <title>App | S.O.R.F.</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
     <link rel="stylesheet" href="mystyle.css" />
     <link
@@ -49,7 +49,9 @@
       <a class="button" href="https://nathang425.github.io/ce514">514 Page</a>
       <p>
         Welcome to my personal website. I'm an engineering student at BYU,
-        graduating in April 2025.
+        graduating in April 2025. This site and most of its pages were created 
+	      for the CE514 course at Brigham Young University, 
+	      taught by Dr. Dan Ames.
       </p>
       <footer>
         Photo by
@@ -65,34 +67,9 @@
       </footer>
     </div>
     <div class="right-section">
-      <h1>Southern Oregon Rafting Forecast</h1>
+      <h1>Southern Oregon Rafting Forecast (SORF)</h1>
       <h2>Header 2.1</h2>
-      <p>Next steps:
-        <ol>
-          <li>Make the map small and off to the left, with inputs on the right</li>
-          <li>Separate and color the rivers, add a key</li>
-          <li>Add the other layers:
-            <ul>
-              <li>Rivers (toggleable, clickable for name)</li>
-              <li>Watershed (toggleable, not interactable)</li>
-            </ul>
-          </li>
-          <li>Arrange the table results next to the graph</li>
-          <li>Edit a new js to use the API, triggering upon map click AND upon forecast type selection</li>
-          <li>Find the avg and flood thresholds for each river/station</li>
-          <li>Add the avg and flood thresholds to the graphs</li>
-          <li>Create a new "How it works" page</li>
-          <li>Create new documentation page (include dev log)</li>
-          <li>Finish top text including:
-            <ul>
-              <li>Data sources/warnings</li>
-              <li>How to use/interpret the data</li>
-              <li>Links to the NWM homepage</li>
-            </ul>
-          </li>
-          <li>Colors, layout fixes, the end.</li>
-        </ol>
-    </p>
+      
 
       <!--The map-->
       <div
@@ -125,20 +102,28 @@
             '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
         }).addTo(map)
 
+        //Load custom icon
+        var customIcon = L.icon({
+          iconUrl: "https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/water-waves.png",
+          iconSize: [10, 10], // Adjust size as needed
+          iconAnchor: [0, 0], // Adjust anchor point
+          popupAnchor: [0, 20], // Adjust popup position
+        });
+
         // Load and fit KML layer
-        omnivore
-          .kml("kml/oregon_points.kml")
+        var sorf_pts = omnivore.kml("kml/oregon_points.kml")
           .on("ready", function () {
             this.addTo(map)
             map.fitBounds(this.getBounds())
           })
           .on("layeradd", function (e) {
+            if (e.layer instanceof L.Marker) {
+              e.layer.setIcon(customIcon);
+              }
             if (e.layer.feature && e.layer.feature.properties) {
-              e.layer.bindPopup(
-                e.layer.feature.properties.name || "Unknown Name",
-              )
-            }
-          })
+              e.layer.bindPopup(e.layer.feature.properties.name || "Unknown Name");
+              }
+          });
       </script>
 
       <!--The form-->
@@ -186,17 +171,14 @@
       </p>
 
       <footer>
-        Map icon made by
-        <a
-          href="https://www.flaticon.com/authors/gajah-mada"
-          title="Gajah Mada"
-        >
-          Gajah Mada
-        </a>
-        from
-        <a href="https://www.flaticon.com/" title="Flaticon"
-          >www.flaticon.com</a
-        >
+        Icons made by <a
+                        href="https://www.flaticon.com/authors/bomsymbols"
+                        title="BomSymbols"> BomSymbols 
+                      </a> 
+        from <a
+               href="https://www.flaticon.com/"
+               title="Flaticon">www.flaticon.com
+            </a>
       </footer>
     </div>
     <!--End right-section-->
