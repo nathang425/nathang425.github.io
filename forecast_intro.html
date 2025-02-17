@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>How it Works</title>
+    <title>Intro | S.O.R.F.</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
     <link rel="stylesheet" href="mystyle.css" />
     <style>
@@ -29,7 +29,9 @@
       <a class="button" href="https://nathang425.github.io/ce514">514 Page</a>
       <p>
         Welcome to my personal website. I'm an engineering student at BYU,
-        graduating in April 2025.
+        graduating in April 2025. This site and most of its pages were created 
+	for the CE514 course at Brigham Young University, 
+	taught by Dr. Dan Ames.
       </p>
       <footer>
         Photo by
@@ -45,73 +47,33 @@
       </footer>
     </div>
     <div class="right-section">
-      <h1>How I used the NWM API</h1>
-      <p>
-        On this site, I have written simple javascript to use the National Water
-        Model's API. Below is an explanation of how I did it.
-      </p>
-      <h3>HTML</h3>
-      <p>
-        All I needed to do in my html code was provide an input form (the text
-        box and button), and create spaces for the table and graph.
-      </p>
-      <h3>Javascript</h3>
-      <p>Next, I used the following javascript:</p>
-      <p>
-        I created 2 event listeners, one for the button, and another to make
-        pressing "Enter" also run the button's code:
-      </p>
-      <p>
-        <code>
-					// Event listener 1
-          document.getElementById('submit').addEventListener('click', function() { <br>
-					const reachid = document.getElementById('reachid').value; <br>
-					if(reachid) { getForecast(reachid); } <br>
-					else { alert('Please enter a Reach ID.'); } });</code>
-				<br /><br />
-        <code>
-          // Event listener 2
-          document.getElementById('reachid_input').addEventListener('keydown', function(event) { <br>
-					if (event.key === 'Enter') { event.preventDefault(); <br>
-          document.getElementById('submit').click();} });</code>
-      </p>
-      <p>
-        I also created 3 functions. One to retrieve the forecast data via the
-        API, one to fill out the table, and one to draw the graph.
-      </p>
-      <p> Get the data:<br>
-        <code>
-					function getForecast(reachid) { const api_url =
-          `https://api.water.noaa.gov/nwps/v1/reaches/${reachid}/streamflow?series=short_range`;<br>
-          fetch(api_url) .then(response => response.json()) .then(data => {<br>
-          console.log(data);<br>
-          forecastData = data.shortRange.series.data;<br>
-          displayForecastTable(forecastData); drawForecastGraph(forecastData);<br>
-          }) .catch(error => { console.error('Error fetching forecast data:',
-          error); }); }</code>
-				<br /><br />
-
-				Fill out the table:<br>
-				<code>
-					function displayForecastTable(data) { const tableBody =<br>
-          document.getElementById('forecast_table').getElementsByTagName('tbody')[0];<br>
-          tableBody.innerHTML = ''; <br>
-          data.forEach(forecast => { const row = tableBody.insertRow();<br>
-					const timeCell = row.insertCell(0);<br>
-					const flowCell = row.insertCell(1);<br>
-          timeCell.textContent = forecast.validTime; flowCell.textContent =
-          forecast.flow; }); }</code
-        ><br /><br />
-
-				Draw the graph:<br>
-        <code>
-					function drawForecastGraph(data) { const ctx =<br>
-          document.getElementById('forecast_graph').getContext('2d');<br>
-					const labels = data.map(forecast => forecast.validTime);<br>
-					const flows = data.map(forecast => forecast.flow);</code>...<br>
-				<span style="font-size: 11px">(this one gets really long, see html source for full code)</span>
-      </p>
-			<p>And that's it! Aside from the clipped ending of the graph function (mostly formatting), that code runs my NWM API demo.</p>
+      <h1>Next</h1>
+      <p>Next steps:
+        <ol>
+          <li>Make the map small and off to the left, with inputs on the right</li>
+          <li>Separate and color the rivers, add a key</li>
+          <li>Add the other layers:
+            <ul>
+              <li>Rivers (toggleable, clickable for name)</li>
+              <li>Watershed (toggleable, not interactable)</li>
+            </ul>
+          </li>
+          <li>Arrange the table results next to the graph</li>
+          <li>Edit a new js to use the API, triggering upon map click AND upon forecast type selection</li>
+          <li>Find the avg and flood thresholds for each river/station</li>
+          <li>Add the avg and flood thresholds to the graphs</li>
+          <li>Create a new "How it works" page</li>
+          <li>Create new documentation page (include dev log)</li>
+          <li>Finish top text including:
+            <ul>
+              <li>Data sources/warnings</li>
+              <li>How to use/interpret the data</li>
+              <li>Links to the NWM homepage</li>
+            </ul>
+          </li>
+          <li>Colors, layout fixes, the end.</li>
+        </ol>
+    </p>
     </div>
   </body>
 </html>
