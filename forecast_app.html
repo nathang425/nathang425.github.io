@@ -17,19 +17,59 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
     <style>
-      .right-section {
-        text-align: left;
+                  .right-section {
+                    text-align: left;
+                  }
+                  table,
+                  th,
+                  td {
+                    border-style: solid;
+                    border-collapse: collapse;
+                    padding: 10px;
+                  }
+                  th {
+                    text-align: center;
+                  }
+                  .map-form-container {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: flex-start;
+                    gap: 5px;
       }
-      table,
-      th,
-      td {
-        border-style: solid;
-        border-collapse: collapse;
-        padding: 10px;
-      }
-      th {
-        text-align: center;
-      }
+                  #map {
+
+                    height: 350px;
+                    width: 60%;
+                  }
+            #forecast_input {
+              flex: 1;
+              padding: 20px;
+              background-color: #6b8b8c;
+              border-radius: 8px;
+              width: 20%;
+              height: 300px;
+
+            }
+
+            /*Special button formatting*/
+            button.button {
+              background-color: #2e5b29;
+            }
+            button.button:hover {
+              background-color: #016FB9 ; /*Blue on hover*/
+              transform: translateY(0px);
+            }
+
+            @media (max-width: 768px) {
+              .map-form-container {
+                flex-direction: column; /* Stack elements on smaller screens */
+                align-items: center;
+              }
+
+              #map,
+              #forecast_input {
+                width: auto; /* Full width on small screens */
+              }
     </style>
   </head>
   <body>
@@ -49,9 +89,9 @@
       <a class="button" href="https://nathang425.github.io/ce514">514 Page</a>
       <p>
         Welcome to my personal website. I'm an engineering student at BYU,
-        graduating in April 2025. This site and most of its pages were created 
-	      for the CE514 course at Brigham Young University, 
-	      taught by Dr. Dan Ames.
+        graduating in April 2025. This site and most of its pages were created
+        for the CE514 course at Brigham Young University, taught by Dr. Dan
+        Ames.
       </p>
       <footer>
         Photo by
@@ -69,80 +109,85 @@
     <div class="right-section">
       <h1>Southern Oregon Rafting Forecast (SORF)</h1>
       <h2>Header 2.1</h2>
-      
 
-      <!--The map-->
-      <div
-        id="map"
-        style="
-          height: 350px;
-          width: 90%;
-          margin: 0 auto;
-          border: 5px solid #2e5b29;
-        "
-      ></div>
-      <br />
-      <script>
-        let config = {
-          minZoom: 1,
-          maxZoom: 18,
-        }
+      <div class="map-form-container">
+        <!--The map-->
+        <div
+          id="map"
+          style="
+            height: 350px;
+            width: 60%;
+            margin: 0 auto;
+            border: 5px solid #2e5b29;
+          "
+        ></div>
+        <br />
+        <script>
+          let config = {
+            minZoom: 1,
+            maxZoom: 18,
+          }
 
-        // Map starting properties
-        const zoom = 8
-        const lat = 42.4
-        const lng = -123.3
+          // Map starting properties
+          const zoom = 8
+          const lat = 42.4
+          const lng = -123.3
 
-        // Initialize the map
-        const map = L.map("map", config).setView([lat, lng], zoom)
+          // Initialize the map
+          const map = L.map("map", config).setView([lat, lng], zoom)
 
-        // Load tile layer with attribution
-        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        }).addTo(map)
+          // Load tile layer with attribution
+          L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution:
+              '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          }).addTo(map)
 
-        //Load custom icon
-        var customIcon = L.icon({
-          iconUrl: "https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/water-waves.png",
-          iconSize: [10, 10], // Adjust size as needed
-          iconAnchor: [0, 0], // Adjust anchor point
-          popupAnchor: [0, 20], // Adjust popup position
-        });
-
-        // Load and fit KML layer
-        var sorf_pts = omnivore.kml("kml/oregon_points.kml")
-          .on("ready", function () {
-            this.addTo(map)
-            map.fitBounds(this.getBounds())
+          //Load custom icon
+          var customIcon = L.icon({
+            iconUrl:
+              "https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/water-waves.png",
+            iconSize: [10, 10], // Adjust size as needed
+            iconAnchor: [0, 0], // Adjust anchor point
+            popupAnchor: [0, 20], // Adjust popup position
           })
-          .on("layeradd", function (e) {
-            if (e.layer instanceof L.Marker) {
-              e.layer.setIcon(customIcon);
-              }
-            if (e.layer.feature && e.layer.feature.properties) {
-              e.layer.bindPopup(e.layer.feature.properties.name || "Unknown Name");
-              }
-          });
-      </script>
 
-      <!--The form-->
-      <form id="forecast_input">
-        <label for="forecast_type">Forecast Type:</label><br />
-        <select id="forecast_type" name="forecast_type">
-          <option value="short_range">Short Range</option>
-          <option value="medium_range">Medium Range</option>
-          <option value="long_range">Long Range</option></select
-        ><br />
-        <button
-          type="button"
-          id="get_forecast"
-          class="button"
-          style="margin-top: 10px"
-        >
-          Get Forecast
-        </button>
-      </form>
+          // Load and fit KML layer
+          var sorf_pts = omnivore
+            .kml("kml/oregon_points.kml")
+            .on("ready", function () {
+              this.addTo(map)
+              map.fitBounds(this.getBounds())
+            })
+            .on("layeradd", function (e) {
+              if (e.layer instanceof L.Marker) {
+                e.layer.setIcon(customIcon)
+              }
+              if (e.layer.feature && e.layer.feature.properties) {
+                e.layer.bindPopup(
+                  e.layer.feature.properties.name || "Unknown Name",
+                )
+              }
+            })
+        </script>
+
+        <!--The form-->
+        <form id="forecast_input">
+          <label for="forecast_type">Forecast Type:</label><br />
+          <select id="forecast_type" name="forecast_type">
+            <option value="short_range">Short Range</option>
+            <option value="medium_range">Medium Range</option>
+            <option value="long_range">Long Range</option></select
+          ><br />
+          <button
+            type="button"
+            id="get_forecast"
+            class="button"
+            style="margin-top: 10px"
+          >
+            Get Forecast
+          </button>
+        </form>
+      </div>
 
       <!--Build the graph-->
       <div id="graph_container">
@@ -171,14 +216,17 @@
       </p>
 
       <footer>
-        Icons made by <a
-                        href="https://www.flaticon.com/authors/bomsymbols"
-                        title="BomSymbols"> BomSymbols 
-                      </a> 
-        from <a
-               href="https://www.flaticon.com/"
-               title="Flaticon">www.flaticon.com
-            </a>
+        Icons made by
+        <a
+          href="https://www.flaticon.com/authors/bomsymbols"
+          title="BomSymbols"
+        >
+          BomSymbols
+        </a>
+        from
+        <a href="https://www.flaticon.com/" title="Flaticon"
+          >www.flaticon.com
+        </a>
       </footer>
     </div>
     <!--End right-section-->
