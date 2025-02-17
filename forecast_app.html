@@ -79,15 +79,17 @@
       }
 
       @media (max-width: 768px) {
-        .map-form-container {
+        .map-form-container, .graph-table-container {
           flex-direction: column; /* Stack elements on smaller screens */
           align-items: center;
         }
-
         #map,
-        #forecast_input {
-          width: auto; /* Full width on small screens */
+        #forecast_input,
+        #forecast_table,
+        #graph_container {
+          width: 90%; /* Full width on small screens */
         }
+       }
     </style>
   </head>
   <body>
@@ -132,7 +134,7 @@
         <!--The map-->
         <div
           id="map"
-          style="height: 350px; width: 60%; border: 5px solid #2e5b29"
+          style="height: 350px; border: 5px solid #2e5b29"
         ></div>
         <script>
           let config = {
@@ -160,7 +162,7 @@
               "https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/favorites_circle03.png",
             iconSize: [20, 20], // Adjust size as needed
             iconAnchor: [0, 0], // Adjust anchor point
-            popupAnchor: [5, -30], // Adjust popup position
+            popupAnchor: [0, 10], // Adjust popup position
           })
 
           // Load and fit KML layer
@@ -252,11 +254,11 @@
           </button>
         </form>
       </div>
-
+      
       <div class="graph-table-container">
         <!--Build the table-->
         <div id="table_container">
-          <h3>Forecast</h3>
+          <h3>Forecast table here</h3>
           <table id="forecast_table">
             <thead>
               <tr>
@@ -271,27 +273,19 @@
 
         <!--Build the graph-->
         <div id="graph_container">
-          <h3>Forecast Graph</h3>
+          <h3>Forecast Graph here</h3>
           <canvas id="forecast_graph"></canvas>
         </div>
       </div>
+      
+      <!--Bottom Stuff-->
       <p>
         Want to see
         <a href="https://nathang425.github.io/how_it_works">how it works?</a>
       </p>
 
       <footer>
-        Icons made by
-        <a
-          href="https://www.flaticon.com/authors/bomsymbols"
-          title="BomSymbols"
-        >
-          BomSymbols
-        </a>
-        from
-        <a href="https://www.flaticon.com/" title="Flaticon"
-          >www.flaticon.com
-        </a>
+        Footer?
       </footer>
     </div>
     <!--End right-section-->
