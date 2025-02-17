@@ -19,7 +19,18 @@ function getForecast(reachid, type) {
         .then(response => response.json())
         .then(data => {
             console.log(data); //Log response data on the console
-            const forecastData = data.shortRange.series.data;
+
+            let forecastData = [];
+            if (data.shortRange && data.shortRange.series && data.shortRange.series.data) {
+                forecastData = data.shortRange.series.data;
+            } else if (data.mediumRange && data.mediumRange.series && data.mediumRange.series.data) {
+                forecastData = data.mediumRange.series.data;
+            } else if (data.longRange && data.longRange.series && data.longRange.series.data) {
+                forecastData = data.longRange.series.data;
+            } else {
+                alert('No forecast data available for the selected range.');
+                return;
+            }
             displayForecastTable(forecastData);
             drawForecastGraph(forecastData);
         })
