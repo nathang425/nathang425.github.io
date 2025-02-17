@@ -11,14 +11,6 @@ document.getElementById('get_forecast').addEventListener('click', function() {
     }
 });
 
-//event listener for pressing enter on reachID input
-document.getElementById('reachid_input').addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-        event.preventDefault(); // Prevent the form from submitting
-        document.getElementById('get_forecast').click(); // Trigger the "Get Forecast" button click
-    }
-});
-
 //function that calls data from the API
 function getForecast(reachid, type) {
     const api_url = `https://api.water.noaa.gov/nwps/v1/reaches/${reachid}/streamflow?series=${type}`;
