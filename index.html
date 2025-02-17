@@ -6,6 +6,59 @@
     <title>Nate's Home Page</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png" />
     <link rel="stylesheet" href="mystyle.css" />
+    <style>
+      .animation_container {
+        width: auto;
+        height: 100px;
+      }
+      .loading01 {
+        width: 8px;
+        height: 40px;
+        background-color: #2e5b29;
+        position: relative;
+        bottom: 0;
+        display: inline-block;
+        margin-right: 2px;
+        animation-name: load_1;
+        animation-duration: 1.2s;
+        animation-iteration-count: infinite;
+      }
+      .loading02 {
+        width: 8px;
+        height: 40px;
+        background-color: #2e5b29;
+        position: relative;
+        bottom: 0;
+        display: inline-block;
+        margin-right: 2px;
+        animation-name: load_1;
+        animation-duration: 1.2s;
+        animation-iteration-count: infinite;
+        animation-delay: 0.4s;
+      }
+      .loading03 {
+        width: 8px;
+        height: 40px;
+        background-color: #2e5b29;
+        position: relative;
+        bottom: 0;
+        display: inline-block;
+        margin-right: 2px;
+        animation-name: load_1;
+        animation-duration: 1.2s;
+        animation-iteration-count: infinite;
+        animation-delay: 0.8s;
+      }
+      @keyframes load_1 {
+        0%  {opacity: 100%;}
+        20% {opacity: 50%; height:42px;}
+        40% {opacity: 20%; height:44px;}
+        50% {opacity: 0%; height:44px;}
+        60% {opacity: 20%; height:44px;}
+        80% {opacity: 50%; height:42px;}
+        100% {opacity: 1000%;}
+      }
+    </style>
   </head>
   <body>
     <div class="left-section">
@@ -47,7 +100,7 @@
       <p>Here is my LinkedIn: <a href="https://www.linkedin.com/in/nathan-godfrey/">LinkedIn</a></p>
     <br><br><br>
 
-        
+      <!--Pictures-->
       <p>I like to travel, and elephants are pretty cool.</p>
         <div class="clearfix">
           <div class="img-container">
@@ -58,6 +111,15 @@
           </div>
       </div>
 
+      <!--Loading thing-->
+      <p>
+      Here is a quick loading animation demo
+      </p>
+      <div class="animation_container">
+        <div class="loading01"></div>
+        <div class="loading02"></div>
+        <div class="loading03"></div>
+        </div>
         
     </div>
   </body>
