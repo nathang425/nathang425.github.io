@@ -17,59 +17,76 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
     <style>
-                  .right-section {
-                    text-align: left;
-                  }
-                  table,
-                  th,
-                  td {
-                    border-style: solid;
-                    border-collapse: collapse;
-                    padding: 10px;
-                  }
-                  th {
-                    text-align: center;
-                  }
-                  .map-form-container {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: flex-start;
-                    gap: 5px;
+            .right-section {
+              text-align: left;
+            }
+            table,
+            th,
+            td {
+              border-style: solid;
+              border-collapse: collapse;
+              padding: 10px;
+            }
+            th {
+              text-align: center;
+            }
+            /*Map-form container*/
+            .map-form-container {
+              display: flex;
+              flex-direction: row;
+              align-items: flex-start;
+              gap: 5px;
+            }
+            #map {
+              height: 350px;
+              width: 60%;
+            }
+      #forecast_input {
+        flex: 1;
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: #6b8b8c;
+        border-radius: 8px;
+        width: 20%;
+        height: 300px;
+
       }
-                  #map {
 
-                    height: 350px;
-                    width: 60%;
-                  }
-            #forecast_input {
-              flex: 1;
-              padding: 20px;
-              background-color: #6b8b8c;
-              border-radius: 8px;
-              width: 20%;
-              height: 300px;
-
+      /*Graph-table container*/
+      .graph-table-container {
+              display: flex;
+              flex-direction: row;
+              align-items: flex-start;
+              gap: 5px;
             }
+      #forecast_table {
+        flex: 1;
+        width: 20%
+      }
+      #graph_container {
+        width: auto;
+      }
 
-            /*Special button formatting*/
-            button.button {
-              background-color: #2e5b29;
-            }
-            button.button:hover {
-              background-color: #016FB9 ; /*Blue on hover*/
-              transform: translateY(0px);
-            }
 
-            @media (max-width: 768px) {
-              .map-form-container {
-                flex-direction: column; /* Stack elements on smaller screens */
-                align-items: center;
-              }
+      /*Special button formatting*/
+      button.button {
+        background-color: #2e5b29;
+      }
+      button.button:hover {
+        background-color: #016FB9 ; /*Blue on hover*/
+        transform: translateY(0px);
+      }
 
-              #map,
-              #forecast_input {
-                width: auto; /* Full width on small screens */
-              }
+      @media (max-width: 768px) {
+        .map-form-container {
+          flex-direction: column; /* Stack elements on smaller screens */
+          align-items: center;
+        }
+
+        #map,
+        #forecast_input {
+          width: auto; /* Full width on small screens */
+        }
     </style>
   </head>
   <body>
@@ -108,7 +125,7 @@
     </div>
     <div class="right-section">
       <h1>Southern Oregon Rafting Forecast (SORF)</h1>
-      <h2>Header 2.1</h2>
+      <h3>Select a river on the map, or use the options on the right.</h3>
 
       <div class="map-form-container">
         <!--The map-->
@@ -145,10 +162,10 @@
           //Load custom icon
           var customIcon = L.icon({
             iconUrl:
-              "https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/water-waves.png",
-            iconSize: [10, 10], // Adjust size as needed
+              "https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/water-waves03.png",
+            iconSize: [20, 20], // Adjust size as needed
             iconAnchor: [0, 0], // Adjust anchor point
-            popupAnchor: [0, 20], // Adjust popup position
+            popupAnchor: [5, -30], // Adjust popup position
           })
 
           // Load and fit KML layer
@@ -172,11 +189,63 @@
 
         <!--The form-->
         <form id="forecast_input">
+          <h2>Options</h2>
           <label for="forecast_type">Forecast Type:</label><br />
-          <select id="forecast_type" name="forecast_type">
-            <option value="short_range">Short Range</option>
-            <option value="medium_range">Medium Range</option>
-            <option value="long_range">Long Range</option></select
+          <select
+            id="forecast_type"
+            name="forecast_type"
+            style="width: 100%; text-align: center"
+          >
+            <option value="short_range">
+              Short Range: 18hrs (most accurate)
+            </option>
+            <option value="medium_range">
+              Medium Range: 8-10d (mid accuracy)
+            </option>
+            <option value="long_range">
+              Long Range: 30d (least accurate)
+            </option></select
+          ><br />
+          <label for="river_station">Data Station:</label><br />
+          <select
+            id="river_station"
+            name="river_station"
+            style="width: 100%; text-align: left"
+          >
+            <option value="applegate_applegate">
+              Applegate River near Applegate, OR
+            </option>
+            <option value="applegate_wilderville">
+              Applegate River near Wilderville, OR
+            </option>
+            <option value="rogue_agness">Rogue River near Agness, OR</option>
+            <option value="rogue_eaglepoint">
+              Rogue River near Eagle Point, OR
+            </option>
+            <option value="rogue_grantspass">
+              Rogue River at Grants Pass, OR
+            </option>
+            <option value="rogue_goldraydam">
+              Rogue River below Gold Ray Dam, OR
+            </option>
+            <option value="umpqua_winchester">
+              North Umpqua River near Winchester, OR
+            </option>
+            <option value="umpqua_roseburg">
+              South Umpqua River at Roseburg, OR
+            </option>
+            <option value="umpqua_tiller">
+              South Umpqua River near Tiller, OR
+            </option>
+            <option value="umpqua_winston">
+              South Umpqua River near Winston, OR
+            </option>
+            <option value="umpqua_reedsport">
+              Umpqua River at Reedsport, OR
+            </option>
+            <option value="umpqua_elkton">
+              Umpqua River near Elkton, OR
+            </option></select
           ><br />
           <button
             type="button"
@@ -189,27 +258,28 @@
         </form>
       </div>
 
-      <!--Build the graph-->
-      <div id="graph_container">
-        <h3>Forecast Graph</h3>
-        <canvas id="forecast_graph"></canvas>
-      </div>
-      <br />
+      <div class="graph-table-container">
+        <!--Build the table-->
+        <div id="table_container">
+          <h3>Forecast</h3>
+          <table id="forecast_table">
+            <thead>
+              <tr>
+                <th>Time/Date</th>
+                <th>Flow (cfs)</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <br />
 
-      <!--Build the table-->
-      <div id="table_container">
-        <h3>Forecast</h3>
-        <table id="forecast_table">
-          <thead>
-            <tr>
-              <th>Time/Date</th>
-              <th>Flow (cfs)</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
+        <!--Build the graph-->
+        <div id="graph_container">
+          <h3>Forecast Graph</h3>
+          <canvas id="forecast_graph"></canvas>
+        </div>
       </div>
-      <br />
       <p>
         Want to see
         <a href="https://nathang425.github.io/how_it_works">how it works?</a>
