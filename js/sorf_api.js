@@ -23,12 +23,14 @@ function getForecast(reachid, type) {
             let forecastData = [];
             if (data.shortRange && data.shortRange.series && data.shortRange.series.data) {
                 forecastData = data.shortRange.series.data;
-            } else if (data.mediumRange && data.mediumRange.series && data.mediumRange.series.data) {
-                forecastData = data.mediumRange.series.data;
-            } else if (data.longRange && data.longRange.series && data.longRange.series.data) {
-                forecastData = data.longRange.series.data;
+            } else if (data.mediumRange && data.mediumRange.member1 && data.mediumRange.member1.data) {
+                forecastData = data.mediumRange.member1.data;
+            } else if (data.longRange && data.longRange.member1 && data.longRange.member1.data) {
+                forecastData = data.longRange.member1.data;
             } else {
                 alert('No forecast data available for the selected range.');
+                displayForecastTable();
+                drawForecastGraph();
                 return;
             }
             displayForecastTable(forecastData);
