@@ -1,12 +1,13 @@
 let chartInstance; //variable to store chart
 
 //event listener for button push, filter for having an input
-document.getElementById('submit').addEventListener('click', function() {
-    const reachid = document.getElementById('reachid').value;
+document.getElementById('get_forecast').addEventListener('click', function() {
+    const reachid = document.getElementById('river_station').value;
+    const type = document.getElementById('forecast_type').value;
     if (reachid) {
-        getForecast(reachid);
+        getForecast(reachid, type);
     } else {
-        alert('Please enter a Reach ID.');
+        alert('Error: Bad API inputs');
     }
 });
 
@@ -14,13 +15,13 @@ document.getElementById('submit').addEventListener('click', function() {
 document.getElementById('reachid_input').addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
         event.preventDefault(); // Prevent the form from submitting
-        document.getElementById('submit').click(); // Trigger the "Get Forecast" button click
+        document.getElementById('get_forecast').click(); // Trigger the "Get Forecast" button click
     }
 });
 
 //function that calls data from the API
-function getForecast(reachid) {
-    const api_url = `https://api.water.noaa.gov/nwps/v1/reaches/${reachid}/streamflow?series=short_range`;
+function getForecast(reachid, type) {
+    const api_url = `https://api.water.noaa.gov/nwps/v1/reaches/${reachid}/streamflow?series=${type}`;
 
     fetch(api_url)
         .then(response => response.json())
