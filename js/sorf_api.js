@@ -29,11 +29,9 @@ function getForecast(reachid, type) {
                 forecastData = data.longRange.member1.data;
             } else {
                 alert('No forecast data available for the selected range.');
-                displayForecastTable();
                 drawForecastGraph();
                 return;
             }
-            displayForecastTable(forecastData);
             drawForecastGraph(forecastData);
         })
         .catch(error => {
