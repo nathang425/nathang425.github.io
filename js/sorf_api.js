@@ -41,20 +41,20 @@ function getForecast(reachid, type) {
         });
 }
 
-//Function to display the data on the table
-function displayForecastTable(data) {
-    const tableBody = document.getElementById('forecast_table').getElementsByTagName('tbody')[0];
-    tableBody.innerHTML = ''; //clear existing table data
+//Function to display the data on the table --> COMMENTED OUT, DON'T NEED TABLE
+//function displayForecastTable(data) {
+    //const tableBody = document.getElementById('forecast_table').getElementsByTagName('tbody')[0];
+    //tableBody.innerHTML = ''; //clear existing table data
 
-    data.forEach(forecast => {
-        const row = tableBody.insertRow();
-        const timeCell = row.insertCell(0);
-        const flowCell = row.insertCell(1);
+    //data.forEach(forecast => {
+        //const row = tableBody.insertRow();
+        //const timeCell = row.insertCell(0);
+        //const flowCell = row.insertCell(1);
 
-        timeCell.textContent = forecast.validTime;
-        flowCell.textContent = forecast.flow;
-    });
-}
+        //timeCell.textContent = forecast.validTime;
+        //flowCell.textContent = forecast.flow;
+    //});
+//}
 
 //function to draw the graph
 function drawForecastGraph(data) {
