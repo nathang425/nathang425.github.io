@@ -199,6 +199,9 @@
                 e.layer.on("mouseout", function () {
                   this.closePopup();
               });
+                e.layer.on("click", function () {
+                  map.setView(e.latlng, 12); // Adjust zoom level (12 is an example)
+              });
             }
         });
         </script>
