@@ -65,6 +65,11 @@ function drawForecastGraph(data) {
         chartInstance.destroy();
     }
 
+    //Logic to apply minor/moderate/major flood levels
+    const minorFlood = 50000;
+    const moderateFlood = 20000;
+    const majorFlood = 22000;
+
     chartInstance = new Chart(ctx, {
         type: 'line',
         data: {
@@ -106,6 +111,57 @@ function drawForecastGraph(data) {
                     },
                     min: Math.floor((Math.min(...flows) - 5) / 5) * 5, //Round min val to nearest 5
                     max: Math.ceil((Math.max(...flows) + 5) / 5) * 5  //Round max value to nearest 5
+                }
+            },
+            plugins: {
+                annotation: {
+                    annotations: [
+                        {
+                            type: 'line',
+                            mode: 'horizontal',
+                            scaleID: 'y',
+                            value: minorFloodLevel,
+                            borderColor: 'yellow',
+                            borderWidth: 2,
+                            label: {
+                                content: 'Minor Flood',
+                                enabled: true,
+                                position: 'end',
+                                backgroundColor: 'yellow',
+                                color: 'white',
+                            }
+                        },
+                        {
+                            type: 'line',
+                            mode: 'horizontal',
+                            scaleID: 'y',
+                            value: moderateFloodLevel,
+                            borderColor: 'orange',
+                            borderWidth: 2,
+                            label: {
+                                content: 'Moderate Flood',
+                                enabled: true,
+                                position: 'end',
+                                backgroundColor: 'orange',
+                                color: 'white',
+                            }
+                        },
+                        {
+                            type: 'line',
+                            mode: 'horizontal',
+                            scaleID: 'y',
+                            value: majorFloodLevel,
+                            borderColor: 'red',
+                            borderWidth: 2,
+                            label: {
+                                content: 'Major Flood',
+                                enabled: true,
+                                position: 'end',
+                                backgroundColor: 'red',
+                                color: 'white',
+                            }
+                        }
+                    ]
                 }
             }
         }
