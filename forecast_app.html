@@ -246,13 +246,16 @@
               Umpqua River near Elkton, OR
             </option></select
           ><br />
+          <p>The API sometimes has an error that returns bad data, especially with the medium and long range forecasts.
+            If the resulting graph shows a perfectly straight line, please click the "Refresh Forecast" button to try to fix the error.
+            This may take 3-4 tries.</p>
           <button
             type="button"
             id="get_forecast"
             class="button"
             style="margin-top: 10px"
           >
-            Get Forecast
+            Refresh Forecast
           </button>
         </form>
       </div>
@@ -319,8 +322,7 @@
             // Initialize table with default values on page load
             updateFloodThresholds()
           </script>
-
-          <p>Here is a warning about the API.</p>
+          
           <p>Oh no it's gonna flood!</p>
         </div>
         <br />
