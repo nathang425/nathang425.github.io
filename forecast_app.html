@@ -199,8 +199,13 @@
                 e.layer.on("mouseout", function () {
                   this.closePopup();
               });
-                e.layer.on("click", function () {
-                  map.setView(e.latlng, 12); // Adjust zoom level (12 is an example)
+                e.layer.on("click", function (event) {
+                  const latlng = event.latlng; // Access latlng from the event
+                  if (latlng) {
+                    map.setView(latlng, 10); // Adjust zoom level
+                  } else {
+                    console.error("LatLng is undefined for this marker");
+                  }
               });
             }
         });
