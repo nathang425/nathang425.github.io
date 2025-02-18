@@ -17,31 +17,43 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
     <style>
-            .right-section {
-              text-align: left;
-            }
-            /* COMMENTED OUT THE TABLE CSS
-            table,
-            th,
-            td {
-              border-style: solid;
-              border-collapse: collapse;
-              padding: 10px;
-            }
-            th {
-              text-align: center;
-            } */
-            /*Map-form container*/
-            .map-form-container {
-              display: flex;
-              flex-direction: row;
-              align-items: flex-start;
-              gap: 5px;
-            }
-            #map {
-              height: 350px;
-              width: 60%;
-            }
+      .right-section {
+        text-align: left;
+      }
+      
+      /*Table Styles*/
+      table,
+      th,
+      td {
+        border-style: solid;
+        border-collapse: separate;
+        padding: 5px;
+        font-size: 10px;
+      }
+      th {
+        text-align: left;
+      }
+      #major {
+        border: 2px solid red;
+      }
+      #moderate {
+        border: 2px solid orange;
+      }
+      #minor {
+        border: 2px solid yellow;
+      }
+      
+      /*Map-form container*/
+      .map-form-container {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 5px;
+      }
+      #map {
+        height: 350px;
+        width: 60%;
+      }
       #forecast_input {
         flex: 1;
         padding-left: 20px;
@@ -50,17 +62,15 @@
         border-radius: 8px;
         width: 20%;
         height: 360px;
-
       }
 
       /*Graph-table container*/
-      /*Table CSS is commented out, but "forecst_table" will still be the name of some box of results at the bottom*/
       .graph-table-container {
-              display: flex;
-              flex-direction: row;
-              align-items: flex-start;
-              gap: 5px;
-            }
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 5px;
+      }
       #forecast_table {
         flex: 1;
         width: 20%;
@@ -70,18 +80,18 @@
         width: auto;
       }
 
-
       /*Special button formatting*/
       button.button {
         background-color: #2e5b29;
       }
       button.button:hover {
-        background-color: #016FB9 ; /*Blue on hover*/
+        background-color: #016fb9; /*Blue on hover*/
         transform: translateY(0px);
       }
 
       @media (max-width: 768px) {
-        .map-form-container, .graph-table-container {
+        .map-form-container,
+        .graph-table-container {
           flex-direction: column; /* Stack elements on smaller screens */
           align-items: center;
         }
@@ -91,7 +101,7 @@
         #graph_container {
           width: 90%; /* Full width on small screens */
         }
-       }
+      }
     </style>
   </head>
   <body>
@@ -134,10 +144,7 @@
 
       <div class="map-form-container">
         <!--The map-->
-        <div
-          id="map"
-          style="height: 350px; border: 5px solid #2e5b29"
-        ></div>
+        <div id="map" style="height: 350px; border: 5px solid #2e5b29"></div>
         <script>
           let config = {
             minZoom: 1,
@@ -193,7 +200,7 @@
           <select
             id="forecast_type"
             name="forecast_type"
-            style="width: 100%; text-align: center"
+            style="width: 100%; text-align: left"
           >
             <option value="short_range">
               Short Range: 18hrs (most accurate)
@@ -211,39 +218,23 @@
             name="river_station"
             style="width: 100%; text-align: left"
           >
-            <option value="23935947">
-              Applegate River near Applegate, OR
-            </option>
+            <option value="23935947">Applegate River near Applegate, OR</option>
             <option value="23935811">
               Applegate River near Wilderville, OR
             </option>
-            <option value="23940255">
-              Rogue River near Agness, OR
-            </option>
-            <option value="23923226">
-              Rogue River near Eagle Point, OR
-            </option>
-            <option value="23930602">
-              Rogue River at Grants Pass, OR
-            </option>
-            <option value="23930752">
-              Rogue River below Gold Ray Dam, OR
-            </option>
+            <option value="23940255">Rogue River near Agness, OR</option>
+            <option value="23923226">Rogue River near Eagle Point, OR</option>
+            <option value="23930602">Rogue River at Grants Pass, OR</option>
+            <option value="23930752">Rogue River below Gold Ray Dam, OR</option>
             <option value="23893934">
               North Umpqua River near Winchester, OR
             </option>
-            <option value="23900927">
-              South Umpqua River at Roseburg, OR
-            </option>
-            <option value="23901573">
-              South Umpqua River near Tiller, OR
-            </option>
+            <option value="23900927">South Umpqua River at Roseburg, OR</option>
+            <option value="23901573">South Umpqua River near Tiller, OR</option>
             <option value="23900935">
               South Umpqua River near Winston, OR
             </option>
-            <option value="24526610">
-              Umpqua River at Reedsport, OR
-            </option>
+            <option value="24526610">Umpqua River at Reedsport, OR</option>
             <option value="24526814">
               Umpqua River near Elkton, OR
             </option></select
@@ -258,26 +249,29 @@
           </button>
         </form>
       </div>
-      
+
       <div class="graph-table-container">
         <!--Build the table-->
         <div id="table_container">
           <h3>Forecast output notes here</h3>
           <p>Here is some text about the results</p>
-          <p>It's very important.</p>
-          <p>I can't come up with filler text very easily.</p>
-          <p>Oh no it's gonna flood!</p>
-          <!-- COMMENTED OUT THE TABLE
-          <table id="forecast_table">
-            <thead>
-              <tr>
-                <th>Time/Date</th>
-                <th>Flow (cfs)</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
+          <p>Here are the flood threshold values:</p>
+          <table>
+            <tr>
+              <td id="major">Major Flood:</td>
+              <td id="major">000 cfs</td>
+            </tr>
+            <tr>
+              <td id="moderate">Moderate Flood:</td>
+              <td id="moderate">000 cfs</td>
+            </tr>
+            <tr>
+              <td id="minor">Minor Flood:</td>
+              <td id="minor">000 cfs</td>
+            </tr>
           </table>
-          COMMENTED OUT THE TABLE -->
+          <p>Here is a warning about the API.</p>
+          <p>Oh no it's gonna flood!</p>
         </div>
         <br />
 
@@ -287,16 +281,14 @@
           <canvas id="forecast_graph"></canvas>
         </div>
       </div>
-      
+
       <!--Bottom Stuff-->
       <p>
         Want to see
         <a href="https://nathang425.github.io/how_it_works">how it works?</a>
       </p>
 
-      <footer>
-        Footer?
-      </footer>
+      <footer>Footer?</footer>
     </div>
     <!--End right-section-->
     <script src="js/sorf_api.js"></script>
