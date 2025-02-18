@@ -1,5 +1,29 @@
 let chartInstance; //variable to store chart
 
+//event listener for river_station change, filter for having an input
+document.getElementById("river_station").addEventListener("change", function() {
+    const reachid = document.getElementById('river_station').value;
+    const type = document.getElementById('forecast_type').value;
+    console.log("Get Forecast button clicked");
+    if (reachid) {
+        getForecast(reachid, type);
+    } else {
+        alert('Error: Bad API inputs');
+    }
+});
+
+//event listener for forecast_type change, filter for having an input
+document.getElementById("forecast_type").addEventListener("change", function() {
+    const reachid = document.getElementById('river_station').value;
+    const type = document.getElementById('forecast_type').value;
+    console.log("Get Forecast button clicked");
+    if (reachid) {
+        getForecast(reachid, type);
+    } else {
+        alert('Error: Bad API inputs');
+    }
+});
+
 //event listener for button push, filter for having an input
 document.getElementById('get_forecast').addEventListener('click', function() {
     const reachid = document.getElementById('river_station').value;
