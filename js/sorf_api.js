@@ -4,6 +4,7 @@ let chartInstance; //variable to store chart
 document.getElementById('get_forecast').addEventListener('click', function() {
     const reachid = document.getElementById('river_station').value;
     const type = document.getElementById('forecast_type').value;
+    console.log("Get Forecast button clicked");
     if (reachid) {
         getForecast(reachid, type);
     } else {
