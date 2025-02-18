@@ -120,7 +120,7 @@ function drawForecastGraph(data) {
                             type: 'line',
                             mode: 'horizontal',
                             scaleID: 'y',
-                            value: minorFloodLevel,
+                            value: minorFlood,
                             borderColor: 'yellow',
                             borderWidth: 2,
                             label: {
@@ -135,7 +135,7 @@ function drawForecastGraph(data) {
                             type: 'line',
                             mode: 'horizontal',
                             scaleID: 'y',
-                            value: moderateFloodLevel,
+                            value: moderateFlood,
                             borderColor: 'orange',
                             borderWidth: 2,
                             label: {
@@ -150,7 +150,7 @@ function drawForecastGraph(data) {
                             type: 'line',
                             mode: 'horizontal',
                             scaleID: 'y',
-                            value: majorFloodLevel,
+                            value: majorFlood,
                             borderColor: 'red',
                             borderWidth: 2,
                             label: {
