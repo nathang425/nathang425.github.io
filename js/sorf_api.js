@@ -71,17 +71,10 @@ function drawForecastGraph(data) {
         chartInstance.destroy();
     }
 
-    //Logic to apply minor/moderate/major flood levels
-    const minorFlood = 50000;
-    const moderateFlood = 20000;
-    const majorFlood = 22000;
+    // Determine y-axis limits
+    const yMax = Math.ceil(Math.max(...flows) / 5) * 5; //Round up to nearest 5
+    const yMin = Math.floor((Math.min(...flows) - 5) / 5) * 5; //Round down to nearest 5
 
-    // Determine y-axis limits, ensuring they include flood levels
-    const maxDataValue = flows.length ? Math.max(...flows) : 0;
-    const maxFloodLevel = Math.max(minorFlood, moderateFlood, majorFlood);
-    const yMax = Math.ceil(Math.max(maxDataValue, maxFloodLevel) / 5) * 5; // Round up to nearest 5
-    const minDataValue = flows.length ? Math.min(...flows) : 0;
-    const yMin = Math.floor((minDataValue - 5) / 5) * 5; // Round down to nearest 5
 
     chartInstance = new Chart(ctx, {
         type: 'line',
@@ -99,11 +92,14 @@ function drawForecastGraph(data) {
             responsive: true,
             scales: {
                 x: {
-                    type: 'time',
-                    title: {
-                        display: true,
-                        text: 'Date'
-                          },
+                type: 'time',
+                time: {
+                    unit: 'hour',  // Adjust to the appropriate time unit (e.g., 'hour', 'minute')
+                    tooltipFormat: 'MMM DD, YYYY HH:mm',  // Tooltip format
+                    displayFormats: {
+                        hour: 'MMM DD HH:mm',  // Format displayed on the axis
+                        }
+                    },
                     ticks: { color: 'white'},
                     title: {
                         display: true,
