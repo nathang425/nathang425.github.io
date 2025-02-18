@@ -193,11 +193,14 @@
                 e.layer.setIcon(customIcon)
               }
               if (e.layer.feature && e.layer.feature.properties) {
-                e.layer.bindPopup(
-                  e.layer.feature.properties.name || "Unknown Name",
-                )
-              }
-            })
+                e.layer.on("mouseover", function () {
+                  this.bindPopup(e.layer.feature.properties.name || "Unknown Name").openPopup();
+              });
+                e.layer.on("mouseout", function () {
+                  this.closePopup();
+              });
+            }
+        });
         </script>
 
         <!--The form-->
