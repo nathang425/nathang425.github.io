@@ -83,7 +83,7 @@ function drawForecastGraph(data) {
             datasets: [{
                 label: 'Flow (cfs)',
                 data: flows,
-                borderColor: '#ffffff',
+                borderColor: '#016FB9',
                 pointBackgroundColor: '#ffffff',
                 
             }]
