@@ -17,3 +17,5 @@ Mon, Feb 17.
   **ADD TO DO:format results box, make river selection by map OR by dropdown
   -I had to manually gather flood thresholds
   -UNDO ALL the flood threshold graph stuff, it doesn't scale good...
+  ~~NOTE: medium_range forecasts just don't work!!
+  **ADD TO DO:add note about tempermental API, that medium ranges just don't work
