@@ -100,11 +100,9 @@ function drawForecastGraph(data) {
             scales: {
                 x: {
                     type: 'time',
-                    time: { unit: 'hour',
-                           tooltipFormat: 'll HH:mm',
-                           displayFormats: {
-                               hour: 'll HH:mm',
-                           }
+                    title: {
+                        display: true,
+                        text: 'Date'
                           },
                     ticks: { color: 'white'},
                     title: {
