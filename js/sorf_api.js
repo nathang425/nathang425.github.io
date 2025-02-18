@@ -1,4 +1,3 @@
-import Chart from 'chart.js';
 let chartInstance; //variable to store chart
 
 //event listener for button push, filter for having an input
