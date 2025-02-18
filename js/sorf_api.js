@@ -1,3 +1,5 @@
+Chart.register(ChartjsPluginAnnotation);
+
 let chartInstance; //variable to store chart
 
 //event listener for button push, filter for having an input
@@ -131,7 +133,7 @@ function drawForecastGraph(data) {
                         {
                             type: 'line',
                             mode: 'horizontal',
-                            scaleID: 'y',
+                            yScaleID: 'y',
                             value: minorFlood,
                             borderColor: 'yellow',
                             borderWidth: 2,
@@ -146,7 +148,7 @@ function drawForecastGraph(data) {
                         {
                             type: 'line',
                             mode: 'horizontal',
-                            scaleID: 'y',
+                            yScaleID: 'y',
                             value: moderateFlood,
                             borderColor: 'orange',
                             borderWidth: 2,
@@ -161,7 +163,7 @@ function drawForecastGraph(data) {
                         {
                             type: 'line',
                             mode: 'horizontal',
-                            scaleID: 'y',
+                            yScaleID: 'y',
                             value: majorFlood,
                             borderColor: 'red',
                             borderWidth: 2,
