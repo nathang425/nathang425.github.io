@@ -1,7 +1,4 @@
 import Chart from 'chart.js';
-import annotationPlugin from 'chartjs-plugin-annotation';
-Chart.register(ChartjsPluginAnnotation);
-
 let chartInstance; //variable to store chart
 
 //event listener for button push, filter for having an input
@@ -103,7 +100,12 @@ function drawForecastGraph(data) {
             scales: {
                 x: {
                     type: 'time',
-                    time: { unit: 'hour'},
+                    time: { unit: 'hour',
+                           tooltipFormat: 'll HH:mm',
+                           displayFormats: {
+                               hour: 'll HH:mm',
+                           }
+                          },
                     ticks: { color: 'white'},
                     title: {
                         display: true,
@@ -129,57 +131,6 @@ function drawForecastGraph(data) {
                     max: yMax
                 }
             },
-            plugins: {
-                annotation: {
-                    annotations: [
-                        {
-                            type: 'line',
-                            mode: 'horizontal',
-                            yScaleID: 'y',
-                            value: minorFlood,
-                            borderColor: 'yellow',
-                            borderWidth: 2,
-                            label: {
-                                content: 'Minor Flood',
-                                enabled: true,
-                                position: 'end',
-                                backgroundColor: 'yellow',
-                                color: 'white',
-                            }
-                        },
-                        {
-                            type: 'line',
-                            mode: 'horizontal',
-                            yScaleID: 'y',
-                            value: moderateFlood,
-                            borderColor: 'orange',
-                            borderWidth: 2,
-                            label: {
-                                content: 'Moderate Flood',
-                                enabled: true,
-                                position: 'end',
-                                backgroundColor: 'orange',
-                                color: 'white',
-                            }
-                        },
-                        {
-                            type: 'line',
-                            mode: 'horizontal',
-                            yScaleID: 'y',
-                            value: majorFlood,
-                            borderColor: 'red',
-                            borderWidth: 2,
-                            label: {
-                                content: 'Major Flood',
-                                enabled: true,
-                                position: 'end',
-                                backgroundColor: 'red',
-                                color: 'white',
-                            }
-                        }
-                    ]
-                }
-            }
         }
     });
 }
