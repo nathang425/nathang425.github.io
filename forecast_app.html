@@ -206,6 +206,11 @@
                   } else {
                     console.error("LatLng is undefined for this marker");
                   }
+                  const stationId = e.layer.feature.properties.description;
+                  if (stationId) {
+                    // Set the selected value in the dropdown
+                    document.getElementById('river_station').value = stationId;
+                  }
               });
             }
         });
