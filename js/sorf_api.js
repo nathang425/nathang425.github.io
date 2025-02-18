@@ -95,9 +95,9 @@ function drawForecastGraph(data) {
                 type: 'time',
                 time: {
                     unit: 'hour',  // Adjust to the appropriate time unit (e.g., 'hour', 'minute')
-                    tooltipFormat: 'MMM DD, YYYY HH:mm',  // Tooltip format
+                    tooltipFormat: 'MMM dd, YYYY HH:mm',  // Tooltip format
                     displayFormats: {
-                        hour: 'MMM DD HH:mm',  // Format displayed on the axis
+                        hour: 'MMM dd HH:mm',  // Format displayed on the axis
                         }
                     },
                     ticks: { color: 'white'},
