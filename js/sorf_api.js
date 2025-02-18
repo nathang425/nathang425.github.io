@@ -32,10 +32,15 @@ function getForecast(reachid, type) {
                 drawForecastGraph();
                 return;
             }
+            if (forecastData.length === 0) {
+                alert("An error occurred while retrieving data. Please try again 2-3 times. If the issue persists, check your input or try later.");
+                return;
+            }
             drawForecastGraph(forecastData);
         })
         .catch(error => {
             console.error('Error fetching forecast data:', error);
+            alert("An error occurred while fetching forecast data. Please check your input and try again.");
         });
 }
 
@@ -69,6 +74,13 @@ function drawForecastGraph(data) {
     const minorFlood = 50000;
     const moderateFlood = 20000;
     const majorFlood = 22000;
+
+    // Determine y-axis limits, ensuring they include flood levels
+    const maxDataValue = flows.length ? Math.max(...flows) : 0;
+    const maxFloodLevel = Math.max(minorFlood, moderateFlood, majorFlood);
+    const yMax = Math.ceil(Math.max(maxDataValue, maxFloodLevel) / 5) * 5; // Round up to nearest 5
+    const minDataValue = flows.length ? Math.min(...flows) : 0;
+    const yMin = Math.floor((minDataValue - 5) / 5) * 5; // Round down to nearest 5
 
     chartInstance = new Chart(ctx, {
         type: 'line',
@@ -109,8 +121,8 @@ function drawForecastGraph(data) {
                             return value.toLocaleString(); // Format y-axis labels
                         }
                     },
-                    min: Math.floor((Math.min(...flows) - 5) / 5) * 5, //Round min val to nearest 5
-                    max: Math.ceil((Math.max(...flows) + 5) / 5) * 5  //Round max value to nearest 5
+                    min: yMin,
+                    max: yMax
                 }
             },
             plugins: {
