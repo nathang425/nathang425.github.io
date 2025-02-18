@@ -32,6 +32,7 @@
         border-collapse: separate;
         padding: 5px;
         font-size: 12px;
+        text-align: right;
       }
       th {
         text-align: left;
@@ -278,9 +279,9 @@
           </table>
           <!--Table Scripte-->
           <script>
-            // Flood threshold values for each station (example values)
+            // Flood threshold values for each station
             const floodThresholds = {
-              23935947: { major: 33000, moderate: 24245, minor: 16230 }, // Example for Applegate River near Applegate, OR
+              23935947: { major: 33000, moderate: 24245, minor: 16230 },
               23935811: { major: 42594, moderate: 30184, minor: 22932 },
               23940255: { major: 223217, moderate: 193886, minor: 45986 },
               23923226: { major: 49500, moderate: 34300, minor: 17297 },
@@ -290,7 +291,7 @@
               23900927: { major: 114000, moderate: 87000, minor: 69000 },
               23901573: { major: 58569, moderate: 45004, minor: 33269 },
               23900935: { major: 89000, moderate: 70923, minor: 55287 },
-              24526610: { major: N/A, moderate: N/A, minor: N/A },
+              24526610: { major: "N/A", moderate: "N/A", minor: "N/A" },
               24526814: { major: 226255, moderate: 180777, minor: 145870 },
             }
 
@@ -299,14 +300,14 @@
               const selectedStation =
                 document.getElementById("river_station").value
               const thresholds = floodThresholds[selectedStation]
-
+              //Check if the value is just N/A
               if (thresholds) {
                 document.getElementById("major-value").textContent =
-                  thresholds.major
-                document.getElementById("moderate-value").textContent =
-                  thresholds.moderate
-                document.getElementById("minor-value").textContent =
-                  thresholds.minor
+                  thresholds.major !== "N/A" ? thresholds.major + " cfs" : "No Data";
+              document.getElementById("moderate-value").textContent =
+                thresholds.moderate !== "N/A" ? thresholds.moderate + " cfs" : "No Data";
+              document.getElementById("minor-value").textContent =
+                thresholds.minor !== "N/A" ? thresholds.minor + " cfs" : "No Data";
               }
             }
 
