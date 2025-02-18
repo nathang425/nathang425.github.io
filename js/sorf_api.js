@@ -1,3 +1,5 @@
+import Chart from 'chart.js';
+import annotationPlugin from 'chartjs-plugin-annotation';
 Chart.register(ChartjsPluginAnnotation);
 
 let chartInstance; //variable to store chart
