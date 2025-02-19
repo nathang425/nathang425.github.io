@@ -38,6 +38,7 @@ document.getElementById('get_forecast').addEventListener('click', function() {
 
 //function that calls data from the API
 function getForecast(reachid, type) {
+    document.getElementById('loading').style.display = 'flex'; //Show loading animation
     const api_url = `https://api.water.noaa.gov/nwps/v1/reaches/${reachid}/streamflow?series=${type}`;
 
     fetch(api_url)
@@ -55,6 +56,7 @@ function getForecast(reachid, type) {
             } else {
                 alert('No forecast data available for the selected range.');
                 drawForecastGraph();
+                document.getElementById('loading').style.display = 'none'; //Hide loading animation
                 return;
             }
             if (forecastData.length === 0) {
@@ -62,10 +64,12 @@ function getForecast(reachid, type) {
                 return;
             }
             drawForecastGraph(forecastData);
+            document.getElementById('loading').style.display = 'none'; //Hide loading animation
         })
         .catch(error => {
             console.error('Error fetching forecast data:', error);
             alert("An error occurred while fetching forecast data. Please check your input and try again.");
+            document.getElementById('loading').style.display = 'none'; //Hide loading animation
         });
 }
 
