@@ -366,9 +366,9 @@
       <div class="graph-table-container">
         <!--Build the table-->
         <div id="table_container">
-          <h3>Forecast output notes here</h3>
-          <p>Here is some text about the results</p>
-          <p>Here are the flood threshold values:</p>
+          <h3>Notes:</h3>
+          <p>Graph and results are in cubic feet per second (cfs).</p>
+          <p>Check the following official flood threshold levels for reference:</p>
           <table>
             <tr>
               <td id="major">Major Flood:</td>
@@ -426,23 +426,25 @@
             updateFloodThresholds()
           </script>
           
-          <p>Oh no it's gonna flood!</p>
+          <p>Later versions may include averages by date/season for reference, as well as river depth forecast.</p>
+          <p>
+            Want to see
+            <a href="https://nathang425.github.io/forecast_how">how it works</a> or 
+            <a href="https://nathang425.github.io/forecast_dev">development details?</a>
+          </p>
         </div>
         <br />
 
         <!--Build the graph-->
         <div id="graph_container">
-          <h3>Forecast Graph here</h3>
+          <h3>Forecast Graph:</h3>
           <div class="loading style-2"><div class="loading01"></div><div class="loading02"></div><div class="loading03"></div></div>
           <canvas id="forecast_graph"></canvas>
         </div>
       </div>
 
       <!--Bottom Stuff-->
-      <p>
-        Want to see
-        <a href="https://nathang425.github.io/how_it_works">how it works?</a>
-      </p>
+      
 
       <svg xmlns="http://www.w3.org/2000/svg" class="svg_wave">
         <path
