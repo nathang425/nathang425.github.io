@@ -60,7 +60,7 @@ function getForecast(reachid, type) {
                 return;
             }
             if (forecastData.length === 0) {
-                alert("An error occurred while retrieving data. Please try again 2-3 times. If the issue persists, check your input or try later.");
+                alert("An error occurred: the API returned blank data. Please try refreshing the forecast a few times.");
                 return;
             }
             drawForecastGraph(forecastData);
