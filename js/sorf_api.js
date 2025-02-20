@@ -51,8 +51,8 @@ function getForecast(reachid, type) {
                 forecastData = data.shortRange.series.data;
             } else if (data.mediumRange && data.mediumRange.member1 && data.mediumRange.member1.data) {
                 forecastData = data.mediumRange.member1.data;
-            } else if (data.longRange && data.longRange.member1 && data.longRange.member1.data) {
-                forecastData = data.longRange.member1.data;
+            } else if (data.longRange && data.longRange.member3 && data.longRange.member3.data) {
+                forecastData = data.longRange.member3.data;
             } else {
                 alert('No forecast data available.');
                 drawForecastGraph([]);
