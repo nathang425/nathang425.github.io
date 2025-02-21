@@ -326,9 +326,9 @@
           };
 
           //Add watersheds kml
-          var watershedsLayer = omnivore.kml("kml/watersheds01.kml", {
-            style: watershedStyle // Directly apply style to KML layer
-          })
+          var watershedsLayer = omnivore.kml("kml/watersheds01.kml", null, L.geoJSON(null, {
+            style: watershedStyle // Apply the custom style to the watershed layer
+          }))
             .on("ready", function () {
               this.addTo(map);
               map.fitBounds(this.getBounds());
