@@ -315,22 +315,31 @@
                 this.addTo(map);
               })
           }
+
+          //Add watersheds kml styling
+          const watershedStyle = {
+            color: '#a95537',  // Outline color
+            weight: 2,  // Outline thickness
+            opacity: 1,  // Full opacity for outline
+            dashArray: '5,5',  // Dashed line pattern (5px dash, 5px space)
+            fillOpacity: 0  // No fill color
+          };
+
+          //Add watersheds kml
+          var watershedsLayer = omnivore.kml("kml/watersheds01.kml", {
+            style: watershedStyle // Directly apply style to KML layer
+          })
+            .on("ready", function () {
+              this.addTo(map);
+              map.fitBounds(this.getBounds());
+            })
+            .addTo(map);
           
           // Add KML files to the map
           addKMLLayer("kml/rogue01.kml", "Rogue");
           addKMLLayer("kml/umpqua01.kml", "Umpqua");
           addKMLLayer("kml/applegate01.kml", "Applegate");
-          addKMLLayer("kml/watersheds01.kml", {
-              style: function(feature) {
-                  return {
-                      color: '#a95537', // Example styling
-                      weight: 1,
-                      opacity: 1,
-                      dashArray: '5,5',
-                      fillOpacity: 0
-                  };
-              }
-          }, "Watersheds");
+          
 
           // Add a control for toggling layers
           L.control.layers(null, kmlLayers, { collapsed: false, position: 'bottomleft' }).addTo(map);
