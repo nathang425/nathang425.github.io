@@ -307,6 +307,8 @@
         });
 
           //Function to add other kml layers:
+          // Declare the kmlLayers object to hold the KML layers
+          const kmlLayers = {};
           function addKMLLayer(url, layerName) {
             kmlLayers[layerName] = omnivore.kml(url)
               .on("ready", function () {
@@ -321,7 +323,7 @@
           addKMLLayer("kml/watersheds01.kml", "Watersheds");
 
           // Add a control for toggling layers
-          L.control.layers(null, kmlLayers).addTo(map);
+          L.control.layers(null, kmlLayers, { collapsed: false, position 'bottomleft' }).addTo(map);
 
           
         </script>
