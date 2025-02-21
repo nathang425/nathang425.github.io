@@ -61,32 +61,20 @@ function getForecast(reachid, type) {
             }
             if (forecastData.length === 0) {
                 alert("An error occurred: the API returned blank data. Please try refreshing the forecast a few times.");
+                document.getElementById('graph_title').textContent = 'Error: Try again';
                 return;
             }
             drawForecastGraph(forecastData);
             document.querySelectorAll('.loading').forEach(el => el.style.display = 'none'); //Hide loading animation
+            document.getElementById('graph_title').textContent = document.getElementById('river_station').options[document.getElementById('river_station').selectedIndex].text;
         })
         .catch(error => {
             console.error('Error fetching forecast data:', error);
             alert("An error occurred while fetching forecast data. Please check your input and try again.");
             document.querySelectorAll('.loading').forEach(el => el.style.display = 'none'); //Hide loading animation
+            document.getElementById('graph_title').textContent = 'Error: Unable to fetch forecast data';
         });
 }
-
-//Function to display the data on the table --> COMMENTED OUT, DON'T NEED TABLE
-//function displayForecastTable(data) {
-    //const tableBody = document.getElementById('forecast_table').getElementsByTagName('tbody')[0];
-    //tableBody.innerHTML = ''; //clear existing table data
-
-    //data.forEach(forecast => {
-        //const row = tableBody.insertRow();
-        //const timeCell = row.insertCell(0);
-        //const flowCell = row.insertCell(1);
-
-        //timeCell.textContent = forecast.validTime;
-        //flowCell.textContent = forecast.flow;
-    //});
-//}
 
 //function to draw the graph
 function drawForecastGraph(data) {
@@ -116,7 +104,7 @@ function drawForecastGraph(data) {
                 
             }]
         },
-        options: {            //no idea
+        options: {            //Graph options below:
             responsive: true,
             scales: {
                 x: {
