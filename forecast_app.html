@@ -305,6 +305,25 @@
               });
             }
         });
+
+          //Function to add other kml layers:
+          function addKMLLayer(url, layerName) {
+            kmlLayers[layerName] = omnivore.kml(url)
+              .on("ready", function () {
+                this.addTo(map);
+              })
+          }
+          
+          // Add KML files to the map
+          addKMLLayer("kml/rogue01.kml", "Rogue");
+          addKMLLayer("kml/umpqua01.kml", "Umpqua");
+          addKMLLayer("kml/applegate01.kml", "Applegate");
+          addKMLLayer("kml/watersheds01.kml", "Watersheds");
+
+          // Add a control for toggling layers
+          L.control.layers(null, kmlLayers).addTo(map);
+
+          
         </script>
 
         <!--The form-->
