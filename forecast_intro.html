@@ -10,6 +10,24 @@
       body {
         text-align: left;
       }
+      .img_text {
+        display:block;
+        background-image: url("https://raw.githubusercontent.com/nathang425/nathang425.github.io/refs/heads/main/images/river-rafting-50112_1280.jpg");
+        background-size: cover;
+        background-position: center;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-size: 25vw; /* Adjust as needed */
+        font-family:
+          Arial Black,
+          sans-serif;
+        letter-spacing: 2px; /* Increases width */
+        text-align: center !important; /* Optional, centers the text */
+        margin: 0px auto;
+        padding: 0px;
+        -webkit-text-stroke: 5px rgba(0, 0, 0, 0); /* Optional subtle border */
+      }
     </style>
   </head>
   <body>
@@ -29,9 +47,9 @@
       <a class="button" href="https://nathang425.github.io/ce514">514 Page</a>
       <p>
         Welcome to my personal website. I'm an engineering student at BYU,
-        graduating in April 2025. This site and most of its pages were created 
-	for the CE514 course at Brigham Young University, 
-	taught by Dr. Dan Ames.
+        graduating in April 2025. This site and most of its pages were created
+        for the CE514 course at Brigham Young University, taught by Dr. Dan
+        Ames.
       </p>
       <footer>
         Photo by
@@ -47,25 +65,39 @@
       </footer>
     </div>
     <div class="right-section">
-      <h1>Southern Oregon Rafting Forecast (SORF)</h1>			
-			<h3>
-      Welcome!
-      </h3>
+      <p class="img_text">SORF</p>
+      <h1>Southern Oregon Rafting Forecast</h1>
+
+      <h3>Welcome!</h3>
       <p>
-      This app allows you to choose from popular rafting rivers in Southern Oregon, and view their current flow forecasts and flood thresholds.
+        This app allows you to choose from popular rafting rivers in Southern
+        Oregon, and view their current flow forecasts and flood thresholds.
       </p>
       <p>
-      Live flow forecasts come from the National Water Model (<a href="https://water.noaa.gov/about/nwm">NWM</a>), managed by NOAA and the National Weather Service. Flow data is updated via an API, and flood thresholds are accurate as of February 2025.
+        Live flow forecasts come from the National Water Model (<a
+          href="https://water.noaa.gov/about/nwm"
+          >NWM</a
+        >), managed by NOAA and the National Weather Service. Flow data is
+        updated via an API, and flood thresholds are accurate as of February
+        2025.
       </p>
-      
-      <h3>
-      Data Warning:
-      </h3>
-      <p>This app was built for a university project and is not intended for public use. It is for demonstration purposes only, and the API may occasionally return inaccurate data.</p>
-			
-			<a class="button" href="https://nathang425.github.io/forecast_app">Use the App</a>
-      <a class="button" href="https://nathang425.github.io/forecast_how">How It Works</a>
-      <a class="button" href="https://nathang425.github.io/forecast_dev">Development Details</a>
+
+      <h3>Data Warning:</h3>
+      <p>
+        This app was built for a university project and is not intended for
+        public use. It is for demonstration purposes only, and the API may
+        occasionally return inaccurate data.
+      </p>
+
+      <a class="button" href="https://nathang425.github.io/forecast_app"
+        >Use the App</a
+      >
+      <a class="button" href="https://nathang425.github.io/forecast_how"
+        >How It Works</a
+      >
+      <a class="button" href="https://nathang425.github.io/forecast_dev"
+        >Development Details</a
+      >
     </div>
   </body>
 </html>
