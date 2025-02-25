@@ -77,7 +77,7 @@
         >Development Details</a
       >
 
-      <h3>Leaflet Map</h3>
+      <h2>Leaflet Map</h2>
       <p>
         The map was made using Leaflet, an open source JavaScript library for interactive maps. It was created using the following script: 
 
@@ -100,7 +100,7 @@
       The map's baselayer comes from OpenStreetMap. The rivers and watersheds came from <a href="https://geohub.oregon.gov/" target="_blank">geohub.oregon.gov</a>, Oregon's authoritative geospatial repository. The station points were created by me, from the lat/long coordinates of each station listed on the <a href="https://water.noaa.gov/" target="_blank">National Water Model's homepage</a>. The rivers polylines, watershed polygons, and station points were all exported as KML files to be added to the map.
       </p><br />
 
-      <h3>Input Options</h3>
+      <h2>Input Options</h2>
       <p>
         The input options in the blue box are linked to the map, results, and graph. When the user clicks a marked point on the map, the "Data Station" dropdown changes to select that station.
         
@@ -120,7 +120,7 @@
         When the user changes one of the dropdown values it triggers the main script, which retrieves the data from the API, adjusts the flood threshold table, and reloads the graph. See the <a href="https://nathang425.github.io/forecast_dev">Development Details</a> page for more information on the script that retrieves the API data.
       </p><br />
       
-      <h3>Notes Section</h3>
+      <h2>Notes Section</h2>
       <p>
       The "Notes" section contains details to help the user understand the results. It clarifies the units (cfs), and displays a flood threshold table that updates based on the selected river station. The table updates using the following script, including a filter for the coastal station that has no available flood threshold values:
       <code><pre>
@@ -147,7 +147,7 @@
       The Notes section also  any notes I wish to include on future app versions, and links to this page and the development details.
       </p><br />
       
-      <h3>Forecast Graph</h3>
+      <h2>Forecast Graph</h2>
       <p>
       The Forecast Graph does what the title says. It is a graph of the forecast data retrieved by the API. The title changes based on the selected river station due to this script:
       <code><pre>
