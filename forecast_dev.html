@@ -29,6 +29,59 @@
         padding: 0px;
         -webkit-text-stroke: 5px #2e5b29; /* border */
       }
+      
+      /*Loading animation formatting*/
+      .animation_container {
+        width: auto;
+        height: 40px;
+      }
+      .loading01 {
+        width: 8px;
+        height: 40px;
+        background-color: #2e5b29;
+        position: relative;
+        bottom: 0;
+        display: inline-block;
+        margin-right: 2px;
+        animation-name: load_1;
+        animation-duration: 1.2s;
+        animation-iteration-count: infinite;
+      }
+      .loading02 {
+        width: 8px;
+        height: 40px;
+        background-color: #2e5b29;
+        position: relative;
+        bottom: 0;
+        display: inline-block;
+        margin-right: 2px;
+        animation-name: load_1;
+        animation-duration: 1.2s;
+        animation-iteration-count: infinite;
+        animation-delay: 0.4s;
+      }
+      .loading03 {
+        width: 8px;
+        height: 40px;
+        background-color: #2e5b29;
+        position: relative;
+        bottom: 0;
+        display: inline-block;
+        margin-right: 2px;
+        animation-name: load_1;
+        animation-duration: 1.2s;
+        animation-iteration-count: infinite;
+        animation-delay: 0.8s;
+      }
+      @keyframes load_1 {
+        0%  {opacity: 100%;}
+        20% {opacity: 50%; height:42px;}
+        40% {opacity: 20%; height:44px;}
+        50% {opacity: 0%; height:44px;}
+        60% {opacity: 20%; height:44px;}
+        80% {opacity: 50%; height:42px;}
+        100% {opacity: 1000%;}
+      }
     </style>
   </head>
   <body>
@@ -77,17 +130,113 @@
         >How It Works</a
       >
       
-      <h3>Detail #1</h3>
       <p>
-        This app
+      Since the "How It Works" page already covers the app's interface basics, this page focuses on explaining a few key elements in more detail rather than providing a complete walkthrough or devlog.
       </p>
+      
+      <h2>API Script</h2>
       <p>
-        Live
-      </p>
+        The most complex part of creating this app was using the <a href="https://water.noaa.gov/about/api">NWPS API</a> to retrieve flow data for each location. When the event listener on the Input Options is triggers, it runs the "getForecast()" function. It begins by storing the inputs (station and forecast range) as variables and shows the loading animation:
+        <code><pre>//Function that calls data from the API
+function getForecast(reachid, type) {
+  document.querySelectorAll('.loading').forEach(el => el.style.display = 'flex'); //Show loading animation
+  </pre></code>
+        
+        creates a new API link as a string, with the user's selected location and forecast type:
+        <code><pre>
+const api_url = `https://api.water.noaa.gov/nwps/v1/reaches/${reachid}/streamflow?series=${type}`;
 
-      <h3>Detail #2</h3>
+</pre></code>
+
+        and uses the newly created link to fetch data, logging response on the browser console:
+        <code><pre>//Fetch function
+fetch(api_url)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data); //Log response data on the console
+    </pre></code>
+    
+        Then, there is a section of script that creates a list from the pieces of the API response that we need (dates and flow rates):
+        <code><pre>let forecastData = [];
+  if (data.shortRange && data.shortRange.series && data.shortRange.series.data) {
+    forecastData = data.shortRange.series.data;
+  } else if (data.mediumRange && data.mediumRange.member1 && data.mediumRange.member1.data) {
+    forecastData = data.mediumRange.member1.data;
+  } else if (data.longRange && data.longRange.member3 && data.longRange.member3.data) {
+    forecastData = data.longRange.member3.data;
+    </pre></code>
+    
+      and also accounts for attempts where the API returns an error, unexpected data formats, or blank data:
+      <code><pre>} else {
+    alert('No forecast data available.');
+    drawForecastGraph([]);
+    document.querySelectorAll('.loading').forEach(el => el.style.display = 'none'); //Hide loading animation
+    return;
+}
+if (forecastData.length === 0) {
+  alert("An error occurred: the API returned blank data. Please try refreshing the forecast a few times.");
+  document.getElementById('graph_title').textContent = 'Error: Try again';
+  return;
+}
+
+</pre></code>
+
+        The script then uses the drawForecastGraph() function using the data the API returned, hides the loading animation, and changes the graph title:
+        <code><pre>drawForecastGraph(forecastData);
+  document.querySelectorAll('.loading').forEach(el => el.style.display = 'none'); //Hide loading animation
+  document.getElementById('graph_title').textContent = document.getElementById('river_station').options[document.getElementById('river_station').selectedIndex].text;
+})
+        </pre></code>
+      </p>
+      
+      <h2>API Issues</h2>
       <p>
-        This app
+        The API often returns blank data, especially for medium or long forecast ranges. This may result from ongoing server migrations or limitations in handling high request volumes. As mentioned earlier, the main script detects these errors and provides an appropriate error message.
+      </p>
+      <p>
+        Due to this unreliability, flood threshold values are hardcoded into the web app rather than retrieved via the API.
+      </p>
+      
+      <h2>Loading Animation</h2>
+      <div class="animation_container">
+        <div class="loading01"></div>
+        <div class="loading02"></div>
+        <div class="loading03"></div>
+        </div>
+      <p>
+        The animated loading overlay was a fun addition whose function is to indicate when new graph is still loading. It also covers previous data that would otherwise be visible and confusing, since the API can sometimes take 20-30 seconds to return data on slower connections.
+      </p>
+      <p>
+        It was created using CSS animations, using three vertical bars with staggered color fading and height changes. Each bar is styled (inefficiently) using classes:
+        <code><pre>.loading01 {
+  width: 8px;
+  height: 40px;
+  background-color: #2e5b29;
+  position: relative;
+  bottom: 0;
+  display: inline-block;
+  margin-right: 2px;
+  animation-name: load_1;
+  animation-duration: 1.2s;
+  animation-iteration-count: infinite;
+ }
+  //Repeat for .loading02 and .loading03, adding slight delays
+ </pre></code>
+ 
+        And keyframes were used to set the opacity and height changes:
+        <code><pre>@keyframes load_1 {
+  0%  {opacity: 100%;}
+  20% {opacity: 50%; height:42px;}
+  40% {opacity: 20%; height:44px;}
+  50% {opacity: 0%; height:44px;}
+  60% {opacity: 20%; height:44px;}
+  80% {opacity: 50%; height:42px;}
+  100% {opacity: 1000%;}
+}
+
+</pre></code>
+
+        The animation container is also sized/positioned to cover the graph, and a background blur is applied for a more modern look.
       </p>
       
     </div>
