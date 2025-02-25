@@ -240,7 +240,8 @@
       <a class="button" href="https://nathang425.github.io/forecast_dev">Development Details</a>
       <hr>
       
-      <h2>Select a river on the map, or use the options on the right.</h2>
+      <h2>Select a red river station on the map, or use the options on the right.</h2>
+      <p>Rivers are shown in blue, and watersheds have dashed brown outlines.</p>
 
       <div class="map-form-container">
         <!--The map-->
@@ -346,10 +347,9 @@
           addKMLLayer("kml/rogue01.kml", "Rogue");
           addKMLLayer("kml/umpqua01.kml", "Umpqua");
           addKMLLayer("kml/applegate01.kml", "Applegate");
-          
 
           // Add a control for toggling layers
-          L.control.layers(null, kmlLayers, { collapsed: false, position: 'bottomleft' }).addTo(map);
+          L.control.layers(null, kmlLayers, { collapsed: true, position: 'bottomleft' }).addTo(map);
           
         </script>
 
