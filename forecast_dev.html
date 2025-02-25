@@ -134,6 +134,7 @@
       Since the "How It Works" page already covers the app's interface basics, this page focuses on explaining a few key elements in more detail rather than providing a complete walkthrough or devlog.
       </p>
       
+      <hr>
       <h2>API Script</h2>
       <p>
         The most complex part of creating this app was using the <a href="https://water.noaa.gov/about/api">NWPS API</a> to retrieve flow data for each location. When the event listener on the Input Options is triggers, it runs the "getForecast()" function. It begins by storing the inputs (station and forecast range) as variables and shows the loading animation:
@@ -189,6 +190,7 @@ if (forecastData.length === 0) {
         </pre></code>
       </p>
       
+      <hr>
       <h2>API Issues</h2>
       <p>
         The API often returns blank data, especially for medium or long forecast ranges. This may result from ongoing server migrations or limitations in handling high request volumes. As mentioned earlier, the main script detects these errors and provides an appropriate error message.
@@ -197,6 +199,7 @@ if (forecastData.length === 0) {
         Due to this unreliability, flood threshold values are hardcoded into the web app rather than retrieved via the API.
       </p>
       
+      <hr>
       <h2>Loading Animation</h2>
       <div class="animation_container">
         <div class="loading01"></div>
@@ -238,6 +241,7 @@ if (forecastData.length === 0) {
 
         The animation container is also sized/positioned to cover the graph, and a background blur is applied for a more modern look.
       </p>
+      <hr>
       
     </div>
   </body>
