@@ -69,7 +69,7 @@
     </div>
     <div class="right-section">
       <p class="img_text">SORF</p>
-      <h1>Southern Oregon Rafting Forecast</h1>
+      <h1>Southern Oregon Rafting Forecast: Explained</h1>
       <a class="button" href="https://nathang425.github.io/forecast_app"
         >Use the App</a
       >
@@ -77,17 +77,93 @@
         >Development Details</a
       >
 
-      <h3>How it do</h3>
+      <h3>Leaflet Map</h3>
       <p>
-        This app is
-      </p>
-      <p>
-        Live
-      </p>
+        The map was made using Leaflet, an open source JavaScript library for interactive maps. It was created using the following script: 
 
-      <h3>How it dodo</h3>
+        <code><pre>
+        let config = {
+            minZoom: 1,
+            maxZoom: 18,
+          }
+
+          // Map starting properties
+          const zoom = 8
+          const lat = 42.4
+          const lng = -123.3
+
+          // Initialize the map
+          const map = L.map("map", config).setView([lat, lng], zoom)</pre></code>
+          And so on, with more js to add the basemap and vector layers (see below), set the symbology, and the toggle menu to show/hide the rivers.
+      </p>
       <p>
-        This 
+      The map's baselayer comes from OpenStreetMap. The rivers and watersheds came from <a href="https://geohub.oregon.gov/" target="_blank">geohub.oregon.gov</a>, Oregon's authoritative geospatial repository. The station points were created by me, from the lat/long coordinates of each station listed on the <a href="https://water.noaa.gov/" target="_blank">National Water Model's homepage</a>. The rivers polylines, watershed polygons, and station points were all exported as KML files to be added to the map.
+      </p><br />
+
+      <h3>Input Options</h3>
+      <p>
+        The input options in the blue box are linked to the map, results, and graph. When the user clicks a marked point on the map, the "Data Station" dropdown changes to select that station.
+        
+        <code><pre>
+    //Event listener to trigger main script:
+    document.getElementById("river_station").addEventListener("change", function() {
+      const reachid = document.getElementById('river_station').value;
+      const type = document.getElementById('forecast_type').value;
+      console.log("Get Forecast button clicked");
+      if (reachid) {
+        getForecast(reachid, type); //<-- This is the main function
+    } else {
+        alert('Error: Bad API inputs');
+      }
+    });</pre></code>
+        
+        When the user changes one of the dropdown values it triggers the main script, which retrieves the data from the API, adjusts the flood threshold table, and reloads the graph. See the <a href="https://nathang425.github.io/forecast_dev">Development Details</a> page for more information on the script that retrieves the API data.
+      </p><br />
+      
+      <h3>Notes Section</h3>
+      <p>
+      The "Notes" section contains details to help the user understand the results. It clarifies the units (cfs), and displays a flood threshold table that updates based on the selected river station. The table updates using the following script, including a filter for the coastal station that has no available flood threshold values:
+      <code><pre>
+      // Add event listener to dropdown
+            document
+              .getElementById("river_station")
+              .addEventListener("change", updateFloodThresholds)
+              
+        // Function to update table values
+            function updateFloodThresholds() {
+              const selectedStation =
+                document.getElementById("river_station").value
+              const thresholds = floodThresholds[selectedStation]
+              //Check if the value is just N/A
+              if (thresholds) {
+                document.getElementById("major-value").textContent =
+                  thresholds.major !== "N/A" ? thresholds.major + " cfs" : "No Data";
+              document.getElementById("moderate-value").textContent =
+                thresholds.moderate !== "N/A" ? thresholds.moderate + " cfs" : "No Data";
+              document.getElementById("minor-value").textContent =
+                thresholds.minor !== "N/A" ? thresholds.minor + " cfs" : "No Data";
+              }
+            }</pre></code>
+      The Notes section also  any notes I wish to include on future app versions, and links to this page and the development details.
+      </p><br />
+      
+      <h3>Forecast Graph</h3>
+      <p>
+      The Forecast Graph does what the title says. It is a graph of the forecast data retrieved by the API. The title changes based on the selected river station due to this script:
+      <code><pre>
+    //Function to draw the graph
+    function drawForecastGraph(data) {
+      const ctx = document.getElementById('forecast_graph').getContext('2d');
+      const labels = data.map(forecast => forecast.validTime);
+      const flows = data.map(forecast => forecast.flow);
+
+    // Delete existing graph
+    if (chartInstance) {
+        chartInstance.destroy();
+    }
+    
+    //etc. below for formatting</pre></code>
+      I also included an animated loading overlay, so the user can visually tell when their requested data has loaded correctly. More details on the development details page.
       </p>
       
     </div>
