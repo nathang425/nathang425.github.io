@@ -10,6 +10,9 @@
       body {
         text-align: left;
       }
+      h3 {
+        margin-top: 0px;
+      }
       .content {
         display: none;
         padding-left: 20px;
@@ -21,6 +24,9 @@
         margin: 5px;
         border: 1px solid #121212;
         border-radius: 8px;
+      }
+      code {
+        font-size: 16px;
       }
     </style>
   </head>
@@ -66,11 +72,41 @@
       <div id="section1" class="content">
         <p>Content for the study schedule will go here.</p>
       </div>
-
+      
       <div class="header" onclick="toggleVisibility('section2')">
-        Future Topics
+        Engineering Economics
       </div>
       <div id="section2" class="content">
+      <h3>Calculations</h3>
+        <p>Most FE problems on this subject are some variation of "benefits-costs" calculation, adjusted for how value changes over time.</p>
+      <h3>Time Value of Money</h3>
+        <p>You must account for the change in money's value over time. Use the following formulas to find the present or future value of costs given the following variables:</p>
+        <code>
+        FV = Future Value<br>
+        PV = Present Value<br>
+        A = Annuity (payment)<br>
+        i = interest rate per period (as decimal)<br>
+        n = number of periods
+        </code>
+        <p>FV, Single Payment: <code>FV = PV*(1+i)^n</code></p>
+        <p>PV, Single Payment: <code>PV = FV/[(1+i)^n]</code></p>
+        <p>Future Value of an Annuity: <code>FV = A*([(1+i)^n]-1)/i</code></p>
+        <p>Present Value of an Annuity: <code>FV = A*(1-[(1+i)^-n])/i</code></p>
+        <p>Capital Recovery Factor: <code>CRF = i*[(1+i)^n]/([(1+i)^n]-1)</code></p>
+        <br>
+        
+        <h3>Analysis Methods</h3>
+        <p>Using the previous equations, there are several methods of analysis for a particular problem:</p>
+        <p>Benefit-Cost Analysis: <code>BCR = PV(costs)/PV(benefits)</code></p>
+        <p>Present Worth Analysis: <code>NPV = PV(costs)+PV(benefits)</code></p>
+        <p>Annual Worth Analysis: <code>AW = NPV*CRF</code></p>
+        <p>Rate of Return Analysis: <code>NPV = 0 = (-initCost)+[(annualReturn)*(1-[1+IRR]^-n)/IRR]</code></p>
+      </div>
+
+      <div class="header" onclick="toggleVisibility('section3')">
+        Future Topics
+      </div>
+      <div id="section3" class="content">
         <p>Content for topics will go here.</p>
         <code>answer</code>
       </div>
