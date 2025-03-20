@@ -1,0 +1,9 @@
+/* General Styles */
+body {
+  font-family: 'Noto Sans', sans-serif; font-weight: 200;
+  background-color: #101c3d;
+  color: #e2e8f0; /* Default text color */
+}
+h1{
+  font-family: 'Noto Sans', sans-serif; font-weight: 200;
+}
