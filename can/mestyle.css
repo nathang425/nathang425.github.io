@@ -7,3 +7,7 @@ body {
 h1{
   font-family: 'Noto Sans', sans-serif; font-weight: 200;
 }
+.imgdiv {
+  width: 80%;
+  height: 80%;
+}
