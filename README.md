@@ -1,3 +1,21 @@
+#NEW site:
+##---Colors---
+###Light:
+BG - DCC48E
+Cards - EAEFD3
+Lines - B3C0A4
+Dark - 505168
+Text - 040403
+###Dark:
+BG - 505168
+Cards - 040403
+Lines - ?
+Light - ?
+Text - ?
+
+
+
+
 # nathang425.github.io
 # Colors: #121212 night, #1e1e1e eerie black, #2e5b29 hunter green, #a95537 rust, #6b8b8c slate gray, #016FB9 azul
 # Reach ID: 4512772 - unnamed, Potomac River at Little Falls
