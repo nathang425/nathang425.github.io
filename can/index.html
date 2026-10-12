@@ -27,53 +27,81 @@
 
     <!-- Basic Internal CSS -->
     <style>
-      body {
-        font-family: 'Noto Sans', sans-serif;
-        background-color: #1e1e1e;
-        color: #f0f0f0;
+      /* Reset body and html to take up exact window size with no scrolling */
+      html, body {
         margin: 0;
-        padding: 40px 20px;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        font-family: 'Noto Sans', sans-serif;
+        background-color: #1e1e1e; /* Fallback color before map loads */
+        color: #f0f0f0;
+      }
+
+      /* Map container takes over the entire screen behind the UI */
+      #globe-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1; 
+      }
+
+      /* Invisible overlay to hold the text above the map */
+      #ui-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 40px 20px;
+        box-sizing: border-box;
+        
+        /* This allows mouse clicks/drags to pass through to the map underneath */
+        pointer-events: none; 
+      }
+
+      /* Text elements get pointer-events back so you can still highlight text */
+      h1, p {
+        pointer-events: auto; 
+        background: rgba(30, 30, 30, 0.6); /* Dark translucent background for readability */
+        backdrop-filter: blur(4px); /* Blurs the map slightly behind the text */
+        padding: 10px 20px;
+        border-radius: 8px;
+        margin: 10px 0;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
       }
 
       h1 {
         font-weight: 700;
-        margin-bottom: 10px;
-        color: #00ffff; /* Matches the map layer fill-color */
+        color: #00ffff;
       }
 
       p {
         font-weight: 200;
         font-size: 1.1rem;
         max-width: 800px;
-        text-align: center;
         line-height: 1.6;
-        margin: 10px 0 20px 0;
-      }
-
-      #globe-container {
-        width: 100%;
-        max-width: 1000px;
-        height: 600px;
-        border-radius: 12px;
-        overflow: hidden;
-        position: relative;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        border: 1px solid #333;
-        margin: 20px 0;
       }
     </style>
   </head>
   <body>
-    <h1>Heading yay nice</h1>
-    <p>Here is the text</p>
-    
-    <!-- Removed inline styles and moved them to the style block above -->
+    <!-- The Map -->
     <div id="globe-container"></div>
     
-    <p>Here is more text</p>
+    <!-- The UI Overlay -->
+    <div id="ui-overlay">
+      <h1>Heading yay nice</h1>
+      <p>Here is the text</p>
+      <p>Here is more text</p>
+    </div>
     
     <script type="module">
       // 1. Import maplibregl and the PMTiles protocol
@@ -86,8 +114,6 @@
       const INITIAL_ZOOM = 1.5;
 
       // NEW: Dynamically build the absolute URL from your relative folder structure.
-      // Assuming this HTML file is in the "can" folder, './files/converted.pmtiles'
-      // resolves perfectly relative to the current page.
       const PMTILES_URL = new URL('./files/converted.pmtiles', window.location.href).href;
       // ==========================
 
