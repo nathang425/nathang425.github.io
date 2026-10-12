@@ -35,7 +35,7 @@
         height: 100%;
         overflow: hidden;
         font-family: 'Noto Sans', sans-serif;
-        background-color: #1e1e1e; /* Fallback color before map loads */
+        background-color: #1e1e1e; 
         color: #f0f0f0;
       }
 
@@ -49,7 +49,7 @@
         z-index: 1; 
       }
 
-      /* Invisible overlay to hold the text above the map */
+      /* Invisible overlay to hold the UI above the map */
       #ui-overlay {
         position: absolute;
         top: 0;
@@ -57,38 +57,122 @@
         width: 100%;
         height: 100%;
         z-index: 2;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 40px 20px;
-        box-sizing: border-box;
-        
-        /* This allows mouse clicks/drags to pass through to the map underneath */
-        pointer-events: none; 
+        pointer-events: none; /* Mouse events pass through to map */
       }
 
-      /* Text elements get pointer-events back so you can still highlight text */
-      h1, p {
-        pointer-events: auto; 
-        background: rgba(30, 30, 30, 0.6); /* Dark translucent background for readability */
-        backdrop-filter: blur(4px); /* Blurs the map slightly behind the text */
+      /* Heading styling */
+      h1 {
+        pointer-events: auto; /* Clickable/highlightable */
+        background: rgba(30, 30, 30, 0.6);
+        backdrop-filter: blur(4px);
         padding: 10px 20px;
         border-radius: 8px;
-        margin: 10px 0;
+        margin: 20px auto;
         text-align: center;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-      }
-
-      h1 {
+        width: fit-content;
         font-weight: 700;
         color: #00ffff;
       }
 
-      p {
-        font-weight: 200;
-        font-size: 1.1rem;
-        max-width: 800px;
+      /* Left-side buttons container */
+      #side-buttons {
+        position: absolute;
+        top: 50%;
+        left: 20px;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      /* Individual square buttons */
+      .sq-btn {
+        pointer-events: auto; /* Buttons must be clickable */
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        background: rgba(30, 30, 30, 0.8);
+        border: 1px solid #444;
+        color: #00ffff;
+        font-size: 1.2rem;
+        font-weight: 700;
+        cursor: pointer;
+        backdrop-filter: blur(4px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        transition: background 0.2s, transform 0.1s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .sq-btn:hover {
+        background: rgba(60, 60, 60, 0.9);
+      }
+
+      .sq-btn:active {
+        transform: scale(0.95);
+      }
+
+      /* Fullscreen About Overlay */
+      #about-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(20, 20, 20, 0.95);
+        z-index: 10;
+        display: none; /* Hidden by default */
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        pointer-events: auto; /* Block interactions with the map below */
+      }
+
+      #about-overlay h2 {
+        color: #00ffff;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+      }
+
+      #about-overlay p {
+        font-size: 1.2rem;
+        max-width: 600px;
         line-height: 1.6;
+        margin-bottom: 30px;
+      }
+
+      .links-container a {
+        display: inline-block;
+        color: #f0f0f0;
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 1.1rem;
+        border-bottom: 2px solid transparent;
+        transition: border-color 0.2s;
+      }
+
+      .links-container a:hover {
+        border-color: #00ffff;
+      }
+
+      /* Close X Button */
+      #close-about-btn {
+        position: absolute;
+        top: 30px;
+        right: 30px;
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 2rem;
+        cursor: pointer;
+        transition: color 0.2s;
+      }
+
+      #close-about-btn:hover {
+        color: #00ffff;
       }
     </style>
   </head>
@@ -99,8 +183,26 @@
     <!-- The UI Overlay -->
     <div id="ui-overlay">
       <h1>Heading yay nice</h1>
-      <p>Here is the text</p>
-      <p>Here is more text</p>
+
+      <div id="side-buttons">
+        <button id="btn-north" class="sq-btn" title="North Up">N</button>
+        <button id="btn-proj" class="sq-btn" title="Toggle Projection">2D</button>
+        <button id="btn-about" class="sq-btn" title="About">i</button>
+      </div>
+    </div>
+
+    <!-- Fullscreen About Overlay -->
+    <div id="about-overlay">
+      <button id="close-about-btn" title="Close">✕</button>
+      <h2>About This Map</h2>
+      <p>
+        Welcome to the map! This space is reserved for information about the project, the data sources, or any other details you want to share with your users.
+      </p>
+      <div class="links-container">
+        <a href="#">Home</a>
+        <a href="#">Documentation</a>
+        <a href="#">Contact Us</a>
+      </div>
     </div>
     
     <script type="module">
@@ -163,6 +265,41 @@
 
       // 6. Attach deck.gl to the map
       map.addControl(deckOverlay);
+
+      // === UI BUTTON LOGIC ===
+
+      // Button 1: Re-orient map so North is up
+      document.getElementById('btn-north').addEventListener('click', () => {
+        map.resetNorthPitch();
+      });
+
+      // Button 2: Toggle Projection (Globe <-> Mercator)
+      let isGlobe = true;
+      const btnProj = document.getElementById('btn-proj');
+      
+      btnProj.addEventListener('click', () => {
+        isGlobe = !isGlobe;
+        
+        // Update projection
+        map.setProjection({
+          type: isGlobe ? 'globe' : 'mercator'
+        });
+        
+        // Update button text to show the alternative option
+        btnProj.innerText = isGlobe ? '2D' : '3D';
+        btnProj.title = isGlobe ? 'Switch to 2D Map' : 'Switch to Globe';
+      });
+
+      // Button 3 & Close Button: About Overlay
+      const aboutOverlay = document.getElementById('about-overlay');
+      
+      document.getElementById('btn-about').addEventListener('click', () => {
+        aboutOverlay.style.display = 'flex';
+      });
+
+      document.getElementById('close-about-btn').addEventListener('click', () => {
+        aboutOverlay.style.display = 'none';
+      });
     </script>
   </body>
 </html>
