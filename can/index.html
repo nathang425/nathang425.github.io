@@ -9,27 +9,72 @@
       type="image/x-icon"
       href="/can/images/letter-7075493.png"
     />
-    <link rel="stylesheet" href="mestyle.css" />
+    
+    <!-- Google Fonts -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400;700&display=swap"
       rel="stylesheet"
     />
+    
     <!-- MapLibre CSS -->
     <link
       href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"
       rel="stylesheet"
     />
+    
     <!-- Deck.gl (standalone bundle) -->
     <script src="https://unpkg.com/deck.gl/dist.min.js"></script>
+
+    <!-- Basic Internal CSS -->
+    <style>
+      body {
+        font-family: 'Noto Sans', sans-serif;
+        background-color: #1e1e1e;
+        color: #f0f0f0;
+        margin: 0;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      h1 {
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #00ffff; /* Matches the map layer fill-color */
+      }
+
+      p {
+        font-weight: 200;
+        font-size: 1.1rem;
+        max-width: 800px;
+        text-align: center;
+        line-height: 1.6;
+        margin: 10px 0 20px 0;
+      }
+
+      #globe-container {
+        width: 100%;
+        max-width: 1000px;
+        height: 600px;
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        border: 1px solid #333;
+        margin: 20px 0;
+      }
+    </style>
   </head>
   <body>
     <h1>Heading yay nice</h1>
     <p>Here is the text</p>
-    <div
-      id="globe-container"
-      style="width: 100%; height: 600px; border-radius: 8px; overflow: hidden; position: relative;"
-    ></div>
+    
+    <!-- Removed inline styles and moved them to the style block above -->
+    <div id="globe-container"></div>
+    
     <p>Here is more text</p>
+    
     <script type="module">
       // 1. Import maplibregl and the PMTiles protocol
       import * as maplibregl from 'https://unpkg.com/maplibre-gl/dist/maplibre-gl.mjs';
