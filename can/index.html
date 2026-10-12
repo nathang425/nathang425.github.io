@@ -77,19 +77,7 @@
               source: 'my-pmtiles-source',
               'source-layer': 'continents_data', // Update this to match your PMTiles internal layer name!
               paint: {
-                  'fill-color': [
-                    'match',
-                    ['get', 'CONTINENT'],
-                    'Africa', '#e41a1c',
-                    'Asia', '#377eb8',
-                    'Europe', '#4daf4a',
-                    'North America', '#984ea3',
-                    'South America', '#ff7f00',
-                    'Oceania', '#ffff33',
-                    'Australia', '#a65628',
-                    'Antarctica', '#f781bf',
-                    '#cccccc' // Default fallback color
-                  ]
+                  'fill-color': '#377eb8'
                   'fill-opacity': 0.4,
                   'fill-outline-color': '#ffffff'
               }
