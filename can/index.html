@@ -73,12 +73,13 @@
           // Add the map layer pointing to your source
           map.addLayer({
               id: 'my-pmtiles-layer',
-              type: 'line',
+              type: 'fill',
               source: 'my-pmtiles-source',
-              'source-layer': 'CONTINENT', // Update this to match your PMTiles internal layer name!
+              'source-layer': 'continents_data', // Update this to match your PMTiles internal layer name!
               paint: {
-                  'line-color': '#00ffff',
-                  'line-width': 2
+                  'fill-color': '#00ffff',
+                  'fill-opacity': 0.4,
+                  'fill-outline-color': '#ffffff'
               }
           });
       });
