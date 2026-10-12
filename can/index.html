@@ -35,22 +35,27 @@
       import * as maplibregl from 'https://unpkg.com/maplibre-gl/dist/maplibre-gl.mjs';
 
       // === YOUR CONFIGURATION ===
-      // Replace with your preferred MapLibre style JSON URL
       const BASEMAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
       const INITIAL_CENTER = [-111.83, 40.62]; // Longitude, Latitude
       const INITIAL_ZOOM = 1.5;
       // ==========================
 
-      // 2. Initialize the MapLibre base map
+      // 2. Initialize the MapLibre base map (Remove the projection line here)
       const map = new maplibregl.Map({
           container: 'globe-container',
           style: BASEMAP_STYLE,
           center: INITIAL_CENTER,
-          zoom: INITIAL_ZOOM,
-          projection: 'globe'
+          zoom: INITIAL_ZOOM
       });
 
-      // 3. Initialize the deck.gl overlay
+      // 3. NEW: Wait for the Carto style to load, then force it into a globe projection
+      map.on('style.load', () => {
+          map.setProjection({ 
+              type: 'globe' 
+          });
+      });
+
+      // 4. Initialize the deck.gl overlay
       const deckOverlay = new deck.MapboxOverlay({
           interleaved: true, // Weaves deck.gl layers into MapLibre's WebGL context
           layers: [
@@ -59,7 +64,7 @@
               /* Example Layer:
               new deck.ScatterplotLayer({
                   id: 'test-layer',
-                  data: [{ position: INITIAL_CENTER, size: 50000 }],
+                  data: [{ position: INITIAL_CENTER, size: 500000 }],
                   getPosition: d => d.position,
                   getRadius: d => d.size,
                   getFillColor: [255, 50, 50, 200]
@@ -68,7 +73,7 @@
           ]
       });
 
-      // 4. Attach deck.gl to the map
+      // 5. Attach deck.gl to the map
       map.addControl(deckOverlay);
     </script>
   </body>
