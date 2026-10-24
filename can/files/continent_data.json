@@ -5,5 +5,6 @@
   "South America": { "Population": "430 Million", "Area": "17.84M sq km", "Countries": 12 },
   "Antarctica": { "Population": "Varies", "Area": "14.2M sq km", "Countries": 0 },
   "Europe": { "Population": "745 Million", "Area": "10.18M sq km", "Countries": 44 },
-  "Oceania": { "Population": "43 Million", "Area": "8.52M sq km", "Countries": 14 }
+  "Oceania": { "Population": "43 Million", "Area": "8.52M sq km", "Countries": 14 },
+  "Australia": { "Population": "Aussie", "Area": "many sq km", "Countries": 1 }
 }
