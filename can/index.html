@@ -2,194 +2,194 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    
+    <!-- Anti-Scraping / Anti-AI Bot Meta Tags -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex" />
+    <meta name="googlebot" content="noindex, nofollow" />
+
     <title>Map Testing</title>
-    <link
-      rel="icon"
-      type="image/x-icon"
-      href="/can/images/letter-7075493.png"
-    />
-
+    
     <!-- Google Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400;700&display=swap"
-      rel="stylesheet"
-    />
-
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400;700&display=swap" rel="stylesheet" />
+    
     <!-- MapLibre CSS -->
-    <link
-      href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"
-      rel="stylesheet"
-    />
-
+    <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
+    
     <!-- Deck.gl (standalone bundle) -->
     <script src="https://unpkg.com/deck.gl/dist.min.js"></script>
 
     <!-- Basic Internal CSS -->
     <style>
-      /* Reset body and html to take up exact window size with no scrolling */
       html, body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        font-family: 'Noto Sans', sans-serif;
-        background-color: #1e1e1e;
-        color: #f0f0f0;
+        margin: 0; padding: 0; width: 100%; height: 100%;
+        overflow: hidden; font-family: 'Noto Sans', sans-serif;
+        background-color: #1e1e1e; color: #f0f0f0;
       }
 
-      /* Map container takes over the entire screen behind the UI */
       #globe-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 1;
+        position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; 
       }
 
-      /* Invisible overlay to hold the UI above the map */
       #ui-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 2;
-        pointer-events: none; /* Mouse events pass through to map */
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        z-index: 2; pointer-events: none; 
       }
 
-      /* Heading styling */
       h1 {
-        pointer-events: auto; /* Clickable/highlightable */
-        background: rgba(30, 30, 30, 0.6);
-        backdrop-filter: blur(4px);
-        padding: 10px 20px;
-        border-radius: 8px;
-        margin: 20px auto;
-        text-align: center;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        width: fit-content;
-        font-weight: 700;
-        color: #00ffff;
+        pointer-events: auto; 
+        background: rgba(30, 30, 30, 0.6); backdrop-filter: blur(4px);
+        padding: 10px 20px; border-radius: 8px; margin: 20px auto;
+        text-align: center; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        width: fit-content; font-weight: 700; color: #00ffff;
       }
 
-      /* Left-side buttons container */
       #side-buttons {
-        position: absolute;
-        top: 50%;
-        left: 20px;
-        transform: translateY(-50%);
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
+        position: absolute; top: 50%; left: 20px;
+        transform: translateY(-50%); display: flex;
+        flex-direction: column; gap: 15px;
       }
 
-      /* Individual square buttons */
       .sq-btn {
-        pointer-events: auto; /* Buttons must be clickable */
-        width: 50px;
-        height: 50px;
-        border-radius: 12px;
-        background: rgba(30, 30, 30, 0.8);
-        border: 1px solid #444;
-        color: #00ffff;
-        font-size: 1.2rem;
-        font-weight: 700;
-        cursor: pointer;
-        backdrop-filter: blur(4px);
+        pointer-events: auto; width: 50px; height: 50px;
+        border-radius: 12px; background: rgba(30, 30, 30, 0.8);
+        border: 1px solid #444; color: #00ffff; font-size: 1.2rem;
+        font-weight: 700; cursor: pointer; backdrop-filter: blur(4px);
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         transition: background 0.2s, transform 0.1s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: flex; align-items: center; justify-content: center;
       }
 
-      .sq-btn:hover {
-        background: rgba(60, 60, 60, 0.9);
-      }
-
-      .sq-btn:active {
-        transform: scale(0.95);
-      }
+      .sq-btn:hover { background: rgba(60, 60, 60, 0.9); }
+      .sq-btn:active { transform: scale(0.95); }
 
       /* Fullscreen About Overlay */
       #about-overlay {
+        position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+        background: rgba(20, 20, 20, 0.95); z-index: 10; display: none;
+        flex-direction: column; align-items: center; justify-content: center;
+        text-align: center; pointer-events: auto;
+      }
+      #about-overlay h2 { color: #00ffff; font-size: 2.5rem; margin-bottom: 20px; }
+      #about-overlay p { font-size: 1.2rem; max-width: 600px; line-height: 1.6; margin-bottom: 30px; padding: 0 20px; }
+      #close-about-btn { position: absolute; top: 30px; right: 30px; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; transition: color 0.2s; }
+      #close-about-btn:hover { color: #00ffff; }
+
+      /* --- NEW: Interactive Info Panel --- */
+      #info-panel {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(20, 20, 20, 0.95);
-        z-index: 10;
-        display: none; /* Hidden by default */
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        pointer-events: auto; /* Block interactions with the map below */
-      }
-
-      #about-overlay h2 {
-        color: #00ffff;
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-      }
-
-      #about-overlay p {
-        font-size: 1.2rem;
-        max-width: 600px;
-        line-height: 1.6;
-        margin-bottom: 30px;
-      }
-
-      .links-container a {
-        display: inline-block;
+        z-index: 5;
+        background: rgba(30, 30, 30, 0.85);
+        backdrop-filter: blur(8px);
+        border: 1px solid #444;
         color: #f0f0f0;
-        text-decoration: none;
-        margin: 0 15px;
-        font-size: 1.1rem;
-        border-bottom: 2px solid transparent;
-        transition: border-color 0.2s;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        pointer-events: auto;
+        /* Smooth sliding animation */
+        transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
       }
 
-      .links-container a:hover {
-        border-color: #00ffff;
+      #drag-handle {
+        width: 40px;
+        height: 5px;
+        background: #777;
+        border-radius: 3px;
+        margin: 12px auto;
+        display: none; /* Only visible on mobile */
       }
 
-      /* Close X Button */
-      #close-about-btn {
+      #close-panel-btn {
         position: absolute;
-        top: 30px;
-        right: 30px;
+        top: 12px;
+        right: 15px;
         background: none;
         border: none;
-        color: #fff;
-        font-size: 2rem;
+        color: #aaa;
+        font-size: 1.5rem;
         cursor: pointer;
-        transition: color 0.2s;
+        padding: 5px;
+      }
+      #close-panel-btn:hover { color: #00ffff; }
+
+      #info-content {
+        padding: 20px;
+        overflow-y: auto;
       }
 
-      #close-about-btn:hover {
-        color: #00ffff;
+      .popup-title {
+        color: #00ffff; margin: 0 0 15px 0; font-weight: 700;
+        font-size: 1.5rem; border-bottom: 1px solid #555; padding-bottom: 8px;
+      }
+      .popup-stat { margin: 10px 0; font-size: 1.05rem; }
+      .popup-stat strong { color: #bbb; }
+
+      /* Desktop/Tablet View (Sidebar) */
+      @media (min-width: 768px) {
+        #info-panel {
+          top: 20px;
+          right: 20px;
+          bottom: 20px;
+          width: 350px;
+          border-radius: 16px;
+          /* Hide off-screen to the right */
+          transform: translateX(120%);
+        }
+        #info-panel.open {
+          transform: translateX(0);
+        }
+      }
+
+      /* Mobile View (Bottom Sheet) */
+      @media (max-width: 767px) {
+        #info-panel {
+          bottom: 0;
+          left: 0;
+          width: 100vw;
+          height: 45vh; /* Default peek height */
+          border-radius: 24px 24px 0 0;
+          border-bottom: none;
+          /* Hide off-screen to the bottom */
+          transform: translateY(100%);
+        }
+        #info-panel.open {
+          transform: translateY(0);
+        }
+        #drag-handle {
+          display: block; /* Show pill handle */
+        }
+        #close-panel-btn {
+          display: none; /* Optional: hide X on mobile to encourage swiping down */
+        }
+        #info-content {
+          padding-top: 5px; /* Adjust padding since handle is there */
+        }
       }
     </style>
   </head>
   <body>
     <!-- The Map -->
     <div id="globe-container"></div>
-
+    
     <!-- The UI Overlay -->
     <div id="ui-overlay">
       <h1>Heading yay nice</h1>
 
       <div id="side-buttons">
         <button id="btn-north" class="sq-btn" title="North Up">N</button>
-        <button id="btn-proj" class="sq-btn" title="Toggle Projection">
-          2D
-        </button>
+        <button id="btn-proj" class="sq-btn" title="Toggle Projection">2D</button>
         <button id="btn-about" class="sq-btn" title="About">i</button>
+      </div>
+    </div>
+
+    <!-- NEW: Interactive Info Panel (Sidebar / Bottom Sheet) -->
+    <div id="info-panel">
+      <div id="drag-handle"></div>
+      <button id="close-panel-btn" title="Close">✕</button>
+      <div id="info-content">
+        <!-- Content gets injected here by JavaScript -->
       </div>
     </div>
 
@@ -197,39 +197,25 @@
     <div id="about-overlay">
       <button id="close-about-btn" title="Close">✕</button>
       <h2>About This Map</h2>
-      <p>
-        Welcome to the map! This space is reserved for information about the
-        project, the data sources, or any other details you want to share with
-        your users.
-      </p>
-      <div class="links-container">
-        <a href="#">Home</a>
-        <a href="#">Documentation</a>
-        <a href="#">Contact Us</a>
-      </div>
+      <p>Welcome to the map! This space is reserved for information about the project, the data sources, or any other details you want to share.</p>
     </div>
-
+    
     <script type="module">
       import * as maplibregl from 'https://unpkg.com/maplibre-gl/dist/maplibre-gl.mjs';
       import { Protocol } from 'https://unpkg.com/pmtiles@3/dist/index.js';
 
-      // === YOUR CONFIGURATION ===
       const BASEMAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
       const INITIAL_CENTER = [-111.83, 40.62];
       const INITIAL_ZOOM = 1.5;
 
       const PMTILES_URL = new URL('./files/converted.pmtiles', window.location.href).href;
       const DATA_URL = new URL('./files/continent_data.json', window.location.href).href;
-
-      // === FETCH EXTERNAL DATA ===
+      
       let mapData = {};
       fetch(DATA_URL)
         .then(response => response.json())
-        .then(data => {
-            mapData = data;
-        })
+        .then(data => { mapData = data; })
         .catch(err => console.error("Error loading external data:", err));
-      // ==========================
 
       const protocol = new Protocol();
       maplibregl.addProtocol('pmtiles', protocol.tile);
@@ -243,17 +229,12 @@
 
       map.on('style.load', () => {
           map.setProjection({ type: 'globe' });
-
-          map.addSource('my-pmtiles-source', {
-              type: 'vector',
-              url: `pmtiles://${PMTILES_URL}`
-          });
-
+          map.addSource('my-pmtiles-source', { type: 'vector', url: `pmtiles://${PMTILES_URL}` });
           map.addLayer({
               id: 'my-pmtiles-layer',
               type: 'fill',
               source: 'my-pmtiles-source',
-              'source-layer': 'continents_data',
+              'source-layer': 'continents_data', 
               paint: {
                   'fill-color': '#00ffff',
                   'fill-opacity': 0.4,
@@ -265,48 +246,119 @@
       const deckOverlay = new deck.MapboxOverlay({ interleaved: true, layers: [] });
       map.addControl(deckOverlay);
 
-      // === MAP INTERACTION (Popups) ===
-      map.on('mouseenter', 'my-pmtiles-layer', () => {
-          map.getCanvas().style.cursor = 'pointer';
-      });
-      map.on('mouseleave', 'my-pmtiles-layer', () => {
-          map.getCanvas().style.cursor = '';
+      // === PANEL LOGIC ===
+      const infoPanel = document.getElementById('info-panel');
+      const infoContent = document.getElementById('info-content');
+      const closePanelBtn = document.getElementById('close-panel-btn');
+
+      function openPanel(htmlContent) {
+          infoContent.innerHTML = htmlContent;
+          infoPanel.classList.add('open');
+          infoPanel.style.transform = ''; // Clear any leftover touch drag styles
+      }
+
+      function closePanel() {
+          infoPanel.classList.remove('open');
+          infoPanel.style.transform = ''; // Reset to let CSS transition handle it
+      }
+
+      closePanelBtn.addEventListener('click', closePanel);
+
+      // Close panel if the user clicks empty space on the map
+      map.on('click', (e) => {
+          const features = map.queryRenderedFeatures(e.point, { layers: ['my-pmtiles-layer'] });
+          if (!features.length) {
+              closePanel();
+          }
       });
 
+      // Hover pointers
+      map.on('mouseenter', 'my-pmtiles-layer', () => { map.getCanvas().style.cursor = 'pointer'; });
+      map.on('mouseleave', 'my-pmtiles-layer', () => { map.getCanvas().style.cursor = ''; });
+
+      // Click Continent Feature
       map.on('click', 'my-pmtiles-layer', (e) => {
           if (!e.features || e.features.length === 0) return;
-
+          
           const feature = e.features[0];
           const name = feature.properties.CONTINENT || feature.properties.name || "Unknown";
-
-          // Pull data from the dynamically fetched JSON
+          
           const data = mapData[name] || {
               "Population": "Data unavailable",
               "Area": "Data unavailable",
               "Countries": "N/A"
           };
 
-          const popupHtml = `
+          const panelHtml = `
               <h3 class="popup-title">${name}</h3>
               <p class="popup-stat"><strong>Population:</strong> ${data.Population}</p>
               <p class="popup-stat"><strong>Area:</strong> ${data.Area}</p>
               <p class="popup-stat"><strong>Countries:</strong> ${data.Countries}</p>
           `;
+          
+          openPanel(panelHtml);
+      });
 
-          new maplibregl.Popup()
-              .setLngLat(e.lngLat)
-              .setHTML(popupHtml)
-              .addTo(map);
+      // === MOBILE TOUCH DRAG LOGIC (Bottom Sheet) ===
+      let startY = 0;
+      let isDragging = false;
+
+      infoPanel.addEventListener('touchstart', (e) => {
+          // Only trigger drag logic on mobile screens
+          if (window.innerWidth >= 768) return;
+          
+          // Don't drag if they are scrolling the text content inside the panel
+          if (infoContent.scrollTop > 0) return;
+
+          startY = e.touches[0].clientY;
+          isDragging = true;
+          infoPanel.style.transition = 'none'; // Disable CSS transition for 1:1 finger tracking
+      }, { passive: true });
+
+      infoPanel.addEventListener('touchmove', (e) => {
+          if (!isDragging || window.innerWidth >= 768) return;
+          
+          const y = e.touches[0].clientY;
+          const deltaY = y - startY;
+
+          // If pulling down (deltaY is positive), slide the panel down
+          // If pulling up (deltaY is negative), allow it to stretch slightly higher
+          if (deltaY > 0) {
+              infoPanel.style.transform = `translateY(${deltaY}px)`;
+          } else {
+              // Expand slightly up to a max height
+              const maxExpand = -window.innerHeight * 0.3; // Allow dragging up by 30vh
+              const expandY = Math.max(deltaY, maxExpand);
+              infoPanel.style.transform = `translateY(${expandY}px)`;
+          }
+      }, { passive: true });
+
+      infoPanel.addEventListener('touchend', (e) => {
+          if (!isDragging || window.innerWidth >= 768) return;
+          isDragging = false;
+          
+          // Re-enable smooth transitions
+          infoPanel.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)';
+          
+          // Calculate how far down it was dragged
+          const style = window.getComputedStyle(infoPanel);
+          const matrix = new DOMMatrixReadOnly(style.transform);
+          const translateY = matrix.m42; // Gets the Y transform value
+
+          // If dragged down more than 80px, dismiss it. Otherwise snap back up.
+          if (translateY > 80) {
+              closePanel();
+          } else {
+              infoPanel.style.transform = 'translateY(0)'; // Snap to default open height
+          }
       });
 
       // === UI BUTTON LOGIC ===
-      document.getElementById('btn-north').addEventListener('click', () => {
-        map.resetNorthPitch();
-      });
+      document.getElementById('btn-north').addEventListener('click', () => { map.resetNorthPitch(); });
 
       let isGlobe = true;
       const btnProj = document.getElementById('btn-proj');
-
+      
       btnProj.addEventListener('click', () => {
         isGlobe = !isGlobe;
         map.setProjection({ type: isGlobe ? 'globe' : 'mercator' });
@@ -315,12 +367,8 @@
       });
 
       const aboutOverlay = document.getElementById('about-overlay');
-      document.getElementById('btn-about').addEventListener('click', () => {
-        aboutOverlay.style.display = 'flex';
-      });
-      document.getElementById('close-about-btn').addEventListener('click', () => {
-        aboutOverlay.style.display = 'none';
-      });
+      document.getElementById('btn-about').addEventListener('click', () => { aboutOverlay.style.display = 'flex'; });
+      document.getElementById('close-about-btn').addEventListener('click', () => { aboutOverlay.style.display = 'none'; });
     </script>
   </body>
 </html>
