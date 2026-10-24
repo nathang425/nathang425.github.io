@@ -9,19 +9,19 @@
       type="image/x-icon"
       href="/can/images/letter-7075493.png"
     />
-    
+
     <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400;700&display=swap"
       rel="stylesheet"
     />
-    
+
     <!-- MapLibre CSS -->
     <link
       href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css"
       rel="stylesheet"
     />
-    
+
     <!-- Deck.gl (standalone bundle) -->
     <script src="https://unpkg.com/deck.gl/dist.min.js"></script>
 
@@ -35,7 +35,7 @@
         height: 100%;
         overflow: hidden;
         font-family: 'Noto Sans', sans-serif;
-        background-color: #1e1e1e; 
+        background-color: #1e1e1e;
         color: #f0f0f0;
       }
 
@@ -46,7 +46,7 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        z-index: 1; 
+        z-index: 1;
       }
 
       /* Invisible overlay to hold the UI above the map */
@@ -179,14 +179,16 @@
   <body>
     <!-- The Map -->
     <div id="globe-container"></div>
-    
+
     <!-- The UI Overlay -->
     <div id="ui-overlay">
       <h1>Heading yay nice</h1>
 
       <div id="side-buttons">
         <button id="btn-north" class="sq-btn" title="North Up">N</button>
-        <button id="btn-proj" class="sq-btn" title="Toggle Projection">2D</button>
+        <button id="btn-proj" class="sq-btn" title="Toggle Projection">
+          2D
+        </button>
         <button id="btn-about" class="sq-btn" title="About">i</button>
       </div>
     </div>
@@ -196,7 +198,9 @@
       <button id="close-about-btn" title="Close">✕</button>
       <h2>About This Map</h2>
       <p>
-        Welcome to the map! This space is reserved for information about the project, the data sources, or any other details you want to share with your users.
+        Welcome to the map! This space is reserved for information about the
+        project, the data sources, or any other details you want to share with
+        your users.
       </p>
       <div class="links-container">
         <a href="#">Home</a>
@@ -204,26 +208,32 @@
         <a href="#">Contact Us</a>
       </div>
     </div>
-    
+
     <script type="module">
-      // 1. Import maplibregl and the PMTiles protocol
       import * as maplibregl from 'https://unpkg.com/maplibre-gl/dist/maplibre-gl.mjs';
       import { Protocol } from 'https://unpkg.com/pmtiles@3/dist/index.js';
 
       // === YOUR CONFIGURATION ===
       const BASEMAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
-      const INITIAL_CENTER = [-111.83, 40.62]; // Longitude, Latitude
+      const INITIAL_CENTER = [-111.83, 40.62];
       const INITIAL_ZOOM = 1.5;
 
-      // NEW: Dynamically build the absolute URL from your relative folder structure.
       const PMTILES_URL = new URL('./files/converted.pmtiles', window.location.href).href;
+      const DATA_URL = new URL('./files/continent_data.json', window.location.href).href;
+
+      // === FETCH EXTERNAL DATA ===
+      let mapData = {};
+      fetch(DATA_URL)
+        .then(response => response.json())
+        .then(data => {
+            mapData = data;
+        })
+        .catch(err => console.error("Error loading external data:", err));
       // ==========================
 
-      // 2. Register the PMTiles protocol BEFORE initializing the map
       const protocol = new Protocol();
       maplibregl.addProtocol('pmtiles', protocol.tile);
 
-      // 3. Initialize the MapLibre base map
       const map = new maplibregl.Map({
           container: 'globe-container',
           style: BASEMAP_STYLE,
@@ -231,24 +241,19 @@
           zoom: INITIAL_ZOOM
       });
 
-      // 4. Wait for the Carto style to load, force globe, then add PMTiles
       map.on('style.load', () => {
-          map.setProjection({
-              type: 'globe'
-          });
+          map.setProjection({ type: 'globe' });
 
-          // Add the PMTiles source using the custom pmtiles:// prefix
           map.addSource('my-pmtiles-source', {
               type: 'vector',
               url: `pmtiles://${PMTILES_URL}`
           });
 
-          // Add the map layer pointing to your source
           map.addLayer({
               id: 'my-pmtiles-layer',
               type: 'fill',
               source: 'my-pmtiles-source',
-              'source-layer': 'continents_data', // Update this to match your PMTiles internal layer name!
+              'source-layer': 'continents_data',
               paint: {
                   'fill-color': '#00ffff',
                   'fill-opacity': 0.4,
@@ -257,46 +262,62 @@
           });
       });
 
-      // 5. Initialize the deck.gl overlay
-      const deckOverlay = new deck.MapboxOverlay({
-          interleaved: true,
-          layers: []
-      });
-
-      // 6. Attach deck.gl to the map
+      const deckOverlay = new deck.MapboxOverlay({ interleaved: true, layers: [] });
       map.addControl(deckOverlay);
 
-      // === UI BUTTON LOGIC ===
+      // === MAP INTERACTION (Popups) ===
+      map.on('mouseenter', 'my-pmtiles-layer', () => {
+          map.getCanvas().style.cursor = 'pointer';
+      });
+      map.on('mouseleave', 'my-pmtiles-layer', () => {
+          map.getCanvas().style.cursor = '';
+      });
 
-      // Button 1: Re-orient map so North is up
+      map.on('click', 'my-pmtiles-layer', (e) => {
+          if (!e.features || e.features.length === 0) return;
+
+          const feature = e.features[0];
+          const name = feature.properties.CONTINENT || feature.properties.name || "Unknown";
+
+          // Pull data from the dynamically fetched JSON
+          const data = mapData[name] || {
+              "Population": "Data unavailable",
+              "Area": "Data unavailable",
+              "Countries": "N/A"
+          };
+
+          const popupHtml = `
+              <h3 class="popup-title">${name}</h3>
+              <p class="popup-stat"><strong>Population:</strong> ${data.Population}</p>
+              <p class="popup-stat"><strong>Area:</strong> ${data.Area}</p>
+              <p class="popup-stat"><strong>Countries:</strong> ${data.Countries}</p>
+          `;
+
+          new maplibregl.Popup()
+              .setLngLat(e.lngLat)
+              .setHTML(popupHtml)
+              .addTo(map);
+      });
+
+      // === UI BUTTON LOGIC ===
       document.getElementById('btn-north').addEventListener('click', () => {
         map.resetNorthPitch();
       });
 
-      // Button 2: Toggle Projection (Globe <-> Mercator)
       let isGlobe = true;
       const btnProj = document.getElementById('btn-proj');
-      
+
       btnProj.addEventListener('click', () => {
         isGlobe = !isGlobe;
-        
-        // Update projection
-        map.setProjection({
-          type: isGlobe ? 'globe' : 'mercator'
-        });
-        
-        // Update button text to show the alternative option
+        map.setProjection({ type: isGlobe ? 'globe' : 'mercator' });
         btnProj.innerText = isGlobe ? '2D' : '3D';
         btnProj.title = isGlobe ? 'Switch to 2D Map' : 'Switch to Globe';
       });
 
-      // Button 3 & Close Button: About Overlay
       const aboutOverlay = document.getElementById('about-overlay');
-      
       document.getElementById('btn-about').addEventListener('click', () => {
         aboutOverlay.style.display = 'flex';
       });
-
       document.getElementById('close-about-btn').addEventListener('click', () => {
         aboutOverlay.style.display = 'none';
       });
