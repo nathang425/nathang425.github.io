@@ -141,7 +141,8 @@
         color: var(--color-body);
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
         pointer-events: auto;
-        transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        /* Note: removed height transition, we only animate transform now! */
+        transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         display: flex;
         flex-direction: column;
         overflow: hidden;
@@ -178,6 +179,7 @@
         scrollbar-width: thin;
         scrollbar-color: var(--color-02) transparent;
         touch-action: pan-y;
+        flex: 1; /* Ensure it takes up remaining sheet space */
       }
 
       /* Custom Overlay Scrollbar using var(--color-02) */
@@ -214,13 +216,18 @@
       /* Mobile View (Bottom Sheet) */
       @media (max-width: 767px) {
         #info-panel {
-          bottom: 0; left: 0; width: 100vw; height: 25vh; 
+          bottom: 0; left: 0; width: 100vw; 
+          height: 80vh; /* It is ALWAYS 80vh tall now! */
           border-radius: 24px 24px 0 0; border-bottom: none;
-          transform: translateY(100%);
+          transform: translateY(100%); /* Base closed state */
         }
-        #info-panel.open { transform: translateY(0); }
+        #info-panel.open { 
+          /* 80vh (total) - 55vh (translate down) = 25vh visible */
+          transform: translateY(55vh); 
+        }
         #info-panel.expanded {
-          height: 80vh;
+          /* Fully pulled up */
+          transform: translateY(0);
         }
         #drag-handle { display: block; }
         #close-panel-btn { display: none; }
@@ -306,9 +313,9 @@
               source: 'my-pmtiles-source',
               'source-layer': 'continents_data', 
               paint: {
-                  'fill-color': primaryColor, /* Linked to CSS var --color-01 */
+                  'fill-color': primaryColor,
                   'fill-opacity': 0.4,
-                  'fill-outline-color': bgColor /* Linked to CSS var --background-color */
+                  'fill-outline-color': bgColor 
               }
           });
       });
@@ -322,6 +329,7 @@
           infoContent.innerHTML = htmlContent;
           infoPanel.classList.add('open');
           infoPanel.classList.remove('expanded');
+          // Clear any inline styles so the CSS classes take over
           infoPanel.style.transform = ''; 
           infoContent.scrollTop = 0;
       }
@@ -367,8 +375,8 @@
 
       // === MOBILE TOUCH DRAG LOGIC (Bottom Sheet) ===
       let startY = 0;
+      let startTranslateY = 0;
       let isDragging = false;
-      let startFromHeader = false;
 
       infoPanel.addEventListener('touchstart', (e) => {
           if (window.innerWidth >= 768) return;
@@ -383,6 +391,12 @@
 
           startY = e.touches[0].clientY;
           isDragging = true;
+
+          // Grab the exact absolute translation state (in pixels)
+          const style = window.getComputedStyle(infoPanel);
+          const matrix = new DOMMatrixReadOnly(style.transform);
+          startTranslateY = matrix.m42; 
+
           infoPanel.style.transition = 'none'; 
       }, { passive: true });
 
@@ -392,55 +406,43 @@
           const y = e.touches[0].clientY;
           const deltaY = y - startY;
 
-          const isExpanded = infoPanel.classList.contains('expanded');
+          // Add the drag difference to our starting position
+          let nextTranslateY = startTranslateY + deltaY;
 
-          if (!isExpanded) {
-              if (deltaY < 0) {
-                  // Dragging UP to expand
-                  const maxExpand = -window.innerHeight * 0.55; 
-                  infoPanel.style.transform = `translateY(${Math.max(deltaY, maxExpand)}px)`;
-              } else {
-                  // Dragging DOWN to close
-                  infoPanel.style.transform = `translateY(${deltaY}px)`;
-              }
-          } else {
-              // In expanded mode, dragging DOWN pulls panel towards collapsed state
-              if (deltaY > 0) {
-                  infoPanel.style.transform = `translateY(${deltaY}px)`;
-              }
-          }
+          // Don't allow dragging higher than fully expanded (0px)
+          nextTranslateY = Math.max(0, nextTranslateY);
+
+          infoPanel.style.transform = `translateY(${nextTranslateY}px)`;
       }, { passive: true });
 
       infoPanel.addEventListener('touchend', (e) => {
           if (!isDragging || window.innerWidth >= 768) return;
           isDragging = false;
           
-          infoPanel.style.transition = 'transform 0.3s ease-out, height 0.3s ease-out';
+          infoPanel.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)';
           
+          // Check final drag position
           const style = window.getComputedStyle(infoPanel);
           const matrix = new DOMMatrixReadOnly(style.transform);
-          const translateY = matrix.m42; 
+          const finalTranslateY = matrix.m42; 
 
-          const isExpanded = infoPanel.classList.contains('expanded');
+          const vh = window.innerHeight;
+          const collapsedY = vh * 0.55; // Where the sheet rests when collapsed (55vh down)
 
-          if (!isExpanded) {
-              if (translateY < -60) {
-                  // Dragged far enough up: reset transform first to prevent height jump flicker
-                  infoPanel.style.transform = '';
-                  infoPanel.classList.add('expanded');
-              } else if (translateY > 60) {
-                  closePanel();
-              } else {
-                  infoPanel.style.transform = 'translateY(0)';
-              }
+          if (finalTranslateY < collapsedY - 60) {
+              // Dragged far enough UP -> snap to expanded
+              infoPanel.classList.add('expanded');
+          } else if (finalTranslateY > collapsedY + 60) {
+              // Dragged far enough DOWN -> snap to closed
+              closePanel();
           } else {
-              if (translateY > 100) {
-                  infoPanel.style.transform = '';
-                  infoPanel.classList.remove('expanded');
-              } else {
-                  infoPanel.style.transform = 'translateY(0)';
-              }
+              // Snap back to normal collapsed view
+              infoPanel.classList.remove('expanded');
+              infoPanel.classList.add('open');
           }
+          
+          // Clear inline styles so the CSS classes take over animation
+          infoPanel.style.transform = ''; 
       });
 
       // === UI BUTTON LOGIC ===
