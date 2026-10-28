@@ -15,9 +15,6 @@
     
     <!-- MapLibre CSS -->
     <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
-    
-    <!-- Deck.gl (standalone bundle) -->
-    <script src="https://unpkg.com/deck.gl/dist.min.js"></script>
 
     <!-- Basic Internal CSS -->
     <style>
@@ -287,9 +284,6 @@
               }
           });
       });
-
-      const deckOverlay = new deck.MapboxOverlay({ interleaved: true, layers: [] });
-      map.addControl(deckOverlay);
 
       // === PANEL LOGIC ===
       const infoPanel = document.getElementById('info-panel');
