@@ -141,7 +141,7 @@
         color: var(--color-body);
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
         pointer-events: auto;
-        transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), height 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         display: flex;
         flex-direction: column;
         overflow: hidden;
@@ -154,6 +154,9 @@
         border-radius: 3px;
         margin: 12px auto;
         display: none; /* Only visible on mobile */
+        flex-shrink: 0;
+        cursor: pointer;
+        touch-action: none;
       }
 
       #close-panel-btn {
@@ -171,7 +174,22 @@
 
       #info-content {
         padding: 20px;
-        overflow-y: auto;
+        overflow-y: hidden; /* Disabled until fully expanded */
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-02) transparent;
+        touch-action: pan-y;
+      }
+
+      /* Custom Overlay Scrollbar using var(--color-02) */
+      #info-content::-webkit-scrollbar {
+        width: 6px;
+      }
+      #info-content::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      #info-content::-webkit-scrollbar-thumb {
+        background-color: var(--color-02);
+        border-radius: 10px;
       }
 
       .popup-title {
@@ -190,19 +208,29 @@
           transform: translateX(120%);
         }
         #info-panel.open { transform: translateX(0); }
+        #info-content { overflow-y: auto; }
       }
 
       /* Mobile View (Bottom Sheet) */
       @media (max-width: 767px) {
         #info-panel {
-          bottom: 0; left: 0; width: 100vw; height: 20vh; 
+          bottom: 0; left: 0; width: 100vw; height: 25vh; 
           border-radius: 24px 24px 0 0; border-bottom: none;
           transform: translateY(100%);
         }
         #info-panel.open { transform: translateY(0); }
+        #info-panel.expanded {
+          height: 80vh;
+        }
         #drag-handle { display: block; }
         #close-panel-btn { display: none; }
-        #info-content { padding-top: 5px; }
+        #info-content { 
+          padding-top: 5px;
+          overflow-y: hidden;
+        }
+        #info-panel.expanded #info-content {
+          overflow-y: auto; /* Enable scrollbar ONLY when fully pulled up */
+        }
       }
     </style>
   </head>
@@ -293,11 +321,13 @@
       function openPanel(htmlContent) {
           infoContent.innerHTML = htmlContent;
           infoPanel.classList.add('open');
+          infoPanel.classList.remove('expanded');
           infoPanel.style.transform = ''; 
+          infoContent.scrollTop = 0;
       }
 
       function closePanel() {
-          infoPanel.classList.remove('open');
+          infoPanel.classList.remove('open', 'expanded');
           infoPanel.style.transform = ''; 
       }
 
@@ -338,10 +368,18 @@
       // === MOBILE TOUCH DRAG LOGIC (Bottom Sheet) ===
       let startY = 0;
       let isDragging = false;
+      let startFromHeader = false;
 
       infoPanel.addEventListener('touchstart', (e) => {
           if (window.innerWidth >= 768) return;
-          if (infoContent.scrollTop > 0) return;
+
+          const isExpanded = infoPanel.classList.contains('expanded');
+          const touchedContent = e.target.closest('#info-content');
+          
+          // Allow scrolling inner content when expanded unless at the top
+          if (isExpanded && touchedContent && infoContent.scrollTop > 0) {
+              return;
+          }
 
           startY = e.touches[0].clientY;
           isDragging = true;
@@ -354,12 +392,22 @@
           const y = e.touches[0].clientY;
           const deltaY = y - startY;
 
-          if (deltaY > 0) {
-              infoPanel.style.transform = `translateY(${deltaY}px)`;
+          const isExpanded = infoPanel.classList.contains('expanded');
+
+          if (!isExpanded) {
+              if (deltaY < 0) {
+                  // Dragging UP to expand
+                  const maxExpand = -window.innerHeight * 0.55; 
+                  infoPanel.style.transform = `translateY(${Math.max(deltaY, maxExpand)}px)`;
+              } else {
+                  // Dragging DOWN to close
+                  infoPanel.style.transform = `translateY(${deltaY}px)`;
+              }
           } else {
-              const maxExpand = -window.innerHeight * 0.3; 
-              const expandY = Math.max(deltaY, maxExpand);
-              infoPanel.style.transform = `translateY(${expandY}px)`;
+              // In expanded mode, dragging DOWN pulls panel towards collapsed state
+              if (deltaY > 0) {
+                  infoPanel.style.transform = `translateY(${deltaY}px)`;
+              }
           }
       }, { passive: true });
 
@@ -367,16 +415,31 @@
           if (!isDragging || window.innerWidth >= 768) return;
           isDragging = false;
           
-          infoPanel.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)';
+          infoPanel.style.transition = 'transform 0.3s ease-out, height 0.3s ease-out';
           
           const style = window.getComputedStyle(infoPanel);
           const matrix = new DOMMatrixReadOnly(style.transform);
           const translateY = matrix.m42; 
 
-          if (translateY > 80) {
-              closePanel();
+          const isExpanded = infoPanel.classList.contains('expanded');
+
+          if (!isExpanded) {
+              if (translateY < -60) {
+                  // Dragged far enough up: reset transform first to prevent height jump flicker
+                  infoPanel.style.transform = '';
+                  infoPanel.classList.add('expanded');
+              } else if (translateY > 60) {
+                  closePanel();
+              } else {
+                  infoPanel.style.transform = 'translateY(0)';
+              }
           } else {
-              infoPanel.style.transform = 'translateY(0)'; 
+              if (translateY > 100) {
+                  infoPanel.style.transform = '';
+                  infoPanel.classList.remove('expanded');
+              } else {
+                  infoPanel.style.transform = 'translateY(0)';
+              }
           }
       });
 
