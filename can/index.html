@@ -10,8 +10,8 @@
 
     <title>Map Testing</title>
     
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@200;400;700&display=swap" rel="stylesheet" />
+    <!-- Google Fonts: Ibarra Real Nova and Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css2?family=Ibarra+Real+Nova:wght@400;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet" />
     
     <!-- MapLibre CSS -->
     <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
@@ -21,12 +21,66 @@
 
     <!-- Basic Internal CSS -->
     <style>
-      html, body {
-        margin: 0; padding: 0; width: 100%; height: 100%;
-        overflow: hidden; font-family: 'Noto Sans', sans-serif;
-        background-color: #1e1e1e; color: #f0f0f0;
+      /* =========================================
+         THEME VARIABLES (Edit these to update site)
+         ========================================= */
+      :root {
+        --background-color: #FAF0E0;
+        --color-01: #BA4B23;
+        --color-02: #805938;
+        --color-body: #221911;
+
+        --font-head: 'Ibarra Real Nova', serif;
+        --font-body: 'Source Sans Pro', sans-serif;
       }
 
+      /* =========================================
+         TYPOGRAPHY & TEXT TAGS
+         ========================================= */
+      html, body {
+        font-family: var(--font-body);
+        color: var(--color-body);
+        background-color: var(--background-color);
+        margin: 0; padding: 0; width: 100%; height: 100%;
+        overflow: hidden;
+      }
+
+      h1 {
+        font-family: var(--font-head);
+        color: var(--color-01);
+        font-size: 2.5rem; /* Largest "title" size */
+        font-weight: 700;
+        margin: 0;
+      }
+
+      h2 {
+        font-family: var(--font-head);
+        color: var(--color-02);
+        font-size: 1.8rem; /* Medium size */
+        font-weight: 700;
+        margin: 0;
+      }
+
+      h3 {
+        font-family: var(--font-body);
+        color: var(--color-02);
+        font-size: 1rem; /* Body size */
+        text-transform: uppercase;
+        font-weight: 700;
+        margin: 0;
+      }
+
+      h4 {
+        font-family: var(--font-body);
+        color: var(--color-02);
+        font-size: 1rem; /* Body size */
+        font-weight: 400;
+        margin: 0;
+      }
+
+      /* =========================================
+         LAYOUT & COMPONENT STYLES
+         ========================================= */
       #globe-container {
         position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; 
       }
@@ -36,12 +90,14 @@
         z-index: 2; pointer-events: none; 
       }
 
-      h1 {
+      /* Specific layout overrides for the main map title (H1) */
+      #ui-overlay h1 {
         pointer-events: auto; 
-        background: rgba(30, 30, 30, 0.6); backdrop-filter: blur(4px);
+        background: var(--background-color); 
         padding: 10px 20px; border-radius: 8px; margin: 20px auto;
-        text-align: center; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        width: fit-content; font-weight: 700; color: #00ffff;
+        text-align: center; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        width: fit-content; 
+        border: 1px solid var(--color-02);
       }
 
       #side-buttons {
@@ -52,40 +108,42 @@
 
       .sq-btn {
         pointer-events: auto; width: 50px; height: 50px;
-        border-radius: 12px; background: rgba(30, 30, 30, 0.8);
-        border: 1px solid #444; color: #00ffff; font-size: 1.2rem;
-        font-weight: 700; cursor: pointer; backdrop-filter: blur(4px);
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        border-radius: 12px; 
+        background: var(--background-color);
+        border: 1px solid var(--color-02); 
+        color: var(--color-01); 
+        font-family: var(--font-body);
+        font-size: 1.2rem;
+        font-weight: 700; cursor: pointer; 
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         transition: background 0.2s, transform 0.1s;
         display: flex; align-items: center; justify-content: center;
       }
 
-      .sq-btn:hover { background: rgba(60, 60, 60, 0.9); }
+      .sq-btn:hover { border-color: var(--color-01); }
       .sq-btn:active { transform: scale(0.95); }
 
       /* Fullscreen About Overlay */
       #about-overlay {
         position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
-        background: rgba(20, 20, 20, 0.95); z-index: 10; display: none;
+        background: var(--background-color); z-index: 10; display: none;
         flex-direction: column; align-items: center; justify-content: center;
         text-align: center; pointer-events: auto;
       }
-      #about-overlay h2 { color: #00ffff; font-size: 2.5rem; margin-bottom: 20px; }
+      #about-overlay h2 { margin-bottom: 20px; }
       #about-overlay p { font-size: 1.2rem; max-width: 600px; line-height: 1.6; margin-bottom: 30px; padding: 0 20px; }
-      #close-about-btn { position: absolute; top: 30px; right: 30px; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; transition: color 0.2s; }
-      #close-about-btn:hover { color: #00ffff; }
+      #close-about-btn { position: absolute; top: 30px; right: 30px; background: none; border: none; color: var(--color-02); font-size: 2rem; cursor: pointer; transition: color 0.2s; }
+      #close-about-btn:hover { color: var(--color-01); }
 
-      /* --- NEW: Interactive Info Panel --- */
+      /* Interactive Info Panel */
       #info-panel {
         position: absolute;
         z-index: 5;
-        background: rgba(30, 30, 30, 0.85);
-        backdrop-filter: blur(8px);
-        border: 1px solid #444;
-        color: #f0f0f0;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        background: var(--background-color);
+        border: 1px solid var(--color-02);
+        color: var(--color-body);
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
         pointer-events: auto;
-        /* Smooth sliding animation */
         transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         display: flex;
         flex-direction: column;
@@ -95,7 +153,7 @@
       #drag-handle {
         width: 40px;
         height: 5px;
-        background: #777;
+        background: var(--color-02);
         border-radius: 3px;
         margin: 12px auto;
         display: none; /* Only visible on mobile */
@@ -107,12 +165,12 @@
         right: 15px;
         background: none;
         border: none;
-        color: #aaa;
+        color: var(--color-02);
         font-size: 1.5rem;
         cursor: pointer;
         padding: 5px;
       }
-      #close-panel-btn:hover { color: #00ffff; }
+      #close-panel-btn:hover { color: var(--color-01); }
 
       #info-content {
         padding: 20px;
@@ -120,52 +178,34 @@
       }
 
       .popup-title {
-        color: #00ffff; margin: 0 0 15px 0; font-weight: 700;
-        font-size: 1.5rem; border-bottom: 1px solid #555; padding-bottom: 8px;
+        margin: 0 0 15px 0; 
+        border-bottom: 1px solid var(--color-02); 
+        padding-bottom: 8px;
       }
       .popup-stat { margin: 10px 0; font-size: 1.05rem; }
-      .popup-stat strong { color: #bbb; }
+      .popup-stat strong { color: var(--color-01); }
 
       /* Desktop/Tablet View (Sidebar) */
       @media (min-width: 768px) {
         #info-panel {
-          top: 20px;
-          right: 20px;
-          bottom: 20px;
-          width: 350px;
+          top: 20px; right: 20px; bottom: 20px; width: 350px;
           border-radius: 16px;
-          /* Hide off-screen to the right */
           transform: translateX(120%);
         }
-        #info-panel.open {
-          transform: translateX(0);
-        }
+        #info-panel.open { transform: translateX(0); }
       }
 
       /* Mobile View (Bottom Sheet) */
       @media (max-width: 767px) {
         #info-panel {
-          bottom: 0;
-          left: 0;
-          width: 100vw;
-          height: 20vh; /* Default peek height */
-          border-radius: 24px 24px 0 0;
-          border-bottom: none;
-          /* Hide off-screen to the bottom */
+          bottom: 0; left: 0; width: 100vw; height: 20vh; 
+          border-radius: 24px 24px 0 0; border-bottom: none;
           transform: translateY(100%);
         }
-        #info-panel.open {
-          transform: translateY(0);
-        }
-        #drag-handle {
-          display: block; /* Show pill handle */
-        }
-        #close-panel-btn {
-          display: none; /* Optional: hide X on mobile to encourage swiping down */
-        }
-        #info-content {
-          padding-top: 5px; /* Adjust padding since handle is there */
-        }
+        #info-panel.open { transform: translateY(0); }
+        #drag-handle { display: block; }
+        #close-panel-btn { display: none; }
+        #info-content { padding-top: 5px; }
       }
     </style>
   </head>
@@ -204,6 +244,11 @@
       import * as maplibregl from 'https://unpkg.com/maplibre-gl/dist/maplibre-gl.mjs';
       import { Protocol } from 'https://unpkg.com/pmtiles@3/dist/index.js';
 
+      /* Grab colors from CSS Variables to use in Map layers dynamically */
+      const rootStyles = getComputedStyle(document.documentElement);
+      const primaryColor = rootStyles.getPropertyValue('--color-01').trim() || '#BA4B23';
+      const bgColor = rootStyles.getPropertyValue('--background-color').trim() || '#FAF0E0';
+
       const BASEMAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
       const INITIAL_CENTER = [-111.83, 40.62];
       const INITIAL_ZOOM = 1.5;
@@ -236,9 +281,9 @@
               source: 'my-pmtiles-source',
               'source-layer': 'continents_data', 
               paint: {
-                  'fill-color': '#00ffff',
+                  'fill-color': primaryColor, /* Linked to CSS var --color-01 */
                   'fill-opacity': 0.4,
-                  'fill-outline-color': '#ffffff'
+                  'fill-outline-color': bgColor /* Linked to CSS var --background-color */
               }
           });
       });
@@ -254,17 +299,16 @@
       function openPanel(htmlContent) {
           infoContent.innerHTML = htmlContent;
           infoPanel.classList.add('open');
-          infoPanel.style.transform = ''; // Clear any leftover touch drag styles
+          infoPanel.style.transform = ''; 
       }
 
       function closePanel() {
           infoPanel.classList.remove('open');
-          infoPanel.style.transform = ''; // Reset to let CSS transition handle it
+          infoPanel.style.transform = ''; 
       }
 
       closePanelBtn.addEventListener('click', closePanel);
 
-      // Close panel if the user clicks empty space on the map
       map.on('click', (e) => {
           const features = map.queryRenderedFeatures(e.point, { layers: ['my-pmtiles-layer'] });
           if (!features.length) {
@@ -272,11 +316,9 @@
           }
       });
 
-      // Hover pointers
       map.on('mouseenter', 'my-pmtiles-layer', () => { map.getCanvas().style.cursor = 'pointer'; });
       map.on('mouseleave', 'my-pmtiles-layer', () => { map.getCanvas().style.cursor = ''; });
 
-      // Click Continent Feature
       map.on('click', 'my-pmtiles-layer', (e) => {
           if (!e.features || e.features.length === 0) return;
           
@@ -304,15 +346,12 @@
       let isDragging = false;
 
       infoPanel.addEventListener('touchstart', (e) => {
-          // Only trigger drag logic on mobile screens
           if (window.innerWidth >= 768) return;
-          
-          // Don't drag if they are scrolling the text content inside the panel
           if (infoContent.scrollTop > 0) return;
 
           startY = e.touches[0].clientY;
           isDragging = true;
-          infoPanel.style.transition = 'none'; // Disable CSS transition for 1:1 finger tracking
+          infoPanel.style.transition = 'none'; 
       }, { passive: true });
 
       infoPanel.addEventListener('touchmove', (e) => {
@@ -321,13 +360,10 @@
           const y = e.touches[0].clientY;
           const deltaY = y - startY;
 
-          // If pulling down (deltaY is positive), slide the panel down
-          // If pulling up (deltaY is negative), allow it to stretch slightly higher
           if (deltaY > 0) {
               infoPanel.style.transform = `translateY(${deltaY}px)`;
           } else {
-              // Expand slightly up to a max height
-              const maxExpand = -window.innerHeight * 0.3; // Allow dragging up by 30vh
+              const maxExpand = -window.innerHeight * 0.3; 
               const expandY = Math.max(deltaY, maxExpand);
               infoPanel.style.transform = `translateY(${expandY}px)`;
           }
@@ -337,19 +373,16 @@
           if (!isDragging || window.innerWidth >= 768) return;
           isDragging = false;
           
-          // Re-enable smooth transitions
           infoPanel.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)';
           
-          // Calculate how far down it was dragged
           const style = window.getComputedStyle(infoPanel);
           const matrix = new DOMMatrixReadOnly(style.transform);
-          const translateY = matrix.m42; // Gets the Y transform value
+          const translateY = matrix.m42; 
 
-          // If dragged down more than 80px, dismiss it. Otherwise snap back up.
           if (translateY > 80) {
               closePanel();
           } else {
-              infoPanel.style.transform = 'translateY(0)'; // Snap to default open height
+              infoPanel.style.transform = 'translateY(0)'; 
           }
       });
 
